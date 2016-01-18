@@ -1,0 +1,131 @@
+Question 1: 
+What is the smallest addressable unit of main memory? 
+byte
+
+Question 2: 
+Memory at 0x10000007 contains the byte 0xA4
+Register $8 contains 0x10000000
+
+What is put in register $10 when the following instruction is executed:
+lb    $10,7($8) ?
+
+0xFFFFFFA4
+
+What is put in register $12 when the following instruction is executed:
+lbu    $12,7($8) ?
+
+0x000000A4
+
+Question 3:
+Memory at 0x10000519 contains the byte 0x44
+Register $8 contains 0x10000400
+Register $10 contains 0xFA034183
+
+Write the instruction that replaces the "0x44" in memory with "0x83"
+sb $10, 0x119($8)
+
+Question 4: 
+A particular data tape requires big-endian integers. Data is assembled in memory in a buffer before it is written out to the tape. The I/O buffer for the tape starts at address 0x10000000. Complete the following instructions so that the integer in register $9 is stored in the four bytes starting at address 0x10000000. Put the most significant byte (the "big end") at the starting address.
+
+lui  $8,0x1000      # $8 is base register
+sb   $9,_($8)       # least significant byte
+srl  $9,$9,_        # move next byte to low order
+sb   $9,_($8)       # bits 8-15 
+srl  $9,$9,_        # move next byte to low order
+sb   $9,_($8)       # bits 16-23 
+srl  $9,$9,_        # move next byte to low order
+sb   $9,_($8)       # most significant byte
+
+
+3,8,2,8,1,8,0
+
+Question 5: 
+What is the symbolic address of the first byte of the .data section? What main storage address will it have at run time?
+
+tape, 0x10000000 
+
+Question 6: 
+Which byte of $9 should go into address $0x10000000?
+
+0x12
+
+Question 7: 
+How can you tell if an address is halfword aligned?
+It is a multiple of two. Such addresses have a zero in the low-order bit.
+
+Question 8: 
+Perform these two addition problems: 
+0110 1110
+1100 0110
+---------
+0011 0100
+
+0000 0000 0000 0000 0000 0000 0000 0110 1110 
+0000 0000 0000 0000 0000 0000 0000 1100 0110
+--------------------------------------------
+0000 0000 0000 0000 0000 0000 0001 0011 0100
+
+Question 9: 
+Now divide the sum we just calculated by two. Do this by shifting right one place:
+
+0011 0100 => 0001 1010
+0000 0000 0000 0000 0000 0000 0001 0011 0100 => 
+0000 0000 0000 0000 0000 0000 0000 1001 1010
+
+Question 10: 
+Cryptography programs often treat characters as 8-bit integers and transform them with arithmetic operations. Suppose a cryptography program is written in C for a Windows system. When compiled on a Macintosh system it runs, but produces different results! You have been given the job of making the Mac version work identically to the Windows version. What must you do?
+
+Answer:
+
+Probably the problem is with differences in small integer arithmetic between the two systems. You will have to carefully look at variable declarations in the program and will have to study the arithmetic. To make the Mac version identical to the Windows version, you may have to write parts of it in assembly.
+
+key terms: 
+-Loading a byte into a register
+    There are two instructions that load a byte from a memory addres
+    
+    The lb instruction loads the byte from memory into the low order eight bits of the register. These are bits 0-7 of the register. Then it copies bit 7 to bits 8-31 of the register (all bits to the left of bit 7).
+
+    The lbu instruction fills bits 8-31 of the register with zeros. Use this instruction when the byte is regarded as a ascii character or 8-bit unsigned integer.    
+
+-Storing a byte from a register
+    There is an instruction for storing a byte:
+
+sb    t,off(b)   # The byte at off+b <— low-order
+                 # byte from register $t.
+                 # b is a base register. 
+                 # off is 16-bit two's complement.
+
+-The .space assembler directive
+    The .space directive reserves bytes in memory
+
+-How SPIM displays the data section
+    The SPIM display shows data in groups of 4-byte words with the most significant byte on the left. This makes the data readable by humans
+
+-Loading a halfword into a register
+    A MIPS halfword is two bytes. This, also, is a frequently used length of data. In ANSI C, a short integer is usually two bytes. So, MIPS has instructions to load halfword and store halfwords.
+
+There are two load halfword instructions. One extends the sign bit of the halfword in memory into the upper two bytes of the register. The other extends with zeros.
+
+lh   t,off(b)   # $t <— Sign-extended halfword 
+                # starting at memory address b+off. 
+                # b is a base register. 
+                # off is 16-bit two's complement.
+lhu  t,off(b)   # $t <— zero-extended halfword 
+                # starting at memory address b+off. 
+                # b is a base register. 
+                # off is 16-bit two's complement.    
+
+-Storing a halfword from a register
+    Only one store halfword instruction is needed. The low-order two bytes of the designated register are copied to memory, no matter what the upper two bytes are. Of course, the register is not changed when its data is copied to memory.
+
+sh    t,off(b)    # Halfword at off+b <— low-order 
+                  # two bytes from $t.
+                  # b is a base register. 
+                  # off is 16-bit two's complement.
+
+-Byte and halfword arithmetic
+    MIPS has no instructions for eight-bit arithmetic. Say that there were two operands in the low order bytes of two registers (as above). A fullword addition of these registers puts the same results in the low-order byte that an 8-bit addition would. However, the carry out of the high-order bit of the eight bits becomes bit 8 of the 32-bit result. Further bit manipulation instructions can be used to deal with it.
+
+So there is no need for eight-bit arithmetic instructions, nor for halfword arithmetic instructions.
+
+

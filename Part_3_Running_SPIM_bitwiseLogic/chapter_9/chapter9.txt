@@ -1,0 +1,122 @@
+Question #1 
+(Review) What is a register?
+part of the processor that holds bit patterns. 
+
+Question #2
+(there was no question #2????) 
+
+Question #3
+Is there a difference between messages from the simulator and messages from the simulated computer?
+YES 
+
+Question #4
+(Review) What type of files does Notepad create?
+text fils (ASCII)
+
+Question #5
+(Review: ) What is a machine instruction?
+
+machine instructions are a pattern of bits that ask kfor one machine operation to be executed
+
+Question #6
+(Thought Question) Do most actual computers start up as a bare machine?
+No 
+
+Question #7
+Can the text editor and SPIM bith be oipen at the same time? 
+
+Question #8 
+1.) What machine instruction (bit pattern) did your first instruction (ori $8,$0,0x2) assemble into?
+2.) At what address in memory was it loaded?
+
+34080002, 00400000
+
+Question #9 
+A user types "400000" into the value box, and clicks OK. The PC changes to 00061a80. What happened?
+The PC is loaded with the binary representation of that integer. since no 0x was placed in front
+
+Question #10
+What is the sum of 0x0000002 and 0x0000003   ?
+5 
+
+Question #11
+What happens in real computers when the end of a program is reached?
+computer return controll to operating system
+
+Question #12 
+(Memory test) Where was the first machine instruction placed in memory?
+0x00400000
+
+Question #13
+(Test your intuition: ) Is it likely that several sections of a software system need to refer to each other?
+Yes
+
+Question #14
+What algorithm do you suppose is used for the 32-bit addition?
+The Binary Addition Algorithm
+
+Question #15
+(Review) In a typical computer system (not a simulated one) where does the assembler place the bit patterns it creates?
+object module, stored as a disk file.
+
+
+
+key terms: 
+
+-The SPIM user interface
+Register Display: This shows the contents (bit patterns in hex) of all 32 general purpose registers, the floating point registers, and a few others.
+
+Text Display: This shows the assembly language program source, the machine instructions (bit patterns in hex) they correspond to, and the addresses of their memory locations.
+
+Data and Stack Display: This shows the sections of MIPS memory that hold ordinary data and data which has been pushed onto a stack.
+
+SPIM Messages: This shows messages from the simulator (often error messages).
+
+-Starting SPIM
+You can press the Start menu and search for "QtSpim". The first result should be the QtSpim application.
+
+-Source files
+A source file (in assembly language or in any programming language) is the text file containing programming language statements created (usually) by a human programmer
+
+-settings dialog
+ON  Save window positions
+ON  General registers in hexadecimal
+OFF Floating point registers in hexadecimal
+ON  Bare machine
+OFF Allow pseudo instructions
+OFF Load trap file
+ON  Delayed Branches
+ON  Delayed Load
+ON  Mapped I/O
+OFF Quiet
+
+-Loading the source file
+Load the program into the SPIM simulator by clicking File then Open. Click on the name (addup.asm) of your source file. You may have to navigate through your directories using the file dialog box.
+
+-the two things that SPIM does to a loaded file
+(1) The file is assembled into machine instructions, and (2) the instructions are loaded into SPIM's memory
+
+-setting the program counter
+The program counter is the part of the processor that contains the address of the current machine instruction.
+ To change the PC value, select (click on) Simulator; click on Run Parameter; type the address in the top text box. Click on OK and the PC (in the register display) should change.
+
+-single stepping SPIM
+Push F10 to execute one instruction
+
+-assembly language directive
+.text is a directive. A directive is a statement that tells the assembler something about what the programmer wants, but does not itself result in any machine instructions. This directive tells the assembler that the following lines are ".text" -- source code for the program.
+
+.globl main is another directive. It says that the identifier main will be used outside of this source file (that is, used "globally") as the label of a particular location in main memory.
+
+-Symbolic address
+The line main: defines a symbolic address (sometimes called a statement label). A symbolic address is a symbol (an identifier) that is the source code name for a location in memory. In this program, main stands for the address of the first machine instruction (which turns out to be 0x00400000). Using a symbolic address is much easier than using a numerical address. With a symbolic address, the programmer refers to memory locations by name and lets the assembler figure out the numerical address.
+
+-Run time
+It is awkward to keep saying:
+
+The instruction, after it is assembled and loaded into main memory, upon execution does ....
+Instead one says:
+
+At run time the instruction does ...
+
+

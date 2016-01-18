@@ -1,0 +1,194 @@
+Question #1
+(Review:) If a bit pattern that represents an integer N using unsigned binary (say 0110 0001) is shifted left by one bit (to 1100 0010) what integer does the new bit pattern represent?
+
+multiple by 2
+
+Question #2
+Here is an 8-bit pattern. Shift it left (logical) by two. Then write the new 8-bit pattern as hex.
+
+Original        Shift Left Two
+0110 1111       _____________
+0x6F            _____________
+
+1BC
+
+but answer ois 0xBC because if original 8 bit pattern represented an in, then shifting left by two positions is proolly a mistake because a significant bit has been lost
+
+
+Question #3
+Do you think it would be OK to shift the contents of register $8 and put the result back in register $8? 
+Yes
+
+Question #4
+Study the above machine instruction. Write the machine instruction for shift-left-logical the pattern in $0 by zero positions and leave the result in $0. Here is the instruction in assembly language:
+
+    sll      $0, $0, 0          # fun machine instruction
+Write your machine instruction (as a bit pattern) here:
+
+000000 00000 00000 00000 00000 000000 
+
+Question #5
+What do you call a human who does nothing?
+shiftless
+
+Question #6
+(Trick Question:) What is the net result if a bit pattern is logical left shifted 2 positions and then logical right shifted 2 positions?
+The two bits on the left of the pattern are guaranteed to be zero; the other bits are not changed 
+
+Question #7 
+What is the bitwise OR of the following?
+
+FEED
+BECA
+----
+FEEF
+
+Question #8
+What is the bitwise AND of the following?
+
+FEED
+BECA
+----
+BCE8
+
+Question #9
+What is the bitwise XOR of the following
+
+FEED
+BECA
+----
+4027 
+
+Question #10
+What is the bitwise NOR of the following?
+
+FEED
+BECA
+----
+0110
+
+Question #11
+fill in the following: 
+0 NOR 0 = ____  NOT 0 = ____  
+1 NOR 0 = ____  NOT 1 = ____
+
+Now answer the question: NOT X = X _______ 0 
+
+1, 1, 0 , 0 , NOR
+
+Question #12
+Say that register $8 contains a bit pattern. OR is performed between it and register $0. Register $9 is to be the destination. What is the effect?
+or  $9,$8,$0
+
+contents of $8 would be in $9 
+
+Question #13
+(Review:) How can a particular bit pattern be loaded into a register?
+ori 
+
+Question #14
+What assembly language instruction clears register $25 ?
+or $25, $0, $0
+
+Question #15
+Fill in the fourth row with the bit patterns. Use hexadecimal (assume that the bit patterns are truncated on the left to make them the right size).
+
+        ori   $8,$9,0x004A
+31....26    25...21     20...16     15...................0
+0x0D        s           d           unsigned const
+
+0x0D        0x9         0x8         0x004A
+
+
+Question #16
+There are four fields in the instruction. We know the bit patterns that go into each field. Let us put those patterns in registers $11, $12, $13, and $14. The program starts out:
+
+or    $25,$0,$0          # clear $25
+ori   $11,$0, __         # opcode
+ori   $12,$0, __         # operand $s
+ori   $13,$0, __         # destination $d
+ori   $14,$0, __         # immediate operand
+
+0xD, 0X9, 0x8, 0x004A
+
+Question #17
+Fill in the amount by which to shift. (Hint: determine which bit should be the new left-most bit. Count the number of bits between its old and new position).
+  
+the number you shift over by is the number of places it shifts
+*answer says 26 and 26
+
+
+Question #18 
+Think of an assembly instruction that will put the opcode into register $25. Here is a start:
+or $25, ___, ______ # move oopcode into target register
+
+$25, $11
+
+Question #19 
+Fill in the next part of the program
+ssl $12,$12, ___ # left shift s by ____ places
+or  $25,___, ___ # move s into target register
+
+21
+$25, $12 
+
+Question #20
+Would this instruction have worked as well? 
+or    $25,$0,$12     # move s into target register
+No they said they needed the opcode and this command just places $12 in $25 thats not the goal
+
+Question #21
+Would it be possible to dis-assemble the instruction in $25?
+Yes
+
+Qustion #22 
+Could this program be written using fewer registers?
+YES
+
+key terms: 
+
+-Logical shift left
+ shift left logical of one position moves each bit to the left by one. The low-order bit (the right-most bit) is replaced by a zero bit and the high-order bit (the left-most bit) is discarded.
+
+-No-operation instruction as a logical left shift
+A machine instruction that does nothing is called (in official computer science jargon) a no-op. The no operation instruction is surprisingly useful, especially for MIPS.
+
+-Logical shift right
+MIPS also has a shift right logical instruction. It moves bits to the right by a number of positions less than 32. The high-order bit gets zeros and the low-order bits are discarded.
+
+-or instruction
+or  d,s,t        # $d gets the bitwise 
+                 # OR between $s with $t.
+
+Recall that the result of OR is zero only when both operand bits are zero.
+
+-and instruction
+and  d,s,t    # $d gets the bitwise 
+              # AND between $s with $t.
+Recall that the result of AND is one only when both operand bits are one.
+
+-xor instruction
+You will not be surprised to find that there is a XOR instruction:
+
+xor  d,s,t      # $d gets bitwise XOR 
+                # between $s with $t.
+Recall that the result of XOR is one when only one operand bit is one.
+
+-nor instruction
+There is a bitwise NOR instruction. There is no immediate operand NOR instruction. NOR is equivalent to performing the OR operation, then complementing the bits (change 0 to 1 and 1 to 0). Here is the assembly language for it:
+
+nor  d,s,t    # $d gets bitwise NOR 
+              # between $s with $t
+
+-not operation 
+The NOT operation is done by using the NOR instruction with $0 as one of the operands:
+
+nor  d,s,$0        # $d <— bitwise NOT of $s.
+
+-move operation
+Copying the pattern in a source register to a destination register is called a move operation, even though the source register does not change.
+
+or  d,s,$0        # $d <— contents of $s.
+
+
+

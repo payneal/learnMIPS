@@ -1,0 +1,62 @@
+Question #1
+Does a computer system based upon one type of processor chip (say MIPS) look about the same as a system based upon another type of chip (say Pentium)?
+yes 
+
+Question #2
+Do you think that the various components can put signals and data on the bus at any arbitrary time?
+No 
+
+Question #3
+(Review:) Is there a difference between the memory used to hold programs and the memory used to hold data?
+NO
+
+Question #4 
+What is (on most computers) the smallest addressable unit of memory?
+A byte
+
+Question #5
+What is the hexadecimal name for the 32-bit pattern that consists of all 1 bits? (Hint: look at the picture.)
+0XFFFFFFFF
+
+Question #6
+Which is faster: access to physical (RAM) memory or access to the hard disk?
+physical (RAM) memory
+
+Question #7
+Since memory looks like an array of bytes, is it necessary for each item of data in memory to be one byte long?
+No 
+
+Question #8 
+When first turned on, many computer systems test their RAM by writing various patterns to various locations and then reading the patterns back. Do you think this is a good test?
+Yes
+
+key terms: 
+
+components
+Different systems have different details, but in general all computers consist of components (processor, memory, controllers, video) connected together with a bus.  
+
+device controllers
+Input/output controllers receive input and output requests from the central processor, and then send device-specific control signals to the device they control. They also manage the data flow to and from the device
+I/O controllers are sometimes called device controllers.
+
+kilobytes
+kilobyte:   210 = 1024 bytes
+megabyte:   220 = 1024 kilobytes
+gigabyte:   230 = 1024 megabytes
+terabyte:   240 = 1024 gigabytes
+
+memory addresses
+Each byte of main storage has an address. Most modern processors use 32-bit addresses, so there are 232 possible addresses. Think of main storage as if it were an array
+
+virtual memory
+
+This method of providing the full address space by using a combination of RAM memory and the hard disk is called virtual memory. The word virtual means "appearing to exist, but not really there."
+
+Cache memory
+
+Computer systems also have cache memory. Cache memory is very fast RAM that is inside (or close to) the processor. It duplicates sections of main storage that are heavily used by the currently running programs. The processor does not have to use the system bus to get or store data in cache memory. Access to cache memory is much faster than to normal main memory.
+
+Like virtual memory, cache memory is invisible to most programs. It is an electronic detail below the level of abstraction provided by assembly language. Hardware keeps cache up to date and in synch with main storage. Your programs are unaware that there is cache memory and virtual memory. They just see "main memory". 
+
+
+

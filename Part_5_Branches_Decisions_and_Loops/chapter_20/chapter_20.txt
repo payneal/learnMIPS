@@ -1,0 +1,87 @@
+Question 1
+What is at the end of a null-terminated string?
+0 byte aka null byte
+
+Question 2
+What character is at 0x10000008?
+
+What character is at 0x10000010?
+T, F
+
+Question 3
+Why is the null not counted in the length of a string? (Hint: think about what happens when two strings are concatenated.)
+because the ending null character is just to end the string 
+
+Question 4
+A few more statements have been added to get and test the current character. Fill in the blanks.
+0, beq
+
+Question 5
+Fill in the blanks.
+$8, $8, 1
+$9, $9, 1
+
+question 6
+Does the program work correctly if the string is the null string (the string of length zero that consists of just a null byte)?
+yes
+
+Question 7 
+Why can't an array end with a null word, like with strings?
+Because a null word, 0x00000000, is a legitimate (and common) integer.
+
+Question 8 
+Sketch out the flowchart for the program (or write it in pseudo code).
+(on scratch paper)
+
+Question 9
+Fill in the blanks.
+8, 11, 12, 14
+
+Question 10
+fill in the blanks
+lui, lw, 4 
+
+Question 11
+fill in the blanks
+8, 15, 1, 4
+
+Question 12
+Fill in the blanks.
+0, 9, 11, 10 
+
+Question 13
+Fill in the blanks.
+0, 14, 0 
+
+Question 14
+Fill in the blanks.
+addu, ifend, addu
+
+Question 15
+With the testing data (in the above program), what values are computed for the three sums?
+all = 0, neg = -3,  plus = 3
+
+Question 16 
+Is a single run of the program enough to be certain that it is correct?
+no testing is needed
+
+key terms: 
+
+- Null-terminated strings.
+    A null-terminated string is a sequence of ASCII characters, one to a byte, followed by a zero byte (a null byte). null-terminated strings are common in C and C++
+
+- String length.
+    The length of a null-terminated string is defined as the number of characters it contains not counting the null. To calculate length, start the count at zero. Then increment the count for each successive non-null byte. When you hit the null, stop counting.
+
+- The Initializing a base register.
+    There are several ways to do what the second box of the chart calls for: "point at the first character". In a few chapters, doing this will be much easier. But, for now, remember that the data section starts at the address 0x10000000. The top halfword of this is 0x1000. This is loaded into the top halfword of the base register with lui
+
+- Moving a base register through a string.
+    The base register is "moved" through the string by increasing the address by one for each byte. This is also called "moving a pointer". This program has an important concept on every line. Using these concepts is how you program!
+
+- Implementing an integer array in assembly.
+    In assembly language, an array of integers is declared using the directive .word followed by a list of comma separated integers.
+
+- Moving a base register through an array of integers.
+    add 4, moves to the next one in the array
+

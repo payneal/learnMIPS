@@ -1,0 +1,208 @@
+Question #1: 
+(Review:) What is the name of the operation that copies data from main memory into a register?
+loaded
+
+Question #2: 
+Which of the following addresses are word aligned?
+    0x000AE430
+    0x00014432
+    0x000B0737
+    0x0E0D8844
+
+hint: how can you multiply by four in binary
+
+(find this out by seeing if last two numbers can be divided by 4) 
+ yes, no, no, yes
+
+Question #3
+What bit pattern that is contained in the byte at the big end of this 32-bit word:
+    0x001122AA
+00
+
+Question #4
+Here is a bit pattern, with the most significant bits written on the left (as is usual in print): 0xFF00AA11. Copy the bytes to memory using big endian and little endian orders:
+
+Little Endian   (starts @lil end)            Big Endian  start @ big end
+Address Contents                             Contents
+
+4003    ff                                      11
+4002    00                                      aa
+4001    aa                                      00
+4000    11                                      ff
+
+
+Question #5
+Data is sent across the Internet as groups of bit patterns (of course!) Does the byte ordering matter with Internet data?
+
+yes
+
+Questin #6
+Write the instruction that loads the word at address 0x00400060 into register $8. Assume that register $10 contains 0x00400000.
+
+lw, $8, 0x60 ($10) 
+
+Question #7
+Look at registers $12 and $13 and memory (at right). Write the instruction that puts the 
+value 0x00000004 into register $12.
+
+Register $12 contains 0xFFFFFFFF
+Register $13 contains 0x00040000
+
+Memory      Addresses
+0...5       00040014
+0...4       00040010
+0...3       0004000c
+0...2       00040008
+0...1       00040004
+0...0       00040000
+
+lw $12, 0x10, $13
+
+
+Question #8 
+Look at registers $12 and $13 and memory (at right). Write the instruction that puts the 
+word 0xFFFFFFFF into memory location 0x0004000c
+
+memory      Addresses
+0...5       00040014
+0...4       00040010
+0...3       0004000c
+0...2       00040008
+0...1       00040004
+0...0       00040000
+
+Register $12 contains 0xFFFFFFFF
+Register $13 contains 0x00040014
+
+sw $__, ___, ($__)
+
+12, -8 , 13
+
+
+Question #9
+
+lui $13 0x0004
+lw $12 Ox10($13)
+
+Complete the lui instruction so that the base register contains the address 0x00040000.
+
+Question #10
+Say that memory is as above. The lw instruction (below) loads the word at 0x0060500C into $12.
+
+lui $13, 0x0060
+ori $13, $13, 0x5000
+lw $12, 0xC($13)
+
+Question #11
+Do the following two assembly instructions assemble to the same machine instruction?
+ori  $10,$10,0x00C4
+ori  $10,$0, 0x00C4
+
+No ones using reg 10 while anothers using register 0
+
+Question #12
+What is the most sensible address to have in the base register for processing this array?
+00605000
+
+Question #13
+How many lw instructions will be needed?
+How many sw instructions will be needed?
+
+1, 1 
+
+Question #14
+The assembler in SPIM automatically assembles the .data section starting at address 0x10000000.
+
+1.) What address corresponds to the symbolic address x?
+2.) What address corresponds to the symbolic address poly?
+
+1 - 1000 0000
+2 - 1000 0004
+
+Question #15
+Fill in the blanks. Look at the previous answer to help with the lui instruction. Use it to load the upper half of the base register with the upper half of the first data address.
+
+1.) 0x10000
+2.) 10
+3.) 13
+4.) 4
+5.) 10
+
+Question #16
+Fill in the blanks
+1.) 13 
+2.) 11
+3.) mflo
+4.) 12
+5.) 12
+6.) 13
+
+Question #17 
+Fill in the blanks
+1.) 11 
+2.) 11
+3.) 12
+
+Question #18
+Fill in the blanks
+1.) 5
+2.) 11
+3.) 13
+4.) 12
+5.) 13
+
+Question #19
+-1, 0, 1
+
+Question #20 
+test -2^31 and 2^31  because must bit in 32 bit twos complimnet , then testing number with in that rang gives ups answer
+
+key terms: 
+- word alignment
+    When a word (4 bytes) is loaded or stored the memory address must be a multiple of four. This is called an alignment restriction. Addresses that are a multiple of four are called word aligned
+
+- byte order: little endian and big edian
+    Big Endian Byte Order: The most significant byte (the "big end") of the data is placed at the byte with the lowest address. The rest of the data is placed in order in the next three bytes in memory.
+
+Little Endian Byte Order: The least significant byte (the "little end") of the data is placed at the byte with the lowest address. The rest of the data is placed in order in the next three bytes in memory.
+- MIPS and SPIM byte order
+
+- address calculation
+    When a word is loaded from memory, the electronics puts the bytes into the register in the correct order. Operations (such as addition) inside the processor use the same order. When the register is stored to memory the bytes are written in the same order. As long as the electronics is consistent, either byte order works. Usually you don't need to think about which order is used.
+
+- lw instruction
+    The MIPS instruction that loads a word into a register is the lw instruction
+
+- Operation of the lw instruction
+    lw   d,off(b)       # $d <-- Word from memory address b+off
+                    # b is a register. off is 16-bit two's complement.
+                    # (The data from memory is available in $d after
+                    #  a one machine cycle delay.)
+
+- load delay slot
+    his is the load delay slot. The instruction immediately after a lw instruction should not use the register that is being loaded. Sometimes the instruction after the lw is a no-operation instruction.
+
+- sw instruction
+     sw, copies data from a register to memory. The register is not changed. The memory address is specified using a base/register pair.
+
+- lui instruction
+    the lui (load upper immediate) instruction is useful. It copies its 16-bit immediate operand to the upper two bytes of the designated register.
+
+- symbolic address
+     Of course, at run time, addresses are 32-bit patterns. But, in assembly language source code, it is convenient to use names for memory locations. These names are called symbolic addresses
+
+- .word directive
+   The assembler directive .word means: put a 32-bit two's complement integer here. The integer is specified using base 10 (by default).
+
+- .data directive
+    The assembler directive .data means: here is the start of the data section of memory    
+
+- register use table
+    ????
+
+- accumulator
+    A register where a value is built up after several calculations is called an accumulator
+
+
+
+

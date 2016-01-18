@@ -1,0 +1,93 @@
+Question #1
+How many patterns can be formed with a single bit? (Hint: click on the switch!)
+2
+
+Question #2
+Is the pattern 0 1 different from the pattern 1 0?
+yes
+
+Question#3
+Is the number of patterns that can be formed with N bits greater than the number of bits?
+Yes 
+
+Question#4
+How many patterns can be formed from three bits?
+8 
+
+Question #5
+How many patterns can be formed from N bits?
+2^N
+
+(Twice the number of patterns that can be formed from (N-1) bits.)
+
+Question #6 
+In the past, some computers used 16 bits to form memory addresses. Assuming no special tricks (which such limited machines often used), how many bytes maximum could be held in main storage?
+2^16
+
+Question #7 
+You wish to save a GIF image using either 6 bits per pixel or 8 bits per pixel. Saving the image with 8 bits per pixel takes somewhat more memory. Which should you choose?
+
+Use 8 unless memory is the most important deciding factor
+
+Question #8 
+Name the following patterns:
+
+0001 0001 -> 11    
+0011 1001 -> 39
+1011 1111 -> BF  
+0100 0110 -> 46   
+0000 0000 -> 00  
+
+Question #9 
+Name the following patterns; include 0x in the name:
+
+0000 1010 0001 0001 -> 0A11    
+0001 0010 1001 1010 -> 129A   
+1111 1010 1101 1110 -> fade  
+0011 0110 1100 0000 -> 36C0  
+0000 0000 0000 0000 -> 0000
+
+Question #10
+What is the OCTAL pattern name of the following bit patterns:
+
+111 010 001 -> 0721    
+100 011 010 -> 0432  
+011011110   -> 0335
+11000000    -> 0300
+
+key terms: 
+
+Byte 
+In most computer documentation, 8 contiguous bits are called a byte
+
+Listing bit patterns
+There is a standard method for listing all of the patterns that can be formed with a given number of bits. First, list all of the patterns that can be formed with one bit:
+To increase the number of bits (from one to two) make two copies of the list
+Within each copy, each row is unique. Now, make each row in the combined list unique. Do this by putting a "0" in front of each line of the first copy, and a "1" in front of each line of the second copy:
+
+Number of patterns with N bits
+2^n 
+
+kilobyte
+1024 bytes is called a kilobyte, abbreviated K and pronounced "Kay".
+
+multiplying powers
+2^(N+M) = 2^n*2^M
+
+nibble names
+it is convenient to break bit patterns into 4-bit groups (called nibbles):
+Bits are grouped into nibbles starting at the right. Then each nibble is named. This method of giving names to patterns is called hexadecimal
+
+hexadecimal 
+0000 - 1111 
+0    -  F
+
+Octal
+000 - 111
+0   -  7 
+
+
+
+
+
+

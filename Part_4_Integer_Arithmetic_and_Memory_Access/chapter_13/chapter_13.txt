@@ -1,0 +1,49 @@
+Question #1:
+Say that a processor has a full set of bit manipulation instructions. Can it do arithmetic with these instructions? 
+Yes
+
+Question #2: 
+The MIPS addu instruction performs the Binary Addition Algorithm on two 32-bit patterns. What integer representation method can be used with it?
+Both
+
+Question #3: 
+Use the Binary Addition Algorithm on these 8-bit patterns:
+
+ 1010 1011
+ 0101 0101
+———————————
+      
+Does overflow happen for:
+
+Unsigned Binary? Yes
+Two's Complement? No
+
+Question #4: 
+What is the range of integers that can be represented with 32-bit two's complement?
+
+-2^? to +2^_ -1
+
+(Pick an exponent for wach "2")
+31
+
+Question #5: 
+Are registers $9 and $8 changed by the addu instruction in this program?
+
+no just $10
+
+Question $6
+(Review:) Can a negative const be used with the instruction:
+ori $d, $0, const
+No
+
+Question 7:
+ 
+Say that register $8 has been loaded with +82 by using:
+    ori  $8,$0,82
+What instructions can do the following:
+    Reflect the bits in $8
+    Add one to $8
+
+addu , nor
+
+

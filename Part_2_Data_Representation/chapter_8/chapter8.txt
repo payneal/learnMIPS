@@ -1,0 +1,232 @@
+Question #1
+compute the following. Give the answer in binary notation. 
+0 + 0 = ? 
+0 + 1 = ? 
+1 + 0 = ? 
+1 + 1 = ? 
+
+0, 1, 1, 10 
+
+Question #2
+Preform the following additions: 
+1    0     1 
+0    1     1 
+1    0     0 
+-------------
+10  01    10 
+
+Question #3 
+Confirm that this addition is correct. (1) Check that the binary addition algorithm was performed correctly by checking the left column, then (2) translate the binary operands into decimal to fill the blanks in the right column, and then (3) verify that the decimal addition in the right column gives the same sum.
+
+0110 + 0111 = 1101 
+6    + 7    = 13 
+
+Question #4
+Do the following: 
+10 + 01  = ___
+11
+
+Question #5 
+The MIPS32 chip has 32-bit registers. What do you think is the usual size of the operands when binary addition is performed?
+32 
+
+Question #6 
+Add these unsigned numbers, represented in eight bits. Determine if overflow occurs.
+0010 1100
+0101 0101
+---------
+1000 1001
+Nope
+
+Question #7 
+Add these numbers, represented in eight bits. Determine if overflow occurs.
+0110 1100
+1001 1111
+---------
+0001 0000 1011
+Yes overflow 
+
+Question #8 
+preform the following addition: 
+
+0f4A
+420B
+----
+0x 5455
+
+Question #9
+Compute the following sum using 8 bits. Is there overflow?
+
+1101 0010
+0110 1101
+---------
+0011 1111 , yes overflow
+
+Question #10
+Compute the following sum using 8 bits
+
+0000 0001
+1111 1111
+---------
+0000 0000 , overflow
+
+Question #11
+Let us say that you need to represent an equal number of positive and negative integers in eight bits. How many negative numbers can represented? How many positive numbers?
+
+Just for fun, can you think of a way to do this? Get out some scratch paper and scratch for a while with eight-bit patterns
+
+128 +/- use first number toi rep negitive or positive
+
+Question #12 
+With 8-bit sign-magnitude representation, what positive integers can be represented and what negative integers can be represented?
+
+127 +/- and 0 
+
+Question #13
+Can the "binary addition algo" be used with sign magnitude representation? Try adding +16 with -24
+
+0001 0000 => 16
+1001 1000 => -24
+----------------
+1010 1000 => -40 so no this doesnt work
+
+Question #14 
+A number added to one results in a zero. What could that number be? 
+-1 
+
+Question #15 
+A number added to 14 results in a zero. What could that number be? 
+-14 
+
+Question #16
+Find the 8-bit pattern that gives eight zero-bits when added to the bit pattern for 610. (Hint: start at the right column, figure out what the ? has to be in each column, and work your way left.)
+
+0000 0110 => 6  
+???? ???? => -6 
+-----------
+0000 0000 => 0 
+
+1111 1010  == -6
+
+Question #17 
+Fill in the blanks: 
+
+the positive integer: 0000 0110 => 6 
+refelect each bit: _____________
+add one: ______________________ => -6 
+
+1111 1001
+1111 1010
+
+Question #18
+what is the two's complement of 0100 0111? 
+1011 1001
+
+Question #19 
+try to compute the negative of 128
+128     = 1000 0000
+reflect = 0111 0000
+add one = 1000 0000 
+
+Question #20
+How many integers are there in the range  -128 ... 0 ... +127  ?
+256 
+How bit patterns can be formed with 8 bits?
+256 
+
+Question #21
+Does the following 4-bit  two's complement represent a negative or a positive integer? 
+1001
+negative
+
+Question #22
+What is the decimal representation of this 8-bit two's complement integer: 1001 1111
+
+-97 
+
+Question #23
+If the bit patterns in the above addition problem are regarded as two's complement, is the result correct?
+-correct result
+
+Question #24
+Perform the "binary addition algorithm" on the following 8-bit two's complement numbers. Is the result correct or not?
+
+1011 1101
+1110 0101
+---------
+1010 0010 result is correct had carry for low and high
+
+Question #25
+Can the binary addition algorithm be used with patterns that represent negative integers?
+
+YES
+
+Question #26
+subtract 0001 1011 from 0011 0001 
+is the result correct or not? 
+
+0001 0110 , result is correct because carry into and out == 
+
+Question #27 
+Subtract 0101 1001 from 0010 0101
+is the result correct or not?  
+
+1100 1100
+
+Question #28
+Subtract 0101 1001 from 1110 0101
+Is the result correct or not?
+
+1000 1100
+
+Question #29
+Subtract    0111 1000     from    1011 0000
+Is the result correct or not?
+
+incorrect 
+0011 1000 the carry overs didnt match???? 
+
+key terms: 
+
+-The binary addition algorithm
+The algorithm takes two operands and produces one result. An operand is the data that an algorithm operates on.
+
+To add two N-bit (representations of) integers: Proceed from right-to-left, column-by-column, until you reach the left-most column. For each column, perform 1-bit addition. Write the carry-out of each column above the column to its left. The bit is the left column's carry-in.
+
+-Details of the binary addition algorithm.
+Here are some details:
+
+Usually the operands and the result have a fixed number of bits (usually 8, 16, 32, or 64). These are the sizes that processors use to represent integers. 
+
+To keep the result the same size as the operands, you may have to include zero bits in some of the leftmost columns. 
+
+Compute the carry-out of the leftmost column, but don't write it as part of the answer (because there is no room if you have a fixed number of bits.)
+
+When the operands are represented using the unsigned binary scheme (the base two representation scheme discussed in the last two chapters) a carry-out of  1  from the leftmost column means the sum does not fit into the fixed number of bits. This is called Overflow.
+
+When the operands are represented using the two's complement scheme (which will be described at the end of this chapter), then a carry-out of  1  from the leftmost column is not necessarily overflow.
+
+-Hexadecimal addition
+Two four-bit numbers are added, but the sum does not fit in four bits. If we were using five bits the sum would be 1 0000. But with four bits there is no room for the left-most "1". Because the carry out from the most significant column of the sum is "1", the 4-bit result is not valid. The column is called the most significant column because it corresponds to the highest power of two. The bits in the leftmost columns are called the most significant bits or the high-order bits.
+
+
+-Overflow in unsigned binary addition 
+But digital computers use fixed bit-lengths for integers, so overflow is possible. For instance some processors represent integers in 8, 16, or 32 bits. When 8-bit operands are added, overflow is certainly possible. Our MIPS processor uses 32-bit integers, but even with them, overflow is possible.
+
+
+-Sign-magnitude representation 
+There are many schemes for representing negative integers with patterns of bits. One scheme is sign-magnitude. It uses one bit (usually the leftmost) to indicate the sign. "0" indicates a positive integer, and "1" indicates a negative integer. The rest of the bits are used for the magnitude of the number. So -2410 is represented as:
+
+-Two's complement representation
+This representation scheme is called two's complement. It is one of many ways to represent negative integers with bit patterns. But it is now the nearly universal way of doing this. Integers are represented in a fixed number of bits. Both positive and negative integers can be represented. When the pattern that represents a positive integer is added to the pattern that represents the negative of that integer (using the "binary addition algorithm"), the result is zero. The carry out of the left column is discarded.
+
+-The sign bit with two's complement representation
+The algorithm that creates the representation of the negative of an integer works with both positive and negative integers. Start with N and form its two's complement: you get -N. Now complement -N and you get the original N.
+
+-Overflow in two's complement addition
+The "binary addition algorithm" was performed on the operands. The result is either correct or incorrect depending on how the bit patterns are interpreted. If the bit patterns are regarded as unsigned binary integers, then overflow happened. If the bit patterns are regarded as two's comp integers, then the result is correct.
+
+
+ 
+
+

@@ -1,0 +1,79 @@
+Question #1
+ As you drive down the highway, are you constantly thinking about the ignition coil of your car?
+No
+
+Question #2
+Does a load operation change the bit pattern in memory? No
+Does a store operation change the bit pattern in memory? Yes
+
+Question #3 
+(Thought Question) As the program runs, the data segment grows upward (as dynamic variables are allocated) and the stack grows downward (as procedures get called). Is this sensible? (Hint: how much user memory is left when the two segments meet?)
+Yes. Rather than allocate a fixed amount of memory for each, this arrangement means each can grow into available memory. When the two meet, there is no memory left.
+
+Question #4
+$0
+
+Question #5 
+Here is another instruction that involves the ALU, written as assembly language:
+subu    $25,$16,$17 
+
+Identify the following:
+1.) the operation: _______
+2.) the location of one operand: __________
+3.) the location of the other operand: ___________
+4.) the destination of the result: ____________
+
+1- subsitution
+2-$16
+3-$17
+4-$25
+
+Question #6 
+Here is the machine instruction again, but the pattern that specifies the destination is blank. Fill it in so the destination is register $11.
+
+000000 01000  01001 _ _ _ _ _ 00000 100001
+
+
+ALUop   $8    $9    $11             addu
+        op1  op2    dest 
+
+answer = 01011
+ 
+Question #7 
+A program has just calculated an important value which is contained in register $8. It copies this value to register $0. Is this wise?
+No because $0 is permanently 0 
+
+Question #8
+Why is the program counter (PC) incremented by four each time?
+because each mips instruction is 32 bits(4 bytes long) the PC is incremented to point at the next instruction
+
+Question#9 
+After the instruction at 0x00400008 has executed, what happens?
+
+The processor fetches the 32-bit pattern (whatever it is) at address 0x0040000C and tries to execute it as an instruction.
+
+Question #10 
+Most computer systems start running an operating systems when power is applied. When an application program runs, the operating system passes control to the application.
+
+What must the application do when it is finished running?
+return control to the operating system
+
+Question #11
+Do human brains do multitasking?
+Yes
+
+Key terms: 
+
+Machine Instructions: Machine instructions are thirty-two bits wide. Bit patterns specify the operation, the operands, and the destination for the result. Basic operations are arithmetic, logic, memory access, and control branches.
+
+Machine Cycle: The machine cycle is illustrated at right. Execution proceeds sequentially one instruction at a time. The control point indicates the instruction about to execute. ALU operations never directly access memory.
+
+Registers: Thirty-two 32-bit wide general purpose registers, which have various conventional uses. Register $0 is hard-wired to 32 zero-bits.
+
+Memory: Thirty-two bit address space, but only the lower half (most of it anyway) is for user programs. User memory is further divided (by software convention) into text, data, and stack segments.
+
+
+
+
+
+

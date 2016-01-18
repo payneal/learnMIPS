@@ -1,0 +1,160 @@
+Question #1 
+A particular number is represented by 1010 (binary rep). What is the number represented in base ten? 
+10 
+
+Question #2
+A particular number is represented by 1010 1010(binary rep). what is the number represented in base 10. 
+170
+
+Question #3 
+An important number was left out of the table. What do you suppose is the decimal equivalent of 0111 1111
+127 
+
+question #4 
+The bit pattern 0011 0010 represents 5010. What bit pattern represents 100 base 10
+0110 0100
+
+Question #5 
+With 8 bits, there are 28 patterns. What is the largest positive integer that can be represented in 8 bits using base two?
+255
+
+Question #6 
+Without doing any calculation, which of the following is the decimal equivalent of 1111 1111 1111?
+
+2048
+4095
+16384
+18432
+Look at fact 3 in the list and think a bit.
+
+Hint: Actually, you should think about a bit.
+4095
+
+Question #7
+Fill in the blanks with BASE SIXTEEN digits
+
+31A (base sixteen) = __ × sixteen^2 + ___ × sixteen^1 + __ × sixteen^0
+3 , 1, 10(A)
+
+Question #8 
+More practice:   What integer is represented by 1B2 (base sixteen) ?
+1B2 =  __ × sixteen^2 + __ × sixteen^1 + __ × sixteen^0
+1B2 =  __(base 10) × 16^2 + __(base 10) × 16^1 + __(base 10) × 16^0
+1B2 = __(base 10) * __(base 10) + __(base 10) * __(base 10) + __(base 10) * __(base 10)
+1B2 = __(base 10)
+
+line 1 = 1, b, 2 
+line 2 = 1, 11, 2
+line 3 = 1, 256, 11, 16, 2, 1
+line 4 = 434
+
+Question #9
+What is sixteen times 8b3?
+8b30
+
+Question #10
+A(base 16) = _____ (base 10) = ______ (base 2) 
+
+10 , 1010
+
+Question #11 
+What is the name of this pattern of four bits, using the pattern naming scheme: 1010 ?
+A
+
+Question #12
+Here is an integer represented in base two: 1011. What is the representation in base two of the number times sixteen?
+Hint: remember that trick with appending zeros.
+
+1011 0000
+
+Question #13 
+What is the name of the binary pattern   0001 1010 0100 0100 1101 ?
+1A44D
+
+Question #14
+What is the binary equivalent of 4733 octal?
+octal -> 4733
+= binary -> 100 111 011 011
+
+Question #15
+Change the representation of this number from hexadecimal to octal (base 8):
+0X1a4 
+to binary = 0001 1010 0100
+==> 000 110 100 100
+to hex = 0644 (base 8)
+
+Question #16 
+What is digit[ 0 ] = 54 mod 16 ?
+What is number = 54 div 16 ?
+
+6, 3 
+
+Question #17
+Convert 24710 to hexadecimal.
+F7 
+
+Question #18 
+Convert 1033(base 10) to hex
+0x409
+
+Question #19 
+convert 100(base 10) to base 3 
+10201(base 3)
+
+Question #20 
+what is the base 7 representation of 10201(base 3)
+202
+
+key terms: 
+
+-Familiar binary integers
+be familiar with binary patterns 
+ex 1000 0000 = 128 
+   0111 1111 = 127 
+
+-Shifting left a binary pattern
+Useful Fact: If the number N is represented by a bit pattern X, then X0 represents 2N.
+
+If 00110010 represents 5010 , then 001100100 represents 10010. Often you need the "shifted" pattern to have the same number of bits as the original pattern. Doing this with eight bits, 01100100 represents 10010.
+
+This is called "shifting left" by one bit. It is often used in hardware to multiply by two. If you must keep the same number of bits (as is usually true for computer hardware) then make sure that no "1" bits are lost on the left.
+
+-Unsigned binary representation
+no negative numbers are represented
+
+-Hexadecimal representation
+0-15 where a = 10, ..... f = 15
+
+-Shifting left a hexadecimal pattern
+Adding a 0 to the end of an integer written in base sixteen multiplies the integer by sixteen. To multiply an integer by sixteenN, add N zeros on the right:
+
+-Equivalence of hexadecimal strings and bit pattern names
+The name of the binary pattern 1010 is "A". The hex digit that corresponds to the number represented by 10102 is also "A".
+
+It is OK to have a pattern that has the name "A" and also to use "A" as a digit.
+
+When a 4-bit pattern represents a number in base two, that number represented in hex is the same digit as the bit pattern name.
+
+-Converting representations, between base 16 and base 2
+It is easy to convert between base sixteen and base two representation:
+
+(In base two) Shifting left by four bits is equivalent to multiplication by sixteen.
+(In base hex) Shifting left by one digit is equivalent to multiplication by sixteen.
+
+-Converting a decimal representation to any base
+You already know how to convert from Base B to Decimal. The algorithm converts number from decimal to base B representation.
+
+div means integer division and mod means modulo.
+
+number div B is how many times B goes into number.
+
+number mod B is the left-over amount.
+
+For example, 15 div 6 = 2 and 15 mod 6 = 3.
+
+Here is an example: convert 5410 to hex representation. The base is 16. The first execution of the loop body calculates digit[0] the right-most digit of the hex number.
+
+
+
+
+

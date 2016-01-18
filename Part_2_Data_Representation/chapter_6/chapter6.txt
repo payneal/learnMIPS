@@ -1,0 +1,119 @@
+Question #1
+What is your favorite number?
+0
+
+(VII)....?
+
+Question #2
+How many eggs in a carton of eggs?
+12 
+
+Question #3 
+Are XII, ///// ///// //, and 12 different numbers?
+NO
+
+Question #4 
+Is XII even or odd?
+even 
+
+Question #5 
+Is XLMCIIV a legitimate Roman-system representation of an integer?
+No 
+
+Question #6 
+Fill in the blanks with the appropriate power of 10:
+7305 = 7 × 10___  +  3 × 10___  +  0 × 10___  +  5 × 10___
+
+3 2 1 0 
+
+Question #7 
+Here are the rules for positional notation. Fill in the blanks to work with base five:
+
+The base is _
+There are _  "digits": _, _, _, _, _ 
+
+Positions correspond to integer powers of __, starting with power 
+__  at the rightmost digit, and increasing right to left.
+The digit placed at a position shows how many times that power of __ 
+included in the number.
+
+5
+5  0,1,2,3,4
+5 0 5 
+
+Question #8 
+Fill in the table. Each row shows two representations of the same integer. The column on the left represents it in base five, the column on the right represents it in base ten (except you have to fill in that column.)
+
+base 5 || base 10 
+0         0
+1         1
+2         2 
+3         3
+4         4 
+10        5 
+11        6
+12        7
+
+
+Question #9
+Change the representation of 1025 from base five to base ten.
+
+27_10
+
+Question #10 
+Can 682_7 be rewritten in base ten notation
+NO
+
+Question #11
+What is the base 10 representation of !$@#? 
+114_4th
+
+Question #12
+1.) the base = 2
+2.) there are 2  "digits: 0,1
+3.) positions correspond to integer powers of 2, starting with power 0 at the rightmost digit, and increasing right to left
+4.) the digit placed at a position shows how many times that power of 2 included in the number
+
+Question #13
+what is 0110 (binary representation) in base ten?
+6 is the answer
+
+Question #14
+copy 1's from the bit pattern to the last row of the table, starting at the right. Compute the sum of the corresponding decimal numbers
+64 + 32 + 8 + 1 = 105 base 10
+
+key terms: 
+
+-Number vs it representation
+To be precise you would say that XII, ///// ///// //, and 12 are different ways to represent the same number.
+
+-Positional number representation
+The decimal system is a positional notation for representing numbers. This means that the representation consists of a string of digits. The position of each digit in the string is significant.
+
+-decimal number representation
+For base 10 representation (often called decimal representation), the rules of positional notation are:
+
+The base is 10.
+There are 10 digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 .
+Positions correspond to integer powers of 10, starting with power 0 at the rightmost digit, and increasing right to left.
+The digit placed at a position shows how many times that power of 10 is included in the number.
+
+-changing bases of a representation
+421 base 5                =     4 × five2 + 2 × five1 + 1 × five0
+the number in base 10     =     4 × 52 + 2 × 51 + 1 × 50
+the number in base 10     =     4 × 25 + 2 × 5 + 1 × 1
+the number in base 10     =     100 + 10 + 1 = 111
+
+The above process is often called "converting a number from base 5 to base 10". But in fact, the number is not being converted, its representation is being converted. The characters "421 (base five)" and "111 (base ten)" represent the same number.
+
+-binary number representation
+From the rules for positional notation there are two digits. Usually "0" and "1" are chosen, and usually the word bit is used. "Bit" is an abbreviation of "binary digit".
+
+-power of two table
+In a binary representation a particular power of two is either included in the sum or not, since the digits are either "1" or "0". In converting representations, it is convenient to have a table.
+
+Power of 2  10      9    8    7    6   5   4   3  2  1  0
+Decimal     1024    512  256  128  64  32  16  8  4  2  1
+
+
+

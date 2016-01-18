@@ -1,0 +1,164 @@
+Question 1:
+
+Multipy 99_10 times 99_10: ________
+how many decimal places does each operand (99) take: _______
+How many decimal olaces does the result take: ________
+
+9801, 2, 4
+
+Question 2:
+ 
+Is a 32-bit general register always able to hold the result of multiplying two 32-bit integers?
+no 
+
+Question 3: 
+
+Two small integers are multiplied. Where is the result?
+lo
+
+Question 4: 
+About how many significant bits do you expect in this product:
+01001010 ×  00010101
+
+About 12 significant bits
+
+Question 5: 
+Must you move the result of one multiply from lo and hi before you start another multiply operation?
+
+yes
+
+Question 6:
+Fill in the blanks. You may wish to copy the program into your text editor and make the changes there. Then you can test your answers by saving the file and running the program with SPIM.
+
+## newMult.asm
+## 
+## Program to calculate 5*x - 74
+##
+## Register Use:
+##  $8   x
+##  $9   result
+
+    .text
+    .globl main
+
+main: 
+        ori     $8, $0, 12      # put x into $8
+        ori     $_9_, $0, 5     # put 5 into $_9_
+        multi   $_9_, $_8_      # _lo- = 5x
+        mflo    $_9_              # $_9_ = 5x
+        addiu   $_9_,$_9_,-74       # $_ = 5x - 74
+
+## End of file
+
+Question 7:
+What does the "u" mean in each of the following instructions:
+
+addu  ___no trap on overflow ____________
+multu ___Operands are unsigned  _____________
+
+Question 8: 
+
+Use integer division (in base ten) to calculate the quotient and remainder of:
+
+99/2  = __49____ remainder ___1_____
+99/50 = __1____ remainder __49__
+
+Question 9: 
+(review) What instruction would be used to move the quotient into register $8
+mfhi/mflo
+
+Question 10: 
+
+## divEg.asm
+## 
+## Program to calculate (y + x) / (y - x)
+##
+## Register Use:
+##  $8   x
+##  $9   y
+##  $10  x+y ;  quotient
+##  $11  y-x ;  remainder
+
+        .text
+        .globl  main
+main:
+    _ori_        $8, $0, 8          # put x into $8
+    _ori_        $9, $0, 36         # put y into $9
+    addu        $10, $_9_, $_8_    # $10 = (y+x)
+    subu        $11, $_9_, $_8_         # $11 = (y-x)
+    div         $_10_, $_11_              # hilo = (y+x)/ (y-x)
+    _mflo__         $10             # $10 = quotient
+    _mfhi__         $11             # $11 = remainder
+
+## End of file  
+
+Question 11:
+(36+8) / (36-8)   =   _1_ Remainder _16_  
+
+Question 12: 
+Here is the 16-bit two's complement representation for -16
+    1111 1111 1111 0000
+Perform a logical shift right by two positions. Is the resulting pattern the correct representation for -16/4?
+
+no, because the leading digit changes to 0 on the shift
+
+Question 13: 
+Is there a need for an arithmetic shift left instruction?
+No
+
+Question 14: 
+Does the sra instruction give the correct results for unsigned integers?
+
+no 
+
+key terms: 
+
+- The number of places resulting from an integer multiplication.
+The product of two N-place decimal integers may need 2N places. This is true for numbers expressed in any base. In particular, the product of two integers expressed with N-bit binary may need 2N bits. For example, in the picture, two 8-bit unsigned integers are multiplied using the usual paper-and-pencil multiplication algorithm (but using binary arithmetic).
+
+The two 8-bit operands result in a 15-bit product. Also shown is the same product done with base 16 and base 10 notation.
+
+- The number of places resulting from an integer division.
+With N-digit integer division there are two results, an N-digit quotient and an N-digit remainder. With 32-bit operands there will be (in general) two 32-bit results. MIPS uses the hi and lo registers for the results:
+
+- The hi and lo registers
+The multiply unit of MIPS contains two 32-bit registers called hi and lo. These are not general purpose registers. When two 32-bit operands are multiplied, hi and lo hold the 64 bits of the result. Bits 32 through 63 are in hi and bits 0 through 31 are in lo.
+
+- The mult and multu instructions
+Here are the instructions that do this. The operands are contained in general-purpose registers.
+
+ mult    s,t        # hilo <— $s * $t   (two's comp operands)
+multu   s,t        # hilo <— $s * $t   (unsigned operands)
+There is a multiply instruction for unsigned operands, and a multiply instruction for signed operands (two's complement operands). Integer multiplication never causes a trap.
+
+Note: with add and addu, both perform the same operation. The "u" means "don't trap overflow". With mult and multu, different operations are carried out. Neither instruction ever causes a trap.
+
+- The mfhi and mflo instructions
+There are two instructions that move the result of a multiplication into a general purpose register:
+
+mfhi    d        #  d <— hi.  Move From Hi
+mflo    d        #  d <— lo.  Move From Lo
+The hi and lo registers cannot be used with any of the other arithmetic or logic instructions. If you want to do something with a product, it must first be moved to a general purpose register. However there is a further complication on MIPS hardware:
+
+- The div and divu instructions
+Here are the MIPS instructions for integer divide. The "u" means operands and results are in unsigned binary.
+
+ div    s,t        #  lo <— s div t
+                  #  hi <— s mod t
+                  #  operands are two's complement
+divu   s,t        #  lo <— s div t
+                  #  hi <— s mod t
+                  #  operands are unsigned
+
+- Arithmetic shift right
+A right shift logical can not be used to divide a negative integer by two. The problem is that a shift right logical moves zeros into the high order bit. This is desirable in some situations, but not for dividing negative integers where the high order bit is the "sign bit." An arithmetic right shift replicates the sign bit as needed to fill bit positions:
+
+- The sra instruction
+MIPS has a shift right arithmetic instruction:
+
+sra    d,s,shft   #  $d <— s shifted right
+                  #  shft bit positions.
+                  #  0 ≤ shft ≤ 31
+Sometimes you need to divide by two. This instruction is faster and more convenient than the div instruction.
+
+

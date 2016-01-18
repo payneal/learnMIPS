@@ -1,0 +1,153 @@
+Question 1: 
+When is one processor more powerful than another?
+(vague) when one processor can compute something that the other one can't
+
+Question 2: 
+Can a program that uses 64-bit integers run on a processor that has 32-bit words?
+yes
+
+Question 3: 
+Will a modern Pentium processor find the same perfect numbers as the SWAC?
+YES
+
+Question 4: 
+(Thought question:) Why do most processors have many more instructions than the minimum set needed for full computing power?
+convenience and throughput
+
+Question 5: 
+Which of the following improvements increases the throughput of a computer system?
+- Faster machine cycle (500 MHz to 1000 MHz). 
+- More bits on the system bus (32 bits to 64 bits).
+- More main memory (128 Meg to 512 Meg).
+- Faster data transfer rate of hard disk (40 MBps to 80 MBps).
+- Many, complex machine instructions.
+
+Question 6: 
+If you are writing a computer game and wish to use MMX instructions, what must you do?
+use assembly langauge to write certain portions of the game
+
+Question 7: 
+
+Examine (for a moment) the following program excerpt. (Trick question:) Is it correct?
+    start:   ori   $8,$0,4      # $8 = 4
+             ori   $9,$0,12     # $9 = 12
+             addu  $10,$8,$9    # $10 = 12+4 = 16
+             sll   $10,$10,2    # $10 = 16*4 = 64
+yes
+
+Question 8: 
+Is there a way to prevent distant statements from jumping into the middle of a block?
+no
+
+Question 9: 
+Are Java, C, and C++ structured languages?
+yes
+
+Question 10: 
+how is a code block impplemented in assembly language? 
+You must write statements which you intend to have executed in sequence. Then you must be careful not to jump into the middle of them.
+
+
+Qustion 11:
+Is there a syntax for defining code blocks in high-level languages like Pascal, C, or Java?
+in Pascal begin and end delimit a block. In C and Java { and } delimit a block.
+
+Question 12:
+Look at the big block (in dotted lines). If the big block entry conditions are correct, what do you know about the big block exit conditions?
+if the big block entry conditions are correct, then the big block exit conditions are correct
+
+ 
+Question 13: 
+Are if-then-else structures possible in assembly language?
+yes
+
+Question 14:
+Can the condition which is tested (in the diamond-shaped box) be complicated?
+yes
+
+Question 15: 
+Is an if-endif (single alternative) structured?
+yes
+
+Question 16: 
+In a structured language (such as Pascal, C, or Java) can an alternation structure be put inside an iteration structure? (can the body of a while-loop contain an if-then-else?)
+
+yes
+
+Question 17:
+Could a code block acting as a loop body be replaced by an alternation structure?
+yes
+
+Question 18:
+(Thought question:) Would it be a good idea to implement a complicated code block as a subroutine (as a function)?
+yes
+
+Question 19: 
+(Thought question:) Can a structured assembly language program sometimes be speeded up by using non-structured control?
+sometimes, but always make structured version first in case bugs iun speedy version
+
+Question 20: 
+Think about how the flowchart could be refined to show more detail. Replace the code block with just one structure.
+ zero sum -> read ints, add to sum -> output sum
+
+Question 21: 
+place one of the blocks with an iteration structure.
+
+replace read 9nts, add to summ to loop 
+
+Question 22: 
+Does this flowchart look familiar? 
+yes 
+
+Question 23: 
+Do these design ideas work only for assembly language?
+no
+
+Question 24: 
+Does your life need more structure?
+yes
+
+key terms: 
+-The computing power of a processor
+    All that matters for processor "power" is that it is possible to translate identical programs into machine language appropriate for each processor and that these machine language programs produce the same result on each processor.
+
+-The minimum set of instructions needed for full computing power
+    What machine instructions must a processor absolutely have?
+
+Important Fact: All processors that support the fundamental machine instructions of bit manipulation, conditional branching, and memory access have the same computing power. All processors have these instructions (and many more). All processors are equivalent in computing power (in the sense of the previous definition).
+Arithmetic (both integer and floating point) can be done with bit manipulation instructions, so arithmetic instructions are not fundamental (but are almost always included in a processor).
+
+Above a certain minimum set of instructions adding new instructions does not add to the computing power of a processor. (
+
+-The throughput of a computer
+    Throughput is how much computing a processor (or full computer system) can perform in a unit of time. Say that a processor can perform 50 million instructions in one second. The more computing each instruction does, the greater the throughput. So most processors have instructions that do much more than the bare minimum.
+
+-CISC and RISC
+    A CISC (Complex Instruction Set Computer) processor has many instructions, some of them complex instructions that do a lot per machine cycle. The Intel processors are CISC. A RISC (Reduced Instruction Set Computer) processor has few instructions, most of them simple. It may take several instructions to do the equivalent of a CISC instruction. The MIPS processors are RISC.
+
+-Rule 1 of structured programming
+    A code block is structured. In flow charting terms, a box with a single entry point and single exit point is structured.
+
+-Rule 2 of structured programming
+    Two or more code blocks in sequence are structured.
+
+-Rule 3 of structured programming
+     The alternation of two code blocks is structured.
+
+-Rule 4 of structured programming
+    The iteration of a code block is structured.
+
+-Rule 5 of structured programming
+    A structure (of any size) that has a single entry point and a single exit point is equivalent to a code block.
+
+
+
+
+
+
+
+
+
+
+
+

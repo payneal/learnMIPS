@@ -1,0 +1,105 @@
+Question #1: 
+Do all processor choips have the same archiecture? 
+NO
+
+Question#2: 
+(Rhetorical) Does your understanding of computers depend on which assembly language you study?
+NO
+
+Question #3: 
+Do you need to learn how to drive a car each time you buy a new one?
+NO
+
+Question #4:
+In what order are machine instructions executed by the basic machine cycle?
+one after another
+
+Question #5
+ Inspect the instruction. Is it clear what the bits of the instruction mean?
+No, but i would assume this is the case: some of the bits in the instruction specify the operation (adding two registers), other bits specify which two registers to add. A few more bits say were to put the result
+
+Question #6 
+Once you know assembly language, is it hard to write an assembly language statement?
+No
+
+Question #7 
+Do you think that languages such as COBOL, C, and Pascal are translated like FORTRAN?
+Yes
+
+Question #8 
+Is the architecture of the VAX similar to that of MIPS?
+no, VAX seems a little farther away from machine language
+
+Question #9 
+(Hard thought question:) What type of problem is assembly language best suited for?
+hardware questions
+
+Question #10 
+It it necessary to install four billion bytes of RAM on a MIPS computer? (Hint: the address range of a MIPS is the same as that of a 32-bit Pentium).
+No
+
+Question #11 
+(Hard Thought Question:) Must a machine language program be run on an actual processor chip (i.e., on hardware)? Hint: Think about Java.
+No
+
+Question #12 
+Is it possible to run an emulator for a MIPS processor on an actual hardware MIPS processor?
+Yes 
+
+Question #13 
+(Software Engineering Question:) Why translate many individual source files? Why not have one, big, complete program that translates into a complete, ready-to-run executable?
+because if you have one file its hard to have alot of programmers work on just one big program its better to break it up into pieces 
+
+Question #14
+C compilers come with libraries of useful functions. The standard math library contains functions like sin, cos, and rand. What do you suppose a software library is?
+Code already written that preforms certain calculations or functions that are commonly needed
+
+(A library is a collection of object modules which can be linked to the object module of your program.)
+
+
+Key subjects of the chapter: 
+
+Computer Architecture: 
+
+The architecture of a computer is a logical description of its components and its basic operations. In pure assembly language one assembly language statement corresponds to one basic operation of the processor. When a programmer writes in assembly language the programmer is asking for the basic operations of the processor. The architecture of the processor is visible in every statement of the program.
+
+machine cycle: 
+
+Most processors endlessly repeat three basic steps:
+
+Fetch the Instruction. The instruction is fetched from memory. The program counter (PC) is part of the processor. It contains the address of the instruction in memory.
+Increment the Program Counter. The program counter now points to the next instruction.
+Execute the Instruction. The operation asked for by the current machine instruction is performed.
+
+assembly language: 
+
+A statement in pure assembly language corresponds to one machine instruction. Assembly language is much easier to write than machine language.
+
+Pseudoinstructions: 
+
+additional convenience features that correspond to several machine instructions.
+
+Program translation: 
+
+The assembly language statement says the same thing as the machine language instruction, but must be translated into a bit pattern before it can be executed. An assembly language program consists of assembly language statements, statements that define data, and some additional information that helps in the translation.
+
+Main Memory: 
+
+the bytes that make up the machine instructions of a program are stored in main memory and fetched into the processor as needed. Data is also kept in main memory. Keeping both data and instructions in main memory is one of the characteristics of a Von Neumann machine, the name for the basic design of most modern computers.
+
+Uses:
+
+Assembly language does match the problem when the problem is the operation of the computer system. Assembly language is used for operating systems, compilers, communications, low-level graphics, and other programs where the architecture of the processor must be visible. Often with these program the crucial parts are written in assembly and the rest in a high level language (usually C). The most common use of assembly language is in programming embedded systems. Here a processor chip is part of a machine built for a specific purpose. Examples are aviation electronics, communication satellites, DVD players, robots, automobile electronics, cell phones, and game consoles 
+
+Emulation: 
+
+A program that implements a processor's architecture is the logical equivalent of an implementation in silicon. Such a program is called an emulator. Any computer can run an emulator of any kind of computer. Of course, somebody has to write the emulator, and that is difficult.
+
+Object module: 
+
+An object module is a file that contains a machine language program that is not quite ready to run. It may not be ready to run for several reasons: the source code might not be completely translated (since more information is needed), memory locations for code and data might not be assigned, and more code is needed before the program is complete. An assembler creates an object module for each source file of assembly language.
+
+Load modules: 
+
+In assembly language the pieces of a big application program can be written as separate source files and assembled into separate object modules. The separate object modules are then combined by a linker into a load module, an executable file
+ 

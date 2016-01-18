@@ -1,0 +1,74 @@
+## chapter13programs.asm
+
+## Program to complete all exercise assigmnets of chapter 13
+
+    .text
+    .globl main
+
+main:
+
+    #Ex.1
+
+    # write a program that adds up the following Int's: 
+    # 456
+    # -229
+    # 325
+    # -552
+
+   ori      $1, $0, 456          # put +456 into reg one
+   addiu    $1, $1, -229         # add -229
+   addiu    $1, $1, 325          # add 325
+   addiu    $1, $1, -552         # add -552
+
+   #Ex.2
+
+   # initialize the sum in register $8 to zero. Then add 4096_10 to $8 sixteen times.
+   # You don't know how to loop, yet, so do this by making 16 copies of the same instruction.
+   # The value 409610 is 0x1000.
+
+   ori      $8, $0, 0           # put 0 in reg $8
+   addiu    $8, $8, 4096        # ADD 409610 x16 times
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096
+   addiu    $8, $8, 4096
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096 
+   addiu    $8, $8, 4096
+       
+   # Next initialize register $9 to 4096_10. Shift $9 left by the correct number of positions so that 
+    #registers $8 and $9 contain the same bit pattern.
+
+  ori       $9, $9, 4096
+  sll       $9, $9,4 
+
+  # initialize a register $10 to 4096_10. Add $10 to itself the correct number of times
+    # so that it contains the same bit pattern as the other two registers.
+
+  ori       $10, $10, 4096
+  addu      $10, $10, $10
+  addu      $10, $10, $10 
+  addu      $10, $10, $10 
+  addu      $10, $10, $10
+
+  # clearing used regs
+   
+  ori       $8, $0, 0
+  ori       $9, $0, 0
+  ori       $10, $0, 0
+  
+  #------------------
+
+  #Ex.3
+
+  
+
+## End of file

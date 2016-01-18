@@ -1,0 +1,152 @@
+Question 1: 
+When a program is executing, does each machine instruction have an address in main memory?
+yes
+
+Question 2: 
+ What does a no-op instruction do?
+
+no-op instruction is an instruction that has no effect.
+
+Question 3: 
+(Thought question:) Is there anything in hardware that guarantees that the target of a jump instruction is an instruction (and not data)?
+no 
+
+Question 4: 
+fill in the blanks
+14, 00 
+
+Question 5: 
+While this is going on, what address is in the PC?
+The PC contains the address of the instruction that follows the jump instruction. Recall that the machine cycle is "fetch - increment PC - execute" so the PC will have been incremented.
+
+Question 6: 
+Some 32-bit processors have instructions of several lengths. Such processors can include the full 32-bit address in a jump instruction. But MIPS instructions are always 32 bits. Some sort of trick must be used with its jump instruction.
+
+Here is a great idea! Why not implement the jump instruction without using an explicit op-code? Build the processor so that when execution encounters a 32-bit address it automatically jumps to that address.
+
+Will this scheme work?
+No 
+
+QUESTION 7:
+Write the jump address 
+0x00400000 as 32 bits
+
+0000 0000 0100 0000 0000 0000 0000 0000
+
+Write the 26-bit field
+of the jump instruction:
+
+00 0001 0000 0000 0000 0000 0000
+
+Shift it left two positions:
+0000 0100 0000 0000 0000 0000 0000
+
+What are the high-order 
+four bits of the PC?
+0000
+
+Copy (4) to the left of (3):
+0000 0000 0100 0000 0000 0000 0000 0000
+
+Is (5) the same as (1)?
+Yes
+
+question 8: 
+After the loop has executed five times, what value will be in register $8? SPIM initializes all registers to zero when a program starts.
+
+question 9: 
+Is the jump instruction all we need to construct a while loop?
+No
+
+question 10: 
+Will a 32-bit address fit inside the 32-bit beq instruction?
+no 
+
+question 11: 
+Must the contents of registers $8 and $9 in this example be regarded as numbers?
+No. beq tests if the same 32-bit pattern is in each register. The pattern can represent anything.
+
+question 12: 
+Can a branch instruction implement a two-way decision (an if-then-else)?
+yes
+
+question 13:
+In an if-then-else structure, the two branches of control always come together at the first statement outside of the structure (the statement at cont (continue) in the example). Is this necessarily so in assembly language?
+
+No
+
+question 14: 
+Fill in the blanks.
+
+o, ssl
+
+question 15:
+Fill the blanks.
+
+31, 9, 0 
+
+Question 16:
+Fill in the blanks. 
+
+0, 0, 10
+
+ Question 17:
+Would the program work if "A" were unsigned binary?
+no 
+
+key terms:
+-The branch delay slot of MIPS.
+    it takes an extra machine cycle before the change in the PC takes effect. Before the PC changes, the instruction that follows the jump instruction in memory is fetched and executed. After that instruction executes, the next instruction to execute is the one that was jumped to. The instruction that follows a jump instruction in memory is said to be in the branch delay slot.
+
+-How changing the PC implements a branch
+    A loop structure is created with the jump instruction. The intent of the jump instruction is to put the address 0x00400000 into the PC. However, this effect is is not seen until after the instruction in the branch delay slot has executed.
+    
+-The jump instruction.
+    In our schematic programs, the "jump" instruction loaded the PC with a 32-bit address.
+
+How does a 32-bit instruction specify a 32-bit address? Some of the instruction's bits must be used for the op-code. Here is the assembly language form of the jump instruction.
+
+j    target     # after a delay of one machine cycle,
+                # PC  <-- address of target
+Here is the machine language form of the instruction:
+
+   6              26
+000010 00000000000000000000000000    -- fields of the instructuion
+
+opcode         target                -- meaning of the fields
+There is room in the instruction for a 26-bit address. The 26-bit target address field is transformed into a 32-bit address. This is done at run-time, as the jump instruction is executed.
+
+Instructions always start on an address that is a multiple of four (they are word-aligned). So the low order two bits of a 32-bit instruction address are always "00". Shifting the 26-bit target left two places results in a 28-bit word-aligned address (the low-order two bits become "00".)
+
+After the shift, we need to fill in the high-order four bits of the address. These four bits come from the high-order four bits in the PC. These are concatenated to the high-order end of the 28-bit address to form a 32-bit address.
+
+-The range of addresses to which a jump can go.
+ jump instruction can't jump to any arbitrary location in the full 32-bit address space. It must jump to an address within the following range:
+
+wxyz 0000 0000 0000 0000 0000 0000 0000
+                   .
+                   .
+                   .
+wxyz 1111 1111 1111 1111 1111 1111 1100
+
+-Symbolic addresses.
+    he symbolic address main stands for the address of the first instruction. The instruction   j main   tells the assembler to assemble a machine instruction with the proper 26-bit field so that control is transferred to main.
+
+-The branch on equal instruction.
+     conditional branch instruction branches to a new address only if a certain condition is true. Usually the condition is about the values in two registers. Here is the  beq  (branch on equal) instruction:
+
+beq  u,v,addr   # if register $u == register $v
+                #     PC  <— addr (after a delay of one machine cycle.)
+                # else
+                #     no effect.
+The bit patterns in two registers are compared. If the bit patterns are the same, the PC is changed to the branch address. There is a branch delay slot that follows this instruction (just as for a jump instruction).
+
+-The branch on not equal instruction.
+
+Here is the bne (branch on not equal) instruction:
+
+bne  u,v,addr   # if register $u != register $v
+                #     PC  <— addr (after a delay of one machine cycle.)
+                # else
+                #     no effect.
+

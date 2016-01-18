@@ -1,0 +1,100 @@
+Question #1
+
+Could a 32-bit MIPS instruction have room for a 16-bit two's complement integer?
+yes
+
+Question #2
+What bit pattern is contained in register $0 ?
+How many bits are there in each MIPS instruction?
+
+0000 0000 0000 0000 0000 0000 0000 0000, 32 bits
+
+Question #3
+After the instruction ori $8,$0,0x2 executes, what is in $8 ?
+0000 0000 0000 0000 0000 0000 0000 0010
+
+Question #4
+Can the immediate operand of an ori be regarded as a signed integer?
+bi becayse of sero extend to make a 32 bit
+
+Question #5
+Is the following instruction correct?
+ori  $0,$9,0x32
+
+No
+
+Question #6
+Here are the two patterns, written both in bit patterns and in hex. Perform the bitwise OR operation. (Do it with the bits, then re-write the answer in hex).
+
+0000 1111 1010 0101           0FA5 
+0011 0110 1000 1111           368F
+----------------------------------
+0011 1111 1010 1111           3fAF
+
+
+Question #7
+Here is the complete line for the first instruction from the source window:
+[0x00400000]    0x34080fa5    ori  $8, $0, 4005       ori  $8,$0,0x0FA5
+Look at the 32-bit machine instruction at address 0x00400000. Do you see the immediate operand in it?
+
+yes
+
+Question #8
+Here is the ori instruction again, but the patterns that specify the operand register, the destination register, and the immediate operand are blank. Fill in the blanks so the operand register is $10 , the destination register is $9 , and the immediate operand is 0xAFF0
+
+001101 _ _ _ _ _   _ _ _ _ _  _ _ _ _  _ _ _ _  _ _ _ _  _ _ _ _
+ori   operand Reg. dest reg.     a        f        f        0  
+
+      01010        01001       1010      1111       1111     0000
+
+Question #9
+Do the fields of two different machine instructions necessarily have the same size and same meaning?
+no
+
+Question #10 
+What type of program reads in strings of symbols encoded in ascii and outputs bit patterns that encode data and machine operations?
+an assembler
+
+Question #11
+is the following instruction correct? what does it do? 
+andi $8,$0,0xFFFF
+
+and of 0x0000, 0xffff and send it to $8 , Yes
+
+Question #12
+Here are the two patterns, written both in bit patterns and in hex. Perform the bitwise XOR operation. (Do it with the bits, then re-write the answer in hex).
+
+0000 1111 1010 0101       0FA5
+0011 0110 1000 1111       368F
+------------------------------
+0011 1001 0010 1010       392A
+
+Question #13
+What is the exclusive-OR of a bit pattern with itself? Try this with a few bit patterns written on a scrap of paper.
+
+all 0's 
+
+Question #14
+
+key terms: 
+
+-Immediate Operands
+An operand that is directly encoded as part of a machine instruction is called an immediate operand
+ 
+-Bitwise Logic
+A bitwise operation is where a logical operation is performed on the bits of each column of the operands.
+ 
+-ORI instruction
+OR Immediate  1-> 1 = 1, 1-> 0= 1, 0->1 = 1, 0->0= 0 
+
+-Machine code or the ORI instruction
+001101 
+
+-ANDI instruction
+The andi instruction does a bitwise AND of two 32-bit patterns
+
+-XORI instruction
+An exclusive OR is nearly the same as the more common OR (the inclusive OR) except that the result is zero when both operands are one.
+
+
+ 

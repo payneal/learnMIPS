@@ -1,0 +1,145 @@
+Question 1:
+What two conditional branch instructions did the previous chapter discuss?
+beg ->  branch if ==
+bne -> branch if != 
+
+Question 2: 
+Here is a statement in C (or in Java):
+    if ( !( a < 0 ) ) { ... }
+Rewrite it without using the not operator (the !).
+    if ( a ______ 0  ) { ... }
+
+answer: bgez
+
+Question 3: 
+A. After the following code executes, what value is in register $7 ?
+
+    addiu    $5,$0,-25
+    addiu    $6,$0,25
+    slt      $7,$5,$6
+
+B. After the following code executes, what value is in register $7 ?
+
+    addiu    $5,$0,-25
+    addiu    $6,$0,25
+    sltu     $7,$5,$6
+
+A.) 0
+B.) 1
+
+
+Question 4: 
+After the following code executes, what value is in register $7 ?
+
+addiu    $6,$0,25
+slti     $7,$6,37
+
+answe: 1
+
+
+Question 5: 
+Sketch a flow chart for this program.
+(used scratch piece of paperr) 
+
+Question 6: 
+Fill in the blanks.
+56 , 0, out
+
+Question 7: 
+Fill in the blanks
+30, cont, $0, 0
+
+Question 8: 
+Could the no-op instructions ( the sll) be removed without affecting the program?
+no 
+
+Question 9: 
+load instructions
+
+Question 10: 
+Is the following loop (in C) correct in all three parts? It is intended to execute 10 times starting at zero.
+yes
+
+Question 11: 
+Find and fill in the branch delay slots.
+after beq and j 
+
+question 12: 
+Examine the program. How could you modify it to compute the sum of the integers 0 through 9?
+yes, create a varible for sum and continiue to add each viration of loop
+
+question 13: 
+Of all the slls in the program, which one is the most dangerous to remove?
+one after beq
+
+key terms: 
+-The bltz and bgez instructions
+    These instructions compare the contents of a register to zero. The register's contents is assumed to be in two's complement representation.
+
+bltz   s,label        #  Branch if the two's comp. integer
+                      #  in register s is < 0
+                      #  A branch delay slot follows the instruction.
+bgez   s,label        #  Branch if the two's comp. integer
+                      #  in register s is >= 0
+                      #  A branch delay slot follows the instruction.
+
+-The slt and sltu instructions
+They set a register to 1 or 0 to show the relation between two values. The slt instruction is used with two's complement integers:
+
+                   #  $s and $t contain
+                   #  signed integers
+                   #
+slt   d,s,t        #  if ( $s < $t )
+                   #    d = 1
+                   #  else
+                   #    d = 0
+The sltu instruction is used with unsigned integers:
+
+                   #  $s and $t contain
+                   #  unsigned integers
+                   #
+sltu  d,s,t        #  if ( $s < $t )
+                   #    d = 1
+                   #  else
+                   #    d = 0
+
+-The stli and sltiu instructions
+     compare an operand register with an immediate value in the instruction. There is a version for two's complement:
+
+                   #  $s and imm contain two's comp. integers
+                   #  -32768 <= imm <= 32767
+                   #
+slti  d,s,imm      #  if ( $s < imm )
+                   #    d = 1
+                   #  else
+                   #    d = 0
+And a version for unsigned integers:
+
+                   #  $s and imm contain unsigned integers
+                   #  0 <= imm <= 32767
+                   #
+sltiu  d,s,imm     #  if ( $s < imm )
+                   #    d = 1
+                   #  else
+                   #    d = 0
+                   #
+
+-Range testing
+ay that you are writing a control program for a robot spray painter. The allowed temperature range for the paint is 30 degrees to 55 degrees Celsius. The device driver for the temperature sensor puts the temperature in register $2.
+
+Your program will test if the unsigned integer in register $2 is in range. If it is in range, register $3 is set to 1, otherwise to 0.
+
+-Counting loops
+A common type of program loop is one that is controlled by an integer that counts up from a initial value to an upper limit. Such a loop is called a counting loop. The integer is called a loop control variable. Loops are implemented with the conditional branch, jump, and conditional set instructions.
+
+A loop has three parts that must be correct:
+
+The counter must be initialized.
+The test must end the loop on the correct count.
+The counter must be increased.
+It is easy to get these wrong in a high-level programming language. It is remarkably easy to get them wrong in assembly language.
+
+Usually you want a top-driven loop
+
+
+

@@ -1,0 +1,94 @@
+Question 1
+What else (besides characters and integers) can be represented with bit patterns?
+music , images, etc 
+
+Question #2 
+Does the dos command TYPE expect a file containing ASCII characters
+YES 
+
+Question #3 
+Do some files contain bit patterns that represent things other than characters?
+Yes 
+
+Question #4 
+Is some of the information in the executable file encoded as ASCII?
+Yes
+
+Question #5 
+Could a computer terminal be a mechanical device?
+yes
+
+Question #6 
+Can the bit patterns that are used to represent characters represent other things in other contexts?
+Yes
+
+Question #7 
+How many of the total number of 8-bit patterns correspond to a character, (including control characters)? (Hint: look at the pattern for DEL).
+
+128 out of 256
+
+Question #8 
+What will be the assembled patterns for this assembly code:
+.asciiz   "A B"
+
+41 20 42 00 
+
+Question #9 
+You (acting as an "English Language Application") find a battered old book in a stall outside a bookshop. You open the book to a random page and see
+    Non sum qualis eram bonae sub regno Cynarae.
+Is this book suitable for you (in your role as an English application)?
+
+NO
+
+Question #10 
+A file compressor is a program that inputs a file and outputs a smaller file that uses bit patterns more efficiently that in the original file. A decompressor restores the compressed file to the original version.
+
+(Thought Question: ) When an ASCII file is compressed, does the resulting file contain ASCII characters? 
+NO 
+
+Question #11
+Say that you compress a text file with a file compression utility. What is the minimum compression can you expect?
+
+7/8 th's min but in all reality they can ofte compress a file to 50% or less
+
+Question #12
+Why are word processor files not text files?
+use different binary patterns (bit patterns)
+
+Key terms: 
+
+AscII 
+e. Typically one character is represented with one byte. The agreement by the American Standards Committee on what pattern represents what character is called ASCII. (There are several ways to pronounce "ASCII". Frequently it is pronounced "ásk-ee"). Most microcomputers and many mainframes follow this standard.
+
+When a printer built to print ASCII receives the ASCII pattern for "A" (along with some control signals), it prints an "A
+
+Teletype machines
+
+Teletype machines were used from 1910 until about 1980 to send and receive characters over telegraph lines. They were made of electrical and mechanical parts. They printed characters on a roll of paper. Various mechanical actions of the machine were requested from a distance by sending control characters over the line. A common control sequence was "carriage return" followed by "linefeed".
+
+AsCII chart 
+
+The chart shows some patterns used in ASCII to represent characters. 
+
+.asciiz(assembly language)
+
+rt of what an assembler does is to assemble the ASCII bit patterns that you have asked to be placed in memory. Here is a section of an assembly language program:
+
+.asciiz      "ABC abc"
+Here are the bit patterns that the assembler will produce in the object module:
+
+41 42 43 20 61 62 63 00
+
+Text files
+
+Text File: A file containing a sequence of bytes. Each byte holds a bit pattern which represents a printable character or one of several control characters (using the ASCII encoding scheme). Not all control characters are allowed. The file can be used with a text editor and can be sent to a hardware device that expects ASCII character codes.
+
+Executable files
+
+Executable File: A file containing a sequence of bytes. Each byte holds a bit pattern that represents part of a machine instruction for a particular processor. The operating system can load (copy) an executable file into main storage and can then execute the program.
+
+Binary Files
+  
+Binary File (colloquial): a file in which a byte might contain any of the possible 256 patterns (in contrast to a text file in which a byte may only contain one of the 128 ASCII patterns, or fewer).
+
+

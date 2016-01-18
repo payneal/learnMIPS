@@ -1,0 +1,94 @@
+Question #1
+Why is a digital wristwatch called "digital?"
+because it has a computer in it
+
+Question#2
+Which of the following is a binary device:
+a button on an electronic calculator
+
+Question#3 
+Which is easier to build:
+An on/off switch.
+
+Question#4
+Which of the following methods for producing books is simple and easy?
+Many copies of the book are made by setting movable type and printing the text on paper.
+
+Question #5 
+Which is easier to do: (a) determine exactly how bright a light is, or (b) decide if it is on or off
+B
+
+Question #6 
+Why can an abacus be regarded as a digital computer.
+they have a fixed number of definite states.
+
+(The computation is done by moving beads into definite positions. A bead is either placed where it counts as part of a number, or it is placed where it does not count. This "all or nothing" operation means that an abacus is a discrete device.)
+
+Question #7 
+At time "T2", is the signal "on" or "off"?
+ON
+
+Question #8 
+Is is clear that the signal is "off" at time T1 and "on" at time T2?
+yes
+ 
+Question#9 
+If the signal were regarded as an analog signal, and exact values were important, would some information present in the first signal (before the noise) have been lost?
+Yes 
+
+Question#10 
+Something might be wrong here. Is the signal "on" or "off" at the time "x"? This is not easy to tell. What is worse, a different amount of noise changes the answer. What can be done about this problem? (Hint: must the value of the signal be known at all times?)
+Only be concered about the signal at certain times
+
+Question #11
+Which is faster, a 2 GHz processor or a 4 GHz processor?
+4 
+
+Question #12 
+Can characters from alphabets other than English be represented?
+yes 
+
+Question #13
+Can printed music be represented using binary?
+yes 
+
+Question#14
+Sometimes people say, "All that a computer can handle is numbers. It doesn't understand anything else." Do you think that this is correct?
+
+NO 
+
+Key things: 
+
+What "binary" means:
+
+Binary means "two states." The two states are sometimes called "1" and "0", or called "true" and "false", or called "on" and "off", (or other names.) The essential characteristic is that a single binary device can be in just one of two possible states.
+
+what is a "bit" is: 
+
+A bit is a single "on/off" value.
+
+the advantages of using binary is a computer:
+
+1.) Simple and easy to build.
+2.) Unambiguous signals (hence noise immunity).
+3.) Flawless copies can be made.
+4.) Anything that can be represented with some sort of pattern can be represented with patterns of bits.
+
+what "analog" means: 
+
+analog signal may continuously change in value. Its values can be anything within a range of values, and its exact value at any time is important.
+
+How thresholds are used: 
+
+ using a threshold, analog signals can represent binary data ("on/off" data).
+
+the master clock of a computer: 
+
+processor
+
+Memory contents as bit patterns: 
+
+Anything that can be represented with patterns can be represented with patterns of bits.
+All that computer memory holds is bit patterns. What those bit patterns represent depends on how they are used.
+
+
