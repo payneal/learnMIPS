@@ -1,0 +1,231 @@
+Chapter 21
+
+Question #1
+(Review) What is a general purpose register? 
+
+A register is an electronic device that holds bit patterns. A general purpose register is a register that is visible to assembly language. The floating point registers, although visible to assembly language, are not regarded as general purpose registers.
+
+Question #2
+Are programs written in extended assembly code executed on the same MIPS processor we have been looking at?
+yes
+
+Question #3
+The programs in the previous chapters used registers $8 through $15. What are the mnemonic names for these registers? See the register table.
+$t0 -$t7 
+
+Question #4
+Is the following code fragment correct?
+
+        ori  $s0,$0,13    # load 13 into a saved register
+        ori  $s1,$0,45    # load 45 into a saved register
+
+        jal  subrout      # subroutine call (don't worry about 
+                          # the details of this, now).
+        sll  $0,$0,0      # branch delay slot
+
+back:   addu $s0,$s0,$s1  # return from subroutine
+
+Yes — the fragment makes no assumptions about what is in temp registers after the subroutine call.
+
+Question #5
+What does the following assembly language instruction do?
+addu $t5,$zero,$t7
+
+It copies the contents of register $t7 into register $t5.
+
+Question #6
+Write the instruction that moves (copies) the contents of register $t3 into register $s1.
+move $s1, $t3
+
+Question #7
+(Review:) What is in register $t5 after the following instruction: ori $t5,$0,74
+74
+
+Question #8
+Translate the following pseudoinstruction into the corresponding basic assembly instruction (use mnemonic register names):
+
+li $v0, 12
+
+ori $v0, $zero, 12
+
+Question #9 
+Can either basic instruction, ori or addiu, use an immediate value greater than 16 bits?
+
+No
+
+Question #10 
+Translate the following pseudoinstruction into basic assembly instructions:
+
+li $t7,0xFF001234
+ 
+== 
+
+lui     $t7, __________
+___     $t7, $t7, 0x1234 
+
+0xFF00
+ori 
+
+Question #11
+what is a symbolic address?
+
+name used in source code for a location in memory.
+
+Question #12
+(Review:) The picture is a run-time snapshot of memory taken while a program is running. In the picture, what data is in the word starting at address 0x1000000C?  _______
+What is the address of the word containing 0x00000002? _________
+
+0x00000003, 0x10000008
+
+Question #13
+have our previous programs put addresses in registers? 
+yes with lui, but it works
+
+
+Question #14
+Is there something awkward about this code?
+
+it will work an makes sense but its not how we have previously done things we would just use addition to move to that location yet in this example the programmer would need to know the location ahead of time
+
+Question #15
+Does the la instruction access (look at) memory?
+No, its loads an address
+
+Question #16
+This la instruction translates into two machine instructions. What two instructions does it translate into? (Answer with two instructions mnemonics.)
+
+lui, ori
+
+Question #17
+(Trick Question:) How many times will F10 be pushed?
+6 
+
+Question #18
+In the register table. What is the mnemonic name for register $1?
+
+$at
+
+Question #19
+What base register is used?
+$at aka $1
+
+Question #20
+Should the lw pseudoinstruction be followed by a load delay slot? (Hint: look at its translation)
+yes, it still ends with lw so will need delay
+
+Question #21
+Play Pseudocomputer: translate the sw instruction into non-extended instructions:
+
+sw   $t0,someWord   
+
+translated as:   
+
+lui  _____, 0x1000
+
+sw   _____, 12(__ )
+
+
+$1, $8, $1
+
+Question #22
+What big assumption was made in writing this program?
+The program assumes that all calculations fit into 32 bits.
+
+key terms: 
+- Mnemonic register names
+
+Reg #      |     Mnemonic #    |     Convential Use                 |     Reg #       |     Mnemonic #     |    Conventional Use
+
+$0               $zero               Permanently 0                      $24, $25            $t8, $t9            Temporary
+$1               $at                 Assembler Temporary                $26, $27            $k0, $k1            Kernel
+$2, $3           $v0, $v1            Value returned by a subroutine     $28                 $gp                 Global Pointer
+$4-$7            $a0-$a3             Subroutine Arguments               $29                 $sp                 Stack Pointer
+$8-$15           $t0-$t7             Temporary
+$30              $fp                 Frame Pointer
+$16-$23          $s0-$s7             Saved registers
+$31              $ra                 Return Address
+
+- The assembler temporary register
+Subroutines use local variables, variables that are not used anywhere but in the subroutine. The temporary registers $t0-$t7,$t8, and $t9 and the saved registers $s0-$s7 are used for local variables (or for the same idea in assembly language).
+
+When you write a program the temporary registers and saved registers are yours to use however you want. But, by software convention, the temporary registers may be changed by any subroutine you call. The saved registers are not changed by a subroutine call.
+
+- The kernel of an operating system
+The most fundamental part of an operating system is the kernel. The rest of the OS is mostly implemented using the functions provided by the kernel. Two registers, $k0 and $k1, are reserved for the kernel. Applications programs (and most OS subroutines) should not touch them.
+
+- Systems software and symbolic addresses
+A symbolic address stands for whatever location in memory a particular datum or instruction ends up at. Usually this is not known in advance. Often a program is built using several object modules, library modules, and assembler source files. (See Chapter One on separate assembly.) The various modules refer to locations in each other by using symbolic addresses. The actual addresses are determined by system software when all the modules are linked together and loaded into memory. It is very hard (and not necessary) for a programmer to determine what addresses various items will eventually have.
+
+The assembler enables a programmer to refer to an address by a symbol, even when the address will not be known until much later in the process of building an executable. The assembler and subsequent systems software (linker and loader) keep track of the symbolic address until the address it represents is finally determined. Just before run time, everything is resolved. A machine language program and data can then be loaded into memory and executed.
+
+- Pseudoinstructions and the pseudocomputer
+pseudoinstruction that the assembler translates into the appropriate basic assembly instruction.
+
+A pseudoinstruction is an instruction that the extended assembler replaces with one or more basic assembly instructions.
+
+The extended assembler implements many pseudoinstructions. Sometimes they are just convenient re-naming of basic assembly instructions. Other times they correspond to a small, convenient sequence of basic assembly instructions
+
+- The move pseudoinstruction
+It is awkward to say "add" when you mean "move". The extended assembler allows you to use the mnemonic move instead of addu
+
+move d,s        #  copy the contents of 
+                #  the source register s
+                #  to the destination register d
+                #  (pseudoinstruction)
+
+
+- The la pseudoinstruction
+It is not always possible to know the address in advance. Conveniently, symbolic addresses and systems software make this unnecessary. This happens by using the la mnemonic. This mnemonic does not correspond to a single machine instruction. It is a pseudoinstruction that the assembler translates into to several machine instructions.
+
+ la   d,exp          #  load register $d with the address
+                    #  described by the expression "exp"
+                    #  "exp" is often a symbolic address
+                    #  (pseudoinstruction)
+In this pseudoinstruction, exp is an expression that evaluates to a memory address. There are several possible forms for exp. Often it is a symbolic address. The la pseudoinstruction translates into different machine code instructions depending on exp.
+
+- lw pseudoinstruction
+The lw pseudoinstruction copies a word of data from memory into a register seemingly in one step:
+
+lw    d,exp      #  Load register $d with the value at 
+                 #  address exp.  exp can be any
+                 #  of several expression types 
+                 #  that evaluate to  an address
+                 #  (pseudoinstruction) 
+Here is a possible translation the pseudoinstruction lw. Say that the symbol data stands for the address 0x10000004
+
+lw $t0,data   ==   lui $1,0x1000
+                   lw $8,4($1)
+The base address in $1 is 0x10000000 after the lui instruction executes. The lw instruction adds 4 to that address to form the desired address.
+
+- sw pseudoinstruction
+
+The sw mnemonic is used both by the basic assembler and the extended assembler. As a pseudoinstruction it can store a register to memory in one instruction.
+
+sw    d,exp      #  Store register $d into the word at address exp. 
+                 #  exp can be any of several expression types 
+                 #  that evaluate to an address
+                 #  (pseudoinstruction) 
+
+
+- nop pseudoinstruction
+The nop pseudoinstruction translates into sll $0,$0,0. This is the "no operation" instruction we have been using all along.
+
+nop              #  no operation.
+                 #  do nothing for one machine cycle.
+                 #  (pseudoinstruction) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
