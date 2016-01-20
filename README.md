@@ -1,9 +1,9 @@
 ##  learn MIPS Aassembly Language
 
-# Programmed Introduction to MIPS Assembly Language
-# Central Connecticut State University
+## Programmed Introduction to MIPS Assembly Language
+## Central Connecticut State University
 
-# QtSpim Edition, August 2015
+## QtSpim Edition, August 2015
 
 This is a course in assembly language programming of the MIPS processor. It emphasizes the topics needed for study of computer architecture: bits, bit patterns, operations on bit patterns, and how bit patterns represent instructions and data. This course is equivalent to a semester-long junior college or university course (except, perhaps, for the emphasis on bit patterns).
 
