@@ -1,0 +1,39 @@
+Chapter 22
+
+Question 1: 
+In an actual bare machine (real hardware) do you suppose that it is easy to write a character to the terminal?
+
+No 
+
+Question 2: 
+Is syscall a basic instruction or a pseudoinstruction?
+
+basic
+
+Question 3: 
+What (do you think) the exit service does for a program running on a computer with a real operating system?
+exits the program
+
+returns control to the operating system without expecting to get control back.
+
+Question 4: 
+fill in the blanks
+
+_________ $v0,4             # code 4 == print string
+_________ $a0,message       # $a0 == address of the string
+_________                   # Ask the operating system to preforen the service
+
+        ...........
+
+                .data
+    message:    .asciiz         "Intruder Alert!\n"
+
+li, la, syscall 
+
+Question 5: 
+On a real (hardware) computer, what is the exception handler?
+
+It is a machine language program in memory (possibly in ROM).
+
+Question 6: 
+
