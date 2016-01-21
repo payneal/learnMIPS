@@ -36,4 +36,113 @@ On a real (hardware) computer, what is the exception handler?
 It is a machine language program in memory (possibly in ROM).
 
 Question 6: 
+can you single step starting at address 0x00400000 as before?
+
+yes
+
+Question 7: 
+What happens if the program were slightly modified, as follows:
+
+main:
+        li      $v0,4       # code 4 == print string
+        la      $a0,string  # $a0 == address of the string
+        addiu   $a0,1       # add one to the address
+        syscall             # Invoke the operating system.
+        . . .
+        .data
+string: .asciiz      "Hello SPIM!\n"
+
+program prints ello SPIM!
+
+Question 8: 
+The print integer prints an integer on the simulated monitor. But what must it do first, before printing?
+
+converts the integer in $a0 from 32-bit two's complement representation into ASCII characters.
+
+Question 9: 
+The program prints "Pounds" and "Ounces" on separate lines. Change the program so that they are printed on one line.
+
+take out \n for pout
+
+Question 10: 
+Is the string that is read in immediately suitable for output using the print string service?
+
+yes 
+
+Question 11: 
+Can blank spaces be part of the name that the user enters?
+
+yes
+
+Question 12: 
+Is "backspace" a character?
+yes, ascii 0x08
+
+Question 13: 
+What mode of input (raw or cooked) does a text editor use?
+
+raw 
+
+
+key terms: 
+- syscall instruction
+Assembly language programs request operating system services using the syscall instruction. The syscall instruction transfers control to the operating system which then performs the requested service. Then control (usually) returns to the program. (This description leaves out many details).
+
+- Exception handler services
+1 print int
+2 print float
+3 print double
+4 print string
+5 read int
+6 read float
+7 read double
+8 read string 
+9 allocate memory
+10 exit
+
+- print string
+The print string SPIM exception handler service prints a null terminated string to the simulated monitor. The address of the string is loaded into register $a0. Typically the string is in the data section of memory.
+
+ex. 
+
+li      $v0,4       # code 4 == print string
+la      $a0,string  # $a0 == address of the string
+syscall             # Ask the operating system to 
+                    # perform the service.
+    . . . .
+
+        .data
+string: .asciiz      "Hello SPIM!\n"
+
+- Using the exception handler with SPIM
+
+To use the exception handler with SPIM do the following in the Simulator Settings panel. Set the options "Allow pseudoinstructions" and "Load trap file". Disable "Mapped I/O".
+
+- read integer
+The read integer service reads an entire line of input from your keyboard—all the characters you type up to the newline character. These characters are expected to be ASCII digits '0', '1', .., '9' with an optional leading '-' or '+'. The characters are converted into a 32-bit two's complement representation of the integer which is returned in $v0.
+
+li      $v0,5     # code 5 == read integer
+syscall           # Invoke the operating system.
+                  # Read in one line of ascii characters.
+                  # Convert them into a 32-bit integer.
+                  # $v0 <-- two's comp. int.
+
+- read string
+li      $v0,8       # code 8 == read string
+la      $a0,buffer  # $a0 == address of buffer
+li      $a1,16      # $a1 == buffer length
+syscall             # Invoke the operating system.
+
+ . . . .
+
+        .data
+buffer: .space 16   # reserve 16 bytes 
+
+
+
+
+
+
+
+
 
