@@ -1,0 +1,84 @@
+Question 1: 
+What is the bitwise not of this pattern:
+0011 1001
+
+1100 0110
+
+QUESTION 2:
+Translate the following:
+    not $s1,$t5
+into a nor instruction:
+
+    nor ________, __________, __________
+
+
+$s1, $t5, $0 
+
+QUESTION 3:
+Is there both a basic add instruction and an add immediate instruction?
+yes
+
+Question #4 
+Translate the following:
+
+addu $s1,$s0,40000
+into basic instructions. (Use mnemonic register names.)
+
+li   ______, 40000          # use pseudoinstruction li
+addu $s1   , $s0    ,______ # perform 32-bit addition
+
+$at, $at 
+
+Question #5
+Translate this instruction
+
+    negu $v2,$s3 
+into a basic instruction:
+    
+    sub  _______, $0, _________
+
+
+Question #6
+Finish the translation:
+    
+    mul $v2,$s3,$t0
+    
+Translates into:
+    mult   ________, ________
+    mflo  _________
+
+$s3, $t0, $v2 
+
+Question #7
+Finish the translation. The operand registers are $s1 and $s2, the destination register is $t0.
+div $t0,$s1,$s2
+
+Translates into: 
+    div ________, ________ 
+    mflo _________
+
+$s1, $s2, $t0
+
+Question #8
+Is the remainder of an integer division sometimes useful?
+yes 
+
+Question #9
+What total amount is given to a waiter if the bill is $25, the tax rate is 8%, and the tip is 15% ? (Use integer math).
+30 
+
+Question #10
+ With your mental highlighter, mark the mnemonics in the code fragment (above) which are pseudoinstructions.
+
+li, la, li , move
+
+Question #11
+Fill in the blanks to complete the calculation section.
+
+
+
+
+
+
+
+
