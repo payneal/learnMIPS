@@ -61,7 +61,7 @@ main:
             la      $t4, array2               # point to array2
             la      $t7, result               # point to array3   
         
-            loop 
+            #loop 
     loop: 
             beq     $t8, $t1, done            # if count == loop then done
             lw      $t3, 0($t2)               # put array1[0] in $t3
