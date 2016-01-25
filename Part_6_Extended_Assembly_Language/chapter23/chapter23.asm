@@ -254,7 +254,7 @@ main:
     ## set up first part of division
         li         $t0, 0             # count = 0 
         li         $t1, 0             # total = 0 
-        move       $t2, $s3           # put range $t3
+        move       $t2, $s3           # put range $t2
 
     loop1: 
         beq        $t0, $s0, loop1End # stop when count == how many numbers
@@ -274,8 +274,19 @@ main:
         j          loop1
     
     loop1End: 
-    ## set up second part of division
+        move       $s4, $t1         # hold the total here 
         
+    ## set up second part of division
+        li        $t0, 0            # count = 0
+        li        $t1, 0            # total = 0
+        li        $t2, 1            # put 1 in $t2
+    
+    loop2: 
+        # I am here 
+        beq           
+    
+        j       loop2
+        move    $s5, $t1          # hold the total here
 
     ## divid the two
 
