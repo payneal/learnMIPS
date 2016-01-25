@@ -75,10 +75,133 @@ li, la, li , move
 Question #11
 Fill in the blanks to complete the calculation section.
 
+tip, tax , mul, div, addu
+
+Question #12
+Fill in the blanks to complete the program
+
+li, la, move, li, la, move, li
+
+Question #13
+What is the bit pattern in register $t1 after the following: 
+
+li   $t0,0x12345678
+sll  $t1,$t0,8
+
+0x34567800
+
+Question #14
+Rotate right this pattern by two bit positions:
+10001100
+
+0010 0011
+
+Question #15
+Inspect the following:
+
+li  $t2,-2
+li  $t1,4
+ror $t0,$t1,$t2
+
+What does $t0 hold after the sequence has executed?
+
+0001 0000
+
+key terms: 
+
+- not pseudoinstruction
+    The not pseudoinstruction changes each bit in a register. Each 1 is changed to a 0 and each 0 is changed to a 1. (This is sometimes called "flipping" each bit or "reflecting" each bit.)
+
+not   d,s  # load register d with the 
+           # bitwise not of register s
+           # (pseudoinstruction)
+
+- Implicit immediate operands
+    Some pseudoinstructions translate into different basic instructions depending on the type of operands. A pseudoinstruction used with an immediate operand translates into different basic instructions than one used with all register operands.
+
+Sometimes the same mnemonic is used for a basic instruction and also for a pseudoinstruction    
+
+- addu pseudoinstruction
+    With the non-extended assembler there is an  addu d,s,t  instruction where d, s, and t are registers, and an  addiu d,s,imm  instruction where imm is an immediate operand.
+
+With the extended assembler the  addu d,s,x  instruction translates into different basic instructions depending on x. x can be a register, a 16-bit immediate operand, or a 32-bit immediate operand.
+
+- subu pseudoinstruction
+    he li in the above is itself a pseudoinstruction. The extended assembler will translate it, also, into basic instructions.
+
+There is also (with the extended assembler) a subu d,s,x instruction where the last operand can be a register, a 16-bit immediate, or a 32-bit immediate. This instruction translates into the pseudoinstruction addu d,s,-x (which is then translated into basic instructions).    
+
+- mul pseudoinstruction
+    The mul pseudoinstruction makes it look as if MIPS has a 32-bit multiply instruction that places its 32-bit result:
+
+mul  d,s,t # multiply $s by $t. put the
+           # result in $d
+           # (pseudoinstruction)
+There is no overflow checking. The bits of hi are not examined nor saved. There are several other pseudoinstructions that examine hi and perform various actions on overflow. We won't use them.    
+
+- div pseudoinstruction
+
+    The SPIM extended assembler includes these instructions:
+
+div  d,s,t # divide $s by $t. Put the
+           # quotient in $d. Operands are
+           # two's complement.
+           # (pseudoinstruction)
+and
+
+divu d,s,t # divide $s by $t. Put the
+           # quotient in $d. Operands are
+           # unsigned.
+           # (pseudoinstruction)
+
+- remu pseudoinstruction
+    After a 32-bit integer division, the quotient is in the lo register and the remainder is in the hi register. The following pseudoinstruction uses several basic instructions to compute the remainder:
+
+remu d,s,t # divide $s by $t. Put the
+           # remainder in $d. Operands are
+           # unsigned.
+           # (pseudoinstruction)
+There is a pseudoinstruction for creating the absolute value of an integer:
+
+ abs d,s    # d = |s|
+           # (pseudoinstruction)
+
+- negu pseudoinstruction
+    The  negu d,s  pseudoinstruction calculates the two's complement negation of register $s and puts it in register $d.
+
+ negu d,s   # d = -s
+           # (pseudoinstruction)
+
+- abs pseudoinstruction
+    After a 32-bit integer division, the quotient is in the lo register and the remainder is in the hi register. The following pseudoinstruction uses several basic instructions to compute the remainder:
+
+remu d,s,t # divide $s by $t. Put the
+           # remainder in $d. Operands are
+           # unsigned.
+           # (pseudoinstruction)
+There is a pseudoinstruction for creating the absolute value of an integer:
+
+ abs d,s    # d = |s|
+           # (pseudoinstruction)
+
+- Bit rotation
+    With a shift left instruction, the bits at the left end of the the register "fall off". The bits shifted into the right end are always zero bits.
+
+With a rotate left instruction, the bits at the left end of the the register are fed into the right end of the register. The 32-bit register always contains the same 32-bit values it started with, but they are rotated into new positions.
+
+In the illustration, after rotating left one bit the pattern changes from 10100111 to 01001111. One more left rotate would change the pattern to 10011110.
+
+Of course, registers have 32 bits, not the eight bits shown in the illustration.
+
+With a rotate right instruction, bit values in the register are moved right. Bits at the right end of the register are fed back into the left end of the register.
 
 
+- Rotate pseudoinstructions
+    The rotate instructions are both pseudoinstructions. Each one takes four basic instructions to implement. The shift amount is given in a register or as an immediate operand.
 
-
-
-
+rol d,s,t    # d <—s rotated left by t
+             # (pseudoinstruction)
+ror d,s,t    # d <— s  rotated right by t
+             # (pseudoinstruction)
+Negative immediate operands are not allowed. However, if the third operand is a register it may contain a negative integer. In that case the rotation is the opposite direction.
 
