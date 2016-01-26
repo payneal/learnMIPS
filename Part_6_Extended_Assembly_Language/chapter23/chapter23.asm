@@ -12,88 +12,88 @@ main:
 #   For the upper limit of the loop use the number divided by two. (A better upper limit would be the square root of the number, see below.)
 
     ## set up constansts 
-        #li          $s0, 1                           # need to hold the value 1
+        li          $s0, 1              # need to hold the value 1
 
     ## ask for number
-        #li          $v0, 4              # code 4 == print string
-        #la          $a0, prompt1        # "enter a pos int"
-        #syscall
+        li          $v0, 4              # code 4 == print string
+        la          $a0, prompt1        # "enter a pos int"
+        syscall
     
     ## read in number
-        #li          $v0, 5              # code 5 == read int
-        #syscall
+        li          $v0, 5              # code 5 == read int
+        syscall
     
     ## number < 1 
-        #blt         $v0, $s0, error1      # less than 1 so senf to error 
-        #nop
+        blt         $v0, $s0, error1    # less than 1 so senf to error 
+        nop
     
     ## hold entered #
-        #move         $t0, $v0            # moved input number top temp0   
+       move         $t0, $v0            # moved input number top temp0   
 
     ## number == 1 
-       #beq          $t0, $s0, notPrime  # number == 1 so send to error 
-       #nop
+       beq          $t0, $s0, notPrime  # number == 1 so send to error 
+       nop
 
     ## loop that goes 2 -> number if remainder != 0 break (not prime) only go number/2
-       #div          $s1, $t0, 2         # number entered / 2 put in $s1       
-       #li           $t1, 2              # count == 2
+       div          $s1, $t0, 2         # number entered / 2 put in $s1       
+       li           $t1, 2              # count == 2
     
-    #loop:                               
-        #bgt         $t1, $s1, prime     # if is makes it to this point number is prime
-        #nop    
+    loop:                               
+        bgt         $t1, $s1, prime     # if is makes it to this point number is prime
+        nop    
  
-        #remu        $t2, $t0, $t1       # $t2 = remainder of - (x/2) / count
+        remu        $t2, $t0, $t1       # $t2 = remainder of - (x/2) / count
         
-        #beq         $t2, $0, notPrime   # if remainder == 0 its not prime 
-        #nop
-        #addiu        $t1, $t1, 1
-        #j           loop                # keep going entire loop
-        #nop
+        beq         $t2, $0, notPrime   # if remainder == 0 its not prime 
+        nop
+        addiu        $t1, $t1, 1
+        j           loop                # keep going entire loop
+        nop
         
     ## end of the program
    
-    #end:
-        #li          $v0, 10             # code 10 == exit
-        #syscall                         # halt the program
+    end:
+        li          $v0, 10             # code 10 == exit
+        syscall                         # halt the program
 
-   #error1: 
-        #li          $v0, 4              # code 4 == print string
-        #la          $a0, err1           # "must enter pos int"  
-        #syscall                         
+   error1: 
+        li          $v0, 4              # code 4 == print string
+        la          $a0, err1           # "must enter pos int"  
+        syscall                         
 
-        #j           end                 # programs over
-        #nop  
+        j           end                 # programs over
+        nop  
        
-   #notPrime:      
-        #li          $v0, 1              # code 1 == print int
-        #move        $a0, $t0            # put entered value in position to print
-        #syscall
+   notPrime:      
+        li          $v0, 1              # code 1 == print int
+        move        $a0, $t0            # put entered value in position to print
+        syscall
 
-        #li          $v0, 4              # code 4 == print string
-        #la          $a0, err2           # "is not a prime number"
-        #syscall
+        li          $v0, 4              # code 4 == print string
+        la          $a0, err2           # "is not a prime number"
+        syscall
 
-        #j           end                 # programs over
-        #nop
+        j           end                 # programs over
+        nop
     
-    #prime: 
-        #li          $v0,1              # code 1 == print int
-        #move        $a0, $t0           # put eneteded value in position to print
-        #syscall
+    prime: 
+        li          $v0,1              # code 1 == print int
+        move        $a0, $t0           # put eneteded value in position to print
+        syscall
 
-        #li          $v0, 4            # code 4 === print string
-        #la          $a0, itsPrime     # "its prime"
-        #syscall
-        #j           end               # programs over
-        #nop
+        li          $v0, 4            # code 4 === print string
+        la          $a0, itsPrime     # "its prime"
+        syscall
+        j           end               # programs over
+        nop
 
-#            .data
-#prompt1:    .asciiz  "Enter a positive integer: "
-#prompt2:    .asciiz  "you entered: "
-#newL:       .asciiz  "\n"
-#err1:       .asciiz  "You must enter a positive enter\n"
-#err2:       .asciiz  " is not a prime number\n"
-#itsPrime:   .asciiz  " is a prime number\n"
+            .data
+prompt1:    .asciiz  "Enter a positive integer: "
+prompt2:    .asciiz  "you entered: "
+newL:       .asciiz  "\n"
+err1:       .asciiz  "You must enter a positive enter\n"
+err2:       .asciiz  " is not a prime number\n"
+itsPrime:   .asciiz  " is a prime number\n"
 
 #2 
 
@@ -110,70 +110,70 @@ main:
     # integers 0, 1, 2, 3, ... and their squares 0, 1, 4, 9, ... As soon as the square of an integer exceeds N, then the previous integer is the integer square root of N.
     
         ## ask for a number
-        #li          $v0, 4              # code 4 == print string  
-        #la          $a0, prompt1        # "enter a number"
-        #syscall
+        li          $v0, 4              # code 4 == print string  
+        la          $a0, prompt1        # "enter a number"
+        syscall
 
         ## collect int entered
-        #li          $v0, 5              # code 5 == read int  
-        #syscall 
-        #move        $s0, $v0            # store the number entered in save reg
+        li          $v0, 5              # code 5 == read int  
+        syscall 
+        move        $s0, $v0            # store the number entered in save reg
         
         ## integer square root is undefined for negative integers
-        #blt         $s0, $0, negNum    # if input # < 0, its negitive number
-        #nop         
+        blt         $s0, $0, negNum    # if input # < 0, its negitive number
+        nop         
         
         ## set up for loop
-        #li         $t0, 0               # count == 0  
+        li         $t0, 0               # count == 0  
 
-    #loop: 
+    loop: 
         ## loop to get 
-        #mul        $t1, $t0, $t0       # $t1 = count*count
-        #bgt         $t1, $s0, sqrt      # if 2(count) >      
-        #nop
+        mul        $t1, $t0, $t0       # $t1 = count*count
+        bgt         $t1, $s0, sqrt      # if 2(count) >      
+        nop
         
-        #move        $t3, $t0            # put value in t0 in t3
-        #addiu       $t0, $t0, 1         # count ++
-        #j           loop                # do loop again
-        #nop
+        move        $t3, $t0            # put value in t0 in t3
+        addiu       $t0, $t0, 1         # count ++
+        j           loop                # do loop again
+        nop
         
         ## end of the program
-    #end:
-        #li          $v0, 10             # code 10 == exit
-        #syscall                         # halt the program
+    end:
+        li          $v0, 10             # code 10 == exit
+        syscall                         # halt the program
     
-    #sqrt: 
-        #li          $v0, 4              # code 4 == print string
-        #la          $a0, theSqrt        
-        #syscall
+    sqrt: 
+        li          $v0, 4              # code 4 == print string
+        la          $a0, theSqrt        
+        syscall
 
-        #li          $v0, 1              # code 1 == print int 
-        #move        $a0, $s0            
-        #syscall
+        li          $v0, 1              # code 1 == print int 
+        move        $a0, $s0            
+        syscall
         
-        #li          $v0, 4              # code 4 == print string 
-        #la          $a0, is 
-        #syscall             
+        li          $v0, 4              # code 4 == print string 
+        la          $a0, is 
+        syscall             
 
-        #li          $v0, 1              # code 1 == print int
-        #move        $a0, $t3            
-        #syscall
+        li          $v0, 1              # code 1 == print int
+        move        $a0, $t3            
+        syscall
         
-        #j           end                 # end of program 
-        #nop
+        j           end                 # end of program 
+        nop
 
-    #negNum:
-        #li          $v0, 4              # code 4 == print string
-        #la          $a0, negative       # "undefined" 
-        #syscall
-        #j           end
-        #nop
+    negNum:
+        li          $v0, 4              # code 4 == print string
+        la          $a0, negative       # "undefined" 
+        syscall
+        j           end
+        nop
         
-#            .data
-#prompt1:    .asciiz     "Enter a number: "
-#negative:   .asciiz     "The integer square root is undefined for negative integers.\n"
-#theSqrt:    .asciiz     "the square root of "
-#is:         .asciiz     " is " 
+            .data
+prompt1:    .asciiz     "Enter a number: "
+negative:   .asciiz     "The integer square root is undefined for negative integers.\n"
+theSqrt:    .asciiz     "the square root of "
+is:         .asciiz     " is " 
     
 
 #(idk why it jumps to #6) 
@@ -249,12 +249,12 @@ main:
         nop 
         # ----------------
         
-        
-
     ## set up first part of division
         li         $t0, 0             # count = 0 
-        li         $t1, 0             # total = 0 
+        li         $t1, 0             # total for div1 = 0 
+        li         $t3, 0             # total for div2 = 0 
         move       $t2, $s3           # put range $t2
+        la         $t4, 1             # start with one
 
     loop1: 
         beq        $t0, $s0, loop1End # stop when count == how many numbers
@@ -263,34 +263,39 @@ main:
         bne        $t0, $0, added1    # if on 1st loop just add to total
         nop
         addu       $t1, $t1, $t2      # total = 0 + range
+        addu       $t3, $t3, $t4      # total = 0 +1
         j          continue
     
     added1:        
         mul        $t1, $t1, $t2     # mult options
+        mul        $t3, $t3, $t4     # mult  
 
     continue:
         addiu      $t2, $t2, -1      # sub range -1
+        addiu      $t4, $t4, 1       # add one
         addiu      $t0, $t0, 1       # count++
         j          loop1
     
     loop1End: 
-        move       $s4, $t1         # hold the total here 
-        
-    ## set up second part of division
-        li        $t0, 0            # count = 0
-        li        $t1, 0            # total = 0
-        li        $t2, 1            # put 1 in $t2
-    
-    loop2: 
-        # I am here 
-        beq           
-    
-        j       loop2
-        move    $s5, $t1          # hold the total here
+        move       $s4, $t1         # hold the total here - div top 
+        move       $s5, $t3         # hold the total here - div bottom
 
     ## divid the two
+        div        $s6, $s4, $s5    # put answer in $s6
 
     ## print the answer
+        
+        li          $v0, 4              # code 4 == print string
+        la          $a0, oneIn          
+        syscall
+ 
+        li          $v0, 1              #code 1 == int 
+        move        $a0, $s6            
+        syscall
+ 
+        li          $v0, 4              # code 4 == print string 
+        la          $a0, answer 
+        syscall
              
     end: 
         li          $v0, 10             # code 10 == exit
@@ -326,5 +331,6 @@ prompt4:    .asciiz     "\nwhere do number picks end at? "
 low:        .asciiz     "min value is 1\n"
 badStartEnd:.asciiz     "start must be lower than end\n"
 alot:       .asciiz     "range must be greater than amount of numbers\n"  # idk if I need this
-
+oneIn:      .asciiz     " 1 in "
+answer:     .asciiz     " odds of winning such a lottery."
 ## end of program

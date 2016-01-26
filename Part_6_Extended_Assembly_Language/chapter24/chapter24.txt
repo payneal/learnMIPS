@@ -1,0 +1,194 @@
+Question #1
+(Review:) What is a conditional branch?
+
+test condition then changes the pc if the condition is true
+
+Question #2
+Fill in the blanks so the branch is taken if $s1 is zero.
+
+________    $s1, ______, label
+
+beq, $zero
+
+Question #3
+The extended assembler implements the b instruction using the beq instruction. Fill in the blanks to show what it does:
+b  label     ==     beq  ___, ___, offset
+
+$0, $0
+
+Question #4 
+What format of data is assumed for the bne (branch not equal) instruction?
+
+No assumptions are necessary. It tests if two bit patterns are identical.
+
+Question #5 
+Fill in the blank by choosing the correct branch instruction (refer to the previous table).
+
+        lw    $t0,val          # $t0 has the value
+        andi  $t8,$t0,1        # one's place in $t8 is zero or one
+        
+        ____  $t8,odd          # if even
+                               # {
+        addu  $t2,$t2,$t0      #     add to even sum
+        b     endif            # }
+        
+odd:                           # else
+        addu  $t1,$t1,$t0      #     add to odd sum
+endif:
+
+bnez
+
+Question #6 
+Is the following instruction correct?
+bge     $t1,-67,spot     # if ( $t1 >= -67 ) goto spot
+
+yes
+
+Question #7
+main:   
+        li    $v1,0            # zero the sum
+loop:
+        . . . .                # prompt the user for input
+        li    $v0,5            # read the integer
+        syscall                # into $v0
+
+        ____ $v0,____,done    # while ( $v0 != -999 )
+
+        ____ $v0,____,out          # less than -32
+        
+        ____ $v0,____,out          # greater than 32
+               
+        addu  $v1,$v1,$v0          # if in range add           
+                                   # else skip
+out:    b     loop        
+        
+done:   . . . .                # write out result
+
+
+beq, -999, blt , -32, bgt , 32 
+
+
+Question #8
+(Memory Test: ) What do set instructions do on MIPS?
+
+Set instructions set a register to 1 or clear it to 0 to show the outcome of a comparison between two values.
+
+Question #9
+Is the following correct?
+
+slt   $t5,$v0,87        #  if ( $v0 < 87 ) $t5 = 1
+
+yes
+
+Question #10
+Do you think that the following two pseudoinstructions translate into the same basic instructions?
+
+yes
+
+Question #11
+When does the actual address calculation take place?
+
+When the code that the assembler generates is actually executing.
+
+Question #12
+At what index do "C" and Java arrays begin?
+
+0
+
+Question #13
+When indexed addressing is used with an array of 32-bit integers, by how much should the index be incremented to move to the next array element?
+
+4 
+
+Question #14
+Just fill in the blanks and you have a working program!
+0, lw, 4, 1 
+
+Question #15
+Some languages (like Pascal) allow the first index of an array to be any integer. Can such a language be compiled for MIPS?
+
+yes
+
+key terms: 
+- Unconditional branch.
+    This instruction behaves like the jump instruction: it unconditionally loads the PC with the address specified by label. Unlike the jump instruction, the branch target label must be relatively close to the branch instruction, as is true with all branch instructions. The 32-bit address is computed using a 16 bit offset in the instruction and the current value of the PC    
+
+- Table of branch instructions
+Mnemonic    Operands    Description     signed orunsigned?   Mnemonic    Operands    Description      signed or unsigned?
+b           label       branch                              beq         s,t,label   branch if s==t   
+beqz        s,label     branch if s==0                      bge         s,t,label   branch if s>=t      signed
+bgeu        s,t,label   branch if s>=t  unsigned            bgez        s,label     branch if s>=0      signed
+bgt         s,t,label   branch if s>t   signed              bgtu        s,t,label   branch if s>t       unsigned
+bgtz        s,label     branch if s>0   signed              ble         s,t,label   branch if s<=t      signed
+bleu        s,t,label   branch if s<=t  unsigned            blez        s,label     branch if s<=0      signed
+blt         s,t,label   branch if s<t   signed              bltu        s,t,label   branch if s<t       unsigned
+bltz        s,label     branch if s<0   signed              bnez        s,label     branch if s != 0     
+bne         s,t,label   branch if s != t                    != means not equal
+
+- Immediate operands in branch instructions
+     branch instruction has a second operand, it can be an immediate operand or a register. The extended assembler will implement this using several basic instructions. For example, from the table:
+
+
+- Set instructions
+Mnemonic    Operands    Description     signed or unsigned?
+seq         d,s,t       set d if s==t    
+sge         d,s,t       set d if s>=t   signed
+sgeu        d,s,t       set d if s>=t   unsigned
+sgt         d,s,t       set d if s> t   signed
+sgtu        d,s,t       set d if s> t   unsigned
+sle         d,s,t       set d if s<=t   signed
+sleu        d,s,t       set d if s<=t   unsigned
+slt         d,s,t       set d if s< t   signed
+slti        d,s,Imm     set d if s< Imm signed
+sltu        d,s,t       set d if s< t   unsigned
+sltiu       d,s,Imm     set d if s< Imm unsigned
+sne         d,s,t       set d if s != t  
+
+- Indexed addressing
+
+In addition to implementing new instructions, the extended assembler implements a new addressing mode. This is indexed addressing, a mode of addressing very useful for arrays. Here is an example:
+
+      li    $t1,2                 # index 2
+      lb    $v0,data($t1)         # $v0 = data[$t1]
+      . . . 
+      
+data: .byte  6,34,12,-32, 90      # index zero is first
+Think of data as an array of five bytes. Then the lb instruction loads the element of the array at index 2 (the byte that contains 12) into $v0.
+
+- How indexed addressing is implemented.
+What the programmer writes
+li    $t1,2 
+lb    $v0,data($t1) 
+
+ What the extended assembler translates it into
+ori   $t1,$0,2 
+lui   $at,4097
+addu  $at,$at,$t1
+lb    $v0,0($at)
+(4097 is the upper half of the address of data.)
+
+What the basic assembler does     
+The basic assembly language
+is translated into machine code.
+
+34090002
+3c011001
+00290821
+80220000
+
+What happens at run time
+The first three machine instructions
+execute, placing the address of the
+third byte of the array into register
+$1 .
+
+The fourth machine instruction loads the
+byte at that address into register $2 ( $v0).
+
+
+- Array indexing
+Experience has shown that indexing arrays starting at zero works best. The first element of an array is at a displacement of zero from the beginning of the array. To move through an array start the index at zero and increment it by the element size to move to the next element.
+
+
+
+
