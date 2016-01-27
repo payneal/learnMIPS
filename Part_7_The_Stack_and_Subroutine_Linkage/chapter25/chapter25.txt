@@ -1,0 +1,158 @@
+Question #1
+Say that you need to get a plate from a stack of dinner plates. Which one do you normally get?
+
+top 
+
+QUESTION 2:
+Which plate is the last one that was added to the stack? Which plate will be the first one removed?
+
+top, top
+
+Question 3: 
+If an item of data (say the value 103) is added to the stack, where will it go?
+after 81, would put it on the top
+
+Question 4: 
+In the new stack (shown above) if one item is removed, which will it be?
+103 
+
+Question 5: 
+When a software stack is popped, does the popped item remain in memory?
+
+yes
+
+Question 6: 
+# Evaluate the expression ab - 12a + 18b - 7
+
+main:   
+        lw      $t0,a          # get a
+        lw      $t1,bb         # get b
+        mul     $t0,$t0,$t1    # a*b
+        
+        subu    $sp,$sp,____
+  # push a*b onto stack
+        
+        sw      $t0,______
+
+
+        . . . . .
+
+        .data
+a:      2
+bb:     3
+
+4, sb
+
+Question 7:
+Fill in the blanks to pop the 18b term.
+# Evaluate the expression ab - 12a + 18b - 7
+
+        .globl  main
+        lw      $t0,a          # get a
+        lw      $t1,bb         # get b
+        mul     $t0,$t0,$t1    # a*b
+        subu    $sp,$sp,4      # push a*b onto stack
+        sw      $t0,($sp)
+        
+        lw      $t0,a          # get a
+        li      $t1,-12        # 
+        mul     $t0,$t0,$t1    # -12a
+        subu    $sp,$sp,4      # push -12a onto stack
+        sw      $t0,($sp)
+        
+        lw      $t0,bb         # get b
+        li      $t1,18         # 
+        mul     $t0,$t0,$t1    # 18b
+        subu    $sp,$sp,4      # push 18b onto stack
+        sw      $t0,($sp)
+
+        li      $t1,-7         # init sum to -7
+        
+        lw      $t0,____       # pop 18b
+        
+        addu    $sp,$sp,____
+
+        addu    $t1,$t1,$t0    # 18b -7
+
+($sp), 4 
+
+Question 8:
+(Thought Question:) Is it possible to run out of memory if too many things are pushed onto the stack?
+yes
+
+Question 9: 
+Which segment is for the machine instructions?
+
+the text segment 
+
+Question 10
+(Review: ) What does the following instruction do? lbu $t0,string
+
+loads one bye of adress sting to $t0
+
+Question 11
+Fill the blanks with the correct phrases. (You can do this by using your mouse with copy and paste from the Edit menu of the browser.)
+
+Here is the outline of the program. The comments show the major sections of the program.
+
+        .text
+        .globl  main
+main:  
+        1.)
+        2.)
+        3.)
+        4.)
+
+        .data
+str:    .space  128     # character buffer            
+Not much of an outline. Luckily, here are some phrases you can use to fill in the blanks:
+
+4- print the reversed string
+2- push each character onto the stack
+1- input the string into a buffer
+3- pop chars from stack back into the buffer
+
+
+Question 12
+Fill in the blanks of the program.
+
+# Reverse and output a user-supplied string
+#
+# Settings: Load delays OFF; Branch delays OFF,
+#           Trap file    ON; Pseudoinstructions ON   
+#
+# $t0 --- character pushed or popped
+# $t1 --- index into string buffer str
+
+        .text
+        .globl  main
+
+main:   #input the string
+        li      $v0,8          # service code
+        la      $a0,str        # address of buffer
+        li      $a1,128        # buffer length 
+        syscall       
+                               # initialize the stack:        
+        li      $t0,___        # push a null
+         
+        ____    $sp,$sp,4      # onto the stack
+        
+        sw      $t0,(___)      # to signal its bottom
+        li      $t1,0          # index of first char in str buffer
+
+        # push each character onto the stack
+        # pop chars from stack back into the buffer
+        # print the reversed string
+
+        .data
+str:    .space  128            # character buffer            
+
+0, subu, $sp
+
+
+
+Question 13
+
+
+
+
