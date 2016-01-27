@@ -290,46 +290,182 @@ main:
 
         #After computing it, write out the dot product to the monitor.
         
-        ## constanst        
+        ## constant
+        #li     $s1, 11              # hold 11
+        #li     $s0, 4               # hold 4
+
+        ## ask for string
+        #li      $v0, 4              # code 4 == print string
+        #la      $a0, prompt   
+        #syscall                     #'how many?'
+        
+        ## read in input
+        #li      $v0, 5              # code 1 == read int
+        #syscall 
+        
+        ## hold the length
+        #sw      $v0, length         # save new value of length 
+
+        #bleu    $v0, $0, error      # if less than or == 0 -> error
+        #bgeu    $v0, $s1, error     # if greater than or == 11 -> error
+       
+        ## stuff for loop
+        #li      $t0, 0              # count == 0
+        #move    $t1, $v0            # loop size
+        
+        ## GET ARRAY 1
+    #getNums1:
+        #beq     $t0, $t1, gotNums1   # stop inputing when got nums
+        #li      $v0, 4               # code == print string
+        #la      $a0, array1
+        #syscall
+        
+        #li      $v0, 5               # code 1 == read int
+        #syscall
+
+        #mul     $t5, $s0, $t0        # 4 times count
+        #sw      $v0, vectorA($t5)    # save input in vector1
+         
+        #addiu   $t0, $t0, 1          # count++ 
+        #j       getNums1
     
-        li      $s1, 11         # hold 11
-
-        li      $v0, 4          # code 4 == print string
-        la      $a0, prompt   
-        syscall                 #'how many?'
+        ## STUFF FOR LOOP
+    #gotNums1:
+        #li     $t0, 0
         
-        li      $v0, 5          # code 1 == read int
-        syscall 
+        ## GET ARRAY 2
+    #getNums2:
+        #beq     $t0, $t1, gotNums2  # stop inputing when got nums
+        #li      $v0, 4              # code == print string
+        #la      $a0, array2
+        #syscall
+        
+        #li      $v0, 5
+        #syscall
+        
+        #mul     $t5, $s0, $t0
+        #sw      $v0, vectorB($t5)   
+
+        #addiu   $t0, $t0, 1         #count++ 
+        #j       getNums2
     
-        sw      $v0, length     # save new value of length 
+    #gotNums2:
+        ## get to the math
+        #li      $t0, 0              # count == 0
+        #move    $t1, $v0            # loop size in $t1
+        #li      $t6, 0              # hold the total
+
+    #loop:
+        #beq     $t0, $t1, next      # get out loop 
+        ## grab one form array1
+        #mul     $t2, $t0, $s0       # get the arry word position to pull
+        #lw      $t3, vectorA($t2)    # put array[x] in $t3
+        ## grab one form array2
+        #lw      $t4, vectorB($t2)    # put array[x] in $t4
+        #mul     $t5, $t3, $t4       # array1[x] * array2[x]
+        #addu    $t6, $t6, $t5       # add to total
+        #addu    $t0, $t0, 1
+        #j       loop                # do again
+
+    #next:    
+        ## print the answer
+        #li      $v0, 4              # code 4 == print string
+        #la      $a0, dot            # "the dot product is "
+        #syscall
+
+        #li      $v0, 1              # code 1 == print int
+        #move    $a0, $t6            
+        #syscall                     # print answer
+
+       #end:
+        #li      $v0, 10                 # code 10 == exit 
+        #syscall
+
+       #error:
+        #li      $v0, 4          # code 4 == print string
+        #la      $a0, errMg
+        #syscall        
+
+          #.data
+#array1:   .asciiz     "enter numbers for array1\n"
+#array2:   .asciiz     "enter numbers for array2\n"
+#enter:    .asciiz     "enter number: "
+#errMg:    .asciiz     "Error, must be between 1-10"
+#prompt:   .asciiz     "how many ints do you have in your vectors? " 
+#dot:      .asciiz     "the dot product is: "
+#length:   .word  0
+#vectorA:  .space 40   # space for 10 integers
+#vectorB:  .space 40   # space for 10 integers
+
+     #6.) 
+     
+        # Declare an array of integers: 
+
+        # Write a program that repeatedly asks the user for an integer to search for. After the user enters the integer, the program scans through the array element by element looking for the integer. When it finds a match it writes a message and reports the index where the integer was found. If the integer is not in the array it writes a failure message.
+
+                
         
-        bleu    $v0, $0, error
-        bgeu    $v0, $s1, error
+        #li      $v0, 4          # 4 == print string
+        #la      $a0, what       # "what you looking for"
+        #syscall
+    
+        #li      $v0, 5          # 5 == read int
+        #syscall
         
-       # get to the math
-       li       $t0, 0         # count == 0
-       move     $t1, $v0       # loop size in $t1
-    loop: 
-        beq     $t0, 
+        #move    $s0, $v0        # hold  the input in $s0
+
+        ## grab the length of array
+        #lw      $s1, size
         
-# here
+        ## loop stuff 
+        #li      $t0, 0           # count = 0
+        
+        ## start loop
+   #loop:
+        #mul     $t1, $t0, 4      # this is to get array posittion 
+        #lw      $t2, array($t1)
+        #beq     $t0, $s1, nope
+        #beq     $t2, $s0, found
+        #addiu   $t0, $t0, 1
+        #j       loop
 
-        j       loop  
+    #nope:       
+         #li      $v0, 4          # 4 == print string 
+         #la      $a0, no       # "not in array"
+         #syscall 
+
+     #end:
+        #li      $v0, 10          # code 10 == exit
+        #syscall
+    
+    #found:
+        #li      $v0, 4          # 4 == print string
+        #la      $a0, yes       # "what you looking for" 
+        #syscall
+    
+        #li      $v0, 1          # 5 == print int
+        #move    $a0, $t0
+        #syscall
+        #j       end
+
+          #.data
+#no:        .asciiz   "the number was not found"
+#yes:       .asciiz   "we have found a match at index " 
+#size:     .word     12
+#array:    .word     50, 12, 52, -78, 03, 12, 99, 32, 53, 77, 47, 00
+#what:     .asciiz   "what int are you looking for? "
 
 
-       end:
-        li      $v0, 10                 # code 10 == exit 
-        syscall
+        #7.) 
 
-       error:
-        li      $v0, 4          # code 4 == print string
-        la      $a0, errMg
-        syscall   
-          .data
-errMg:    .asciiz     "Error, must be between 1-10"
-prompt:   .asciiz     "how many ints do you have in your vectors? " 
-length:   .word  0
-vectorA:  .space 40   # space for 10 integers
-vectorB:  .space 40   # space for 10 integers
+        # Write a program that processes an array by applying an averaging filter to it. An averaging filter works like this: 
+        #create a new array where each element at index J is the average of the three elements from the old array at indexes J-1, J, and J+1
+
+
+
+        .data
+size:     .word 12
+array:    .word 50,53,52,49,48,51,99,45,53,47,47,50
+result:   .word 0,0,0,0,0,0,0,0,0,0,0,0
 
 ## End of program
