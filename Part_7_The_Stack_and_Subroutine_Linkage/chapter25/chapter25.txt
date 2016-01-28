@@ -150,8 +150,51 @@ str:    .space  128            # character buffer
 0, subu, $sp
 
 
-
 Question 13
+Fill in the blanks.
+
+beqz, sw, pushl
+
+Question 14
+You know the drill: fill in those blanks.
+lw, addu, ab
+
+Question 15
+Would it be easier to do this program with arrays?
+
+no, not reversing a string
+
+key terms: 
+- Concept of stack
+    A stack is a way of organizing data in memory. Data items are visualized as behaving like a stack of physical items. Often a stack is visualized as behaving like a stack of dinner plates. Data are added and removed from the stack data structure in a way analogous to placing plates on the stack of plates and removing them.
+
+- LIFO data structure.
+    Last In First Out.
+
+- Stack pointer register and upside-down MIPS stack.
+    The stack pointer register $sp by convention points at the top item of the stack. The stack pointer is register $29. The mnemonic register name $sp is used by the extended assembler.
+
+In the usual way of drawing memory the stack is upside-down. In the picture, the top item of the stack is 81. The bottom of the stack contains the integer -92.
+
+- Push
+To push an item onto the stack, first subtract 4 from the stack pointer, then store the item at the address in the stack pointer.
+Here is what that looks like in code. Say that the value to push on the stack is in register $t0:
+
+- Pop
+To pop the top item from a stack, copy the item pointed at by the stack pointer, then add 4 to the stack pointer.
+Here is what that looks like in code. Say that we want the value to be popped into $t0:
+
+- Run-time stack
+There is a finite amount of memory, even in the best computer systems. So it is possible to push more words than there are words of memory. Usually this would be the result of an infinite loop because when a program is first entered the operating system gives it space for a very large stack.
+
+The picture shows how a typical operating system arranges memory when a program starts. There are four gigabytes of (virtual) memory available in total. The section of memory from 0x10000000 to 0x7FFFFFFF is available for the data segment and the stack segment. This is 1.8 Gigabytes of space.
+
+When the program is started the stack pointer ($sp) is initialized to 0x7FFFFFFC (the address of the last fullword of user memory). As the program runs, the stack grows downward into the available space. The data segment grows upward as the program runs. (This is the subject of chapter 33.)
+
+In a dynamic program, the segments grow and shrink. If the combined size of the segments exceeds the available space their boundaries will meet somewhere in the middle of the range. When this happens there is no memory left.
+
+- Text segment of MIPS memory.
+raditionally a segment containing machine instructions is called "text". A process is when the processor is actively executing those machine instructions. (This is analogous to the phrase "text of a play" and "performance of a play").
 
 
 
