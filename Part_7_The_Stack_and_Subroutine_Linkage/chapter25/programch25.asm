@@ -100,6 +100,48 @@ main:
 
     #2.) 
 
+       
+  #program that asks the user for a string. Read the string into a buffer, then reverse the string using the stack. However, unlike the example in the chapter, don't push a null character on the stack. Keep track of the number of characters on the stack by incrementing a count each time a character is pushed, and decrementing it each time a character is popped. Write out the reversed string.
+
+        li          $v0, 4                    # code 4 = print string
+        la          $a0, askforstring         # enter string
+        syscall
+
+        la          $a0, space                # set up for holding the entered string 
+        li          $v0, 8                    # read string 
+        syscall
+
+        ## make sure we have string 
+        #li          $v0, 4                    # code 4 = print string
+        #la          $a0, space  
+        #syscall
+        
+        li         $t0, 0                     # this is count == 0
+        la         $t1, space                 # load the address of space to $a0
+    loop: 
+        lb          $t2, 0($t1)               #put letter in $t1 
+        beq         $t2, $0, end              # jump to end if we are at end of string
+       
+        subu        $sp, $sp, 4               # onto stack  
+        sw          $t2, ($sp)
+ 
+        # print string to make sure
+        #li          $v0, 11
+        #move        $a0, $t2
+        #syscall
         
 
-       ## End of program
+        addiu       $t1, $t1, 1               # count ++
+        j           loop
+
+   end:
+        li          $v0, 10                   # code 10 == exit
+        syscall                             
+
+        .data
+
+
+askforstring:       .asciiz                  "enter a string: " 
+space:               .space                   200
+newL:               .asciiz                 "\n"
+## End of program
