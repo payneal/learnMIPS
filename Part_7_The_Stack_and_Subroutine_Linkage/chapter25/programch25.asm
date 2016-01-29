@@ -117,10 +117,11 @@ main:
         #syscall
         
         li         $t0, 0                     # this is count == 0
-        la         $t1, space                 # load the address of space to $a0
+        la         $t1, space                 # load the address of space to $t1
+    
     loop: 
-        lb          $t2, 0($t1)               #put letter in $t1 
-        beq         $t2, $0, end              # jump to end if we are at end of string
+        lb          $t2, 0($t1)               #put letter in $t2 
+        beq         $t2, $0, reverse          # jump to end if we are at end of string
        
         subu        $sp, $sp, 4               # onto stack  
         sw          $t2, ($sp)
@@ -131,8 +132,35 @@ main:
         #syscall
         
 
-        addiu       $t1, $t1, 1               # count ++
+        addiu       $t0, $t0, 1               # count ++
+        addiu       $t1, $t1, 1               # move to next space in memory
         j           loop
+
+    reverse:
+
+    printIt: 
+
+         li          $v0, 4                    # code 4 = print string   
+         la          $a0, reversed             # reverse string statement
+         syscall
+        
+         
+        li          $t2, 0                     #count 
+
+    loop2: 
+        
+        beq         $t2, $t0                    # if loop#1 count == loop2 
+        addiu       $sp, $sp, 4                 # off stack
+        # im here idk
+        lw          $t3
+
+
+        addiu       $t2, $t2, 1
+        j            loop
+       
+     
+        
+
 
    end:
         li          $v0, 10                   # code 10 == exit
@@ -143,5 +171,15 @@ main:
 
 askforstring:       .asciiz                  "enter a string: " 
 space:               .space                   200
-newL:               .asciiz                 "\n"
+reversed            .asciiz                 "the string reveresed: "
+
 ## End of program
+
+
+
+
+
+
+
+
+
