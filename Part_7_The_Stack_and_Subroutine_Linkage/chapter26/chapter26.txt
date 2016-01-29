@@ -1,0 +1,129 @@
+question 1: 
+(Review: ) What instructions unconditionally transfer control from one address to another?
+
+j or b
+
+question 2: 
+Is it normal that a subroutine can be used in only one place in a program?
+no, that would make things difficult
+
+question 3: 
+(Hardware Design Question: ) How should the return address be passed to the subroutine? (i) By placing it in main memory somewhere, or (ii) By placing it in a register designated for this purpose.
+ii 
+
+question 4: 
+What instruction is usually placed in the branch delay slot?
+nop 
+
+question 5: 
+The subroutine has the return address in $ra. Can an ordinary jump instruction be used to return to the caller?
+no 
+
+question 6: 
+Do we now have a mechanism that enables us to call the same subroutine from many points in a program?
+yes
+
+question 7: 
+Is subroutine sub free to use any of the 32 registers?
+no 
+
+question 8: 
+Is the following code fragment correct?
+    
+  add    $t0,$s5,$s3   # calculate an important sum in $t0
+  jal    somesub       # call a subroutine
+  nop                  # branch delay
+  mul    $s4,$t0,$v1   # multiply the sum
+
+
+no 
+
+question 9: 
+(Thought Question: ) Consider rule number 2. Why must not a subroutine call another subroutine?
+
+mess up the return adress thats already in use
+
+
+question 10: 
+Should a code module know about the inner workings of another module?
+
+no
+
+question 11: 
+Examine the outline for the program. What do you think would be a useful subroutine?
+
+read int
+
+question 12: 
+Fill in the blanks.
+
+jr  $ra
+
+question 13: 
+fill in the blanks. 
+
+pread, pread, pread
+
+question 14: 
+What global symbols are in the subroutine pread?
+
+The entry point for the subroutine: pread.
+
+question 15: 
+Could pread be used as-is in other programs? 
+yes
+
+key terms: 
+-Collars and Collies.
+    A subroutine call is when a main routine (or other routine) passes control to a subroutine. The main routine is said to be the CALLER and the subroutine is said to be the CALLEE. A return from a subroutine is when a subroutine passes control back to its CALLER. When a CALLEE finishes execution it nearly always returns control to its CALLER.
+
+-jal instruction and the return address.
+    The register that is used for linkage is register $31, which is called $ra by the extended assembler. It holds the return address for a subroutine. The instruction that puts the return address into $ra is (usually) the jal instruction.
+
+Register $31 is one of the two "general purpose registers" that behave differently from the others. (The other one is register $0.) The jal instruction and register $31 provide the hardware support necessary to elegantly implement subroutines.
+
+To understand how jal works, review the machine cycle. The MIPS endlessly cycles through three basic steps. Each cycle executes one machine instruction. (This is a somewhat simplified view, but sufficient for now).
+
+The jal instruction does the following in the execute phase of the machine cycle:
+
+jal sub    # $ra <― PC+4  (the address 8 bytes away from the jal) 
+           # PC  <― sub   load the PC with the subroutine entry point
+           # a branch delay slot follows this instruction
+
+-jr instruction.
+    The jr instruction returns control to the caller. It copies the contents of $ra into the PC:
+
+jr  $ra      # PC <― $ra 
+             # A branch delay 
+             # slot follows this instruction.
+Usually you think of this as "jumping to the address in $ra."
+
+To make the instruction more general, it can be used with any register, not just $ra. Like all jump and branch instructions, the jr instruction is followed by a branch delay.
+
+The diagram shows the subroutine returning to the return address that was loaded into $ra by the jal instruction in the caller.
+
+-Calling conventions.
+    A calling convention is an agreement about how subroutines are called and how control is returned to the caller. Mostly (as we will later see) this is an agreement about how software will work. In processors (like MIPS) that have hardware features that support subroutines, the convention says how those features are used.
+
+Different languages and different operating systems for the same processor usually have different calling conventions. A "C" program compiled for Linux on a MIPS processor will not work correctly with Irix on a MIPS processor. This is largely because the calling conventions are different. These chapters discuss several calling conventions that show what calling conventions are about, but are not the calling convention of any particular operating system.
+    
+-Simple linkage calling convention.
+    Here is an example of a calling convention. This convention is very simple and is not suitable for a serious program. But it illustrates some ideas that will be used later on in more complex conventions. Let us call it the Simple Linkage Convention . You have already seen most of the rules of this convention:
+
+    A subroutine is called using jal (which puts the return address in $ra.)
+    A subroutine will NOT call another subroutine.
+    The subroutine returns to its caller using jr $ra.
+    Registers are used as follows:
+    $t0 - $t9 — The subroutine is free to change these registers.
+    $s0 - $s7 — The subroutine must not change these registers.
+    $a0 - $a3 — These registers contain arguments for the subroutine. The subroutine can change them.
+    $v0 - $v1 — These registers contain values returned from the subroutine.
+    The main routine returns control by using the exit service (service 10) of the SPIM exception handler.
+    Since a subroutine may not call another subroutine (in this Simple Linkage Convention) programs will consist of a main routine that calls any number of subroutines. But the subroutines do not call other subroutines and always return directly to main.
+
+
+
+
+
+
+
