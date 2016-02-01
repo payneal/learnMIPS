@@ -67,6 +67,7 @@ askForInt:
         
     la           $t0, 10      # linux end of string
     la           $t1, 0         # total == 0
+    la           $t8, 0 
 
     # go through entered string make sure its a number    
   loop: 
@@ -97,7 +98,7 @@ notFirstChar:
     li          $v1, 1          # input convert v1 = 1
     bne         $t8, $v1, notneg
     subu        $t1, $0, $t1
-    
+       
   notneg:
     move        $v0, $t1
     jr          $ra
