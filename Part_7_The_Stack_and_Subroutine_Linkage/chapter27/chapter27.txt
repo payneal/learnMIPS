@@ -1,0 +1,48 @@
+Question 1: 
+In the Simple Linkage Convention of the previous chapter, can a subroutine call another subroutine?
+no, but I did just so it wouldnt take forever
+
+Question 2: 
+Is there room on the stack for additional addresses?
+yes
+
+Question 3: 
+After subA returns control to main, could main call another subroutine?
+yes
+
+Question 4: 
+Is it safe to store $s0―$s7 and $ra on the stack?
+yes
+
+Question 5: 
+Fill in the blanks so that subB sees its S registers when it regains control.
+$s1, $s1 
+
+Question 6: 
+Why do you think there are both T and S registers? Why not just have S registers and make it a rule that a subroutine must save (and later restore) each one that it uses?
+This is an optimization for speed. Many subroutines need to use only a few registers for temporary values. They can use the T registers without the added expense of saving and restoring them. A subroutine that needs more registers or that needs to have values saved across a subroutine call may use some S registers, but must pay for them by saving and restoring them.
+
+Question 7: 
+Is there any limit in these rules about how many levels deep subroutine calls may be?
+No
+
+Question 8: 
+After subroutine B returns control to subroutine A, might subroutine A call another subroutine (say subroutine X)?
+yes
+
+Question 9: 
+Does your brain feel like a yo-yo?
+yes, after writting all this assembly
+
+Question 10: 
+Is the MIPS instruction set (its machine instructions) optimized for subroutine call and return?
+
+yes
+
+Question 11:
+Can you write this subroutine without knowing about the caller's registers?
+
+yes
+
+
+
