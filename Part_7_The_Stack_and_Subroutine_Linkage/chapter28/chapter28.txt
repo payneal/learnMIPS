@@ -1,0 +1,170 @@
+QUESTION 1:
+(Thought Question:) What is a local variable in a higher level language?
+
+A local variable holds values for a subroutine while the subroutine is active.
+
+QUESTION 2:
+In a high-level language are there variables that are not local?
+
+yeah, global varible
+
+QUESTION 3:
+When the stack frame is popped, what happens to the local variables?
+
+they are erased in a sense 
+
+QUESTION 4:
+Write the instruction that loads register $t5 with the value held in the variable a:
+
+lw $t5, __(__)
+
+12, $fp
+
+QUESTION 5:
+Play compiler: translate the following statement into assembly language:
+    a = a + 1;
+Use register $t0 to temporarily hold the value in a.
+
+lw      $t0,12($fp)    # get a
+addiu   $t0,$t0,1      # a + 1
+sw      $t0,12($fp)    # a = 
+
+QUESTION 6:
+When the caller gets control back, are its frame pointer and stack pointer the same as when it called the subroutine?
+
+yes
+
+QUESTION 7:
+Is there a limit to how many variables a subroutine may have?
+No, but I think this is yes because if there is no memory left how can there be varibles
+
+QUESTION 8:
+How much space on the stack is needed for the variables in main()?
+
+1 varible = 4 bits
+
+QUESTION 9:
+Fill in the blanks as the comments suggest.
+
+$fp, $sp, 4, move
+
+QUESTION 10:
+Fill in the blanks.
+
+6, mysub
+
+QUESTION 11:
+Fill in those blanks.
+
+mysub, mysub, sub, $sp, $sp, 4, sw, $s1, ($sp), 8 
+
+QUESTION 12:
+Fill in the blanks. Assume that b is at displacement 0 and that c is at displacement 4.
+
+0, $fp, 0, $fp, 7, 4, $fp
+
+QUESTION 13:
+Those blanks need filling.
+
+4, fp, 8, sp, sp,sp,4, sp, sp,sp,4,ra, sp, sp,sp,4
+
+QUESTION 14:
+What must the caller do when control returns to it?
+
+restore any saved T values
+
+QUESTION 15:
+Fill in the blanks.
+0, $fp, 0, $fp
+
+Question 16:
+Rewrite the following code so that it does the same thing as the original but without using a variable.
+ main()
+ {
+   int a;   
+   a = mysub( 6 );
+   print( a );
+ }
+ 
+
+main()
+ {   print(  mysub( 6 ) );   }
+
+QUESTION 17:
+You have very likely seen the factorial function before (and are very likely sick of it!) But just in case:
+
+What is the factorial of 5?________
+
+120
+
+QUESTION 18:
+A downward arc corresponds to a _____ of one stack frame. An upward arc corresponds to a _____ of one stack frame.
+
+push pop
+
+QUESTION 19:  
+Fill in the blanks.
+
+$ra, $fp, 8
+
+QUESTION 20:
+Fill in the blanks.
+
+0, fact, 4
+
+QUESTION 21:
+How do the variables a and b differ from the data prompt1 and prompt2?
+
+a&b = (1) Storage for them exists only while the subroutine is active (while it has not yet returned control to its caller). (2) When it exists, the storage is on the run-time stack. 
+prompt1&2 =  (1) Storage for them exists while the program is in main storage. (2) Storage is in the data section of memory.
+
+QUESTION 22:
+(Review:) What happens if the stack and heap get larger and larger?
+
+If the combined size of the stack, the data, and the heap is less than the total available memory, then there is no problem.
+
+Question 23: 
+What subroutine does main() call?
+
+fact
+
+Question 24: 
+(Thought Question:) Does a global symbol always correspond to an entry point?
+
+no
+
+QUESTION 25:
+Fill in the blank.
+
+epilog
+
+Question 26: 
+Fill in the blanks. (Hint: study the last paragraph).
+
+$v0, $v0, $s1
+
+QUESTION 27:
+The programming language FORTRAN IV did not have support for recursion. Was it possible to write a recursive program in FORTRAN IV?
+
+yes, like assembly
+
+QUESTION 28:
+Is a different subroutine linkage convention followed for recursive subroutines than for non-recursive subroutines?
+
+no
+
+key terms: 
+
+Local variables and stack frames-
+
+Picture of a stack frame- 
+Reason for having a frame pointer-
+How local variables are used in assembly language-
+Our frame-based calling convention-
+Storage classes: automatic, static, dynamic-
+Entry point- 
+Recursion
+
+
+
+
