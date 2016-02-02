@@ -44,5 +44,152 @@ Can you write this subroutine without knowing about the caller's registers?
 
 yes
 
+Question 12:
+According to the rules of stack-based linking, does this subroutine's prolog need to push the return address?
+No 
+
+Question 13: 
+According to the rules of Stack-based Linkage, what should the epilog of this subroutine do?
+jr %ra, nop 
+
+Question 14: 
+Must the nop follow the jr?
+
+yes
+
+Question 15: 
+Can this other programmer use the subroutine maxInt you have just written?
+
+yes
+
+Question 16: 
+According to the rules of stack-based linking, does this subroutine's prolog need to push the return address?
+
+yes
+
+Question 17: 
+Since this subroutine uses S registers, what else must its prolog do?
+
+push/save $s's to stack 
+
+Question 18: 
+Do you now know what the epilog looks like?
+pops whats prolog did, jr $ra, and  nop
+
+Question 19: 
+Have the pops been done in the correct order?
+yes
+
+Question 20: 
+After the return from the second call to maxInt, the maximum of the three expressions will be in $v0. Is this where we want it?
+yes
+
+Question 21: 
+Conceptually, could this subroutine be put into its own source file and separately assembled from maxInt?
+yes, conceptally but not on this simulator
+
+Question 22: 
+Would you like to skip to the end of the chapter?
+
+No, Im loving this! 
+
+Question 23: 
+How can character 'a' be converted to character 'A'?
+by siubracting 0x20 aka 32
+
+Question 24: 
+At the maximum, how many levels deep is subroutine nesting in this program?
+4 deep
+
+Question 25: 
+According to the Stack-based Linking convention does main need to push and later pop the return address?
+yes
+
+
+Question 26: 
+No time like the present to fill in those blanks.
+
+line, 132, getLine, line, 132, conver
+
+Question 27: 
+Does getLine need to store a return address on the stack?
+
+no
+
+Question 28: 
+Fill in the missing code.
+
+Question 29: 
+Would it be a good idea to look into doLines to see if $s0 is important and actually needs to be saved?
+No, although I dont understand why not my a=only assumption is because it isnt used there would be no point???? 
+
+Question 30: 
+In which subroutine is the buffer for the input characters? Is a copy of those characters made when other subroutines operate on them?
+doLines, no I think its able to just point there
+
+Key Terms: 
+
+Pushing and popping the return address - 
+To return to the caller a subroutine must have the correct return address in $ra when the jr instruction is performed. But this address does not have to remain in $ra all the time the subroutine is running. It works fine to save the value in $ra somewhere. The value can be restored, later on, when it is time to return to the caller.
+
+Pushing and popping registers - 
+
+if a subroutine is expected to alter any of the S registers, it must first push their values onto the stack. Just before returning to the caller it must pop these values from the stack back into the registers they came from.
+
+Stack-based Linkage Convention - 
+
+Subroutine Call (done by the caller):
+
+Push onto the stack any registers $t0-$t9 that contain values that must be saved. The subroutine might change these registers.
+Put argument values into $a0-$a3.
+Call the subroutine using jal.
+Subroutine Prolog (done by the subroutine at its beginning):
+
+If this subroutine might call other subroutines, push $ra onto the stack.
+Push onto the stack any registers $s0-$s7 that this subroutine might alter.
+Subroutine Body:
+
+The subroutine may alter any T or A register, or any S register that it saved in the prolog (step 5).
+If the subroutine calls another subroutine, then it does so by following these rules.
+Subroutine Epilog (done by the subroutine just before it returns to the caller):
+
+Put returned values in $v0-$v1
+Pop from the stack (in reverse order) any registers $s0-$s7 that were pushed in the prolog (step 5).
+If it was pushed in the prolog (step 4), pop the return address from the stack into $ra.
+Return to the caller using jr $ra.
+Regaining Control from a subroutine (done by the caller):
+
+Pop from the stack (in reverse order) any registers $t0-$t9 that were previously pushed (step 1).
+
+The prolog and epilog of a subroutine - 
+
+Prolog: If this subroutine calls other subroutines, push $ra. Push all S registers that the subroutine alters.
+Epilog: Put return values in V registers. Pop any S registers. Pop $ra if it was pushed in the prolog. jr $ra back to the caller.
+
+Activation of a subroutine - 
+
+Each time another subroutine is added to the chain, more data is pushed onto the run-time stack. At the end of the chain of calls the run-time stack has a section of data (saved register values) from each of the subroutines (including main). The currently active subroutine is the one whose data is at the top of the stack (subroutine C, in our upside-down stack).
+
+As each subroutine returns to its caller, its section of data is popped from the stack.
+
+A subroutine does not "know" anything about the stack other than its own section. It pushes its data onto the stack, and later on pops exactly that data back into registers. It does not look at any other data in the stack. It does not even know how deep the stack is.
+
+Activation chain - 
+
+he run-time stack has the same form as the chain of activation. The top of the stack is for the currently running subroutine. When that subroutine is finished its stack data is popped.
+
+Stacks are Last In, First Out data structures.
+
+Subroutines are activated in a Last Called, First Finished order.
+
+When a subroutine reaches its end, it returns to its caller, and the chain is shortened. Its caller might then call another subroutine, and the chain is lengthened again
+
+Algol and Pascal - 
+
+The first one of any importance was Algol, created about 1960. Algol established stack-based subroutine linking. But Algol never quite caught on.
+
+Pascal (created about 1974) was a milestone. It became highly popular and used this stack-based idea of subroutines (which it called procedures and functions). Programming languages can be classified as "Before Pascal" and "After Pascal."
+
+
 
 
