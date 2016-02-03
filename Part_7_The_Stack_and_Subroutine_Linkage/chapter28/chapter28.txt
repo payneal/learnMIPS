@@ -156,15 +156,79 @@ no
 key terms: 
 
 Local variables and stack frames-
+In a high-level language a local variable is implemented as a location on the run-time stack. Each time a subroutine is activated, new locations for variables are pushed onto the stack. The section of the stack for each activation is called a stack frame or an activation record. A frame pointer holds the address of the stack frame for a subroutine.
+
+When a subroutine returns to its caller the stack frame is popped from the stack. Thus, local variables only exist as memory locations while a subroutine is active. A subroutine is active if it is currently executing, or if a subroutine it has called is active.
+
+The format of a stack frame used by MIPS language processors is complicated. There are many situations that must be handled and many optimizations. It takes a compiler to do it correctly. These notes describe a much simplified stack frame.
 
 Picture of a stack frame- 
+
+20  $t0     -caller -saved reg
+16  $ra     -callee-saved registers and values 
+12  $fp     
+8   $s0
+4   a       -local varibles
+0   b
+
 Reason for having a frame pointer-
+While the subroutine is active, the frame pointer, points at the top of the stack. (Remember, our stacks grow downward, so in the picture $fp is correctly pointing at the last word that was pushed onto the stack, the top of the stack.)
+
+But the stack (and the stack pointer) may be involved in arithmetic expression evaluation. This often involves pushing and popping values onto and off of the stack. If $sp keeps changing, it would be hard to access a variable at a fixed location on the stack.
+
+To make things easy for compilers (and for human assembly language programmers) it is convenient to have a frame pointer that does not change its value while a subroutine is active. The variables will always be the same distance from the unchanging frame pointer.
+
 How local variables are used in assembly language-
+he particular registers used to temporarily hold values from the local variables are arbitrary. In another section of code, a different register might be used 
+
 Our frame-based calling convention-
+
+Calling a Subroutine (done by the caller):
+
+Push any registers $t0-$t9 that contain values that must be saved. Push the registers in numerical order.
+Put argument values into $a0-$a3.
+Call the subroutine using jal.
+Subroutine Prolog (done by the subroutine):
+
+Push $ra (always).
+Push the caller's frame pointer $fp.
+Push any of the registers $s0-$s7 that the subroutine might alter.
+Initialize the frame pointer: $fp = $sp - space_for_variables. The "space for variables" is four times the number of local variables. (Remember that subtracting from $sp grows the stack, and that our variables are always four bytes wide).
+Initialize the stack pointer: $sp = $fp.
+Subroutine Body:
+
+At this point the stack looks like the picture.
+The subroutine may alter any T, A, or V register, or any S register that it saved in the prolog.
+The subroutine refers to local variables as disp($fp).
+The subroutine may push and pop values on the stack using $sp.
+If the subroutine calls another subroutine, then it does so by following these rules.
+Subroutine Epilog (done at the end of the subroutine):
+
+Put return values in $v0-$v1
+$sp = $fp + space_for_variables.
+Pop into $s0-$s7 any values for them that were previously saved in the frame (in step6).
+Pop the caller's frame pointer into $fp.
+Pop $ra (always).
+Return to the caller using jr $ra.
+Regaining Control from a Subroutine (done by the caller):
+
+Pop any registers $t0-$t9 that the caller previously pushed.
+
 Storage classes: automatic, static, dynamic-
+here are three places in memory where data may be placed: in the data section (declared with .data in assembly language), on the run-time stack, and on the heap.
+
+A subroutine other than main() can have data in the .data section. In high-level programming languages, such as "C", this type of storage is called static.
+
+Variables whose storage is allocated on the run-time stack are (sometimes) called automatic variables. This is because their storage is "automatically" pushed and popped as a subroutine is entered and exited. Usually the word "variable" means "automatic variable".
+
+A variable whose memory is located in the heap is called a dynamic variable. Chapter 33 of these notes discusses the heap. The heap is where memory for objects is found (using the new operation in Java or C++). In "C" dynamic memory is allocated using the malloc operation (or similar).
+
 Entry point- 
-Recursion
+The symbol fact is a global symbol (also called an external symbol) so that the assembler, linker, and loader can use that symbol to refer to the same place in memory.
 
+A location such as fact that is a target of a subroutine call is called an entry point. 
 
-
+Recursion- 
+a function  calling it self (my version)
+Recursion has been implemented by using: (1) the normal machine operations of sequential execution, testing, and branching, and (2) the run-time stack.
 
