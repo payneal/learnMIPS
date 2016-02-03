@@ -1,0 +1,27 @@
+Question 1: 
+Is is possible to represent a negative integer with a positive number of bits?
+
+yes 
+
+Question 2: 
+In the decimal value 12.6 what power of 10 is associated with:
+    The digit 1?  10^1
+    The digit 2?  10^0 
+    The digit 6?  10^-1
+
+Question 3: 
+Express 3/10 + 1/100 using positional notation
+
+3*10^-1 + 1*10^-2 = .31
+
+Question 4:
+What is 1×2-1 ? (Express the answer in base ten notation).
+
+5*10^-1 = .5
+
+
+
+
+
+
+ 
