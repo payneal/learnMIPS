@@ -19,9 +19,155 @@ What is 1×2-1 ? (Express the answer in base ten notation).
 
 5*10^-1 = .5
 
+Question 5: 
+Write 0.112 as a base 10 expression.
+
+.75
+
+Question 6: 
+What is 100.012 expressed in decimal?
+
+4.25
+
+Question 7: 
+In this scheme, what does the bit pattern 01101001 represent in decimal?
+
+6.5625
+
+Question 8: 
+Of course, the question is, does the sum of the fixed point expressions (01111101) represent the sum of the decimal expressions (7.8125)?
 
 
+Power of 2|  3   2   1   0   .   -1      -2     -3      -4
+          |  8   4   2   1   .   0.5     0.25   0.125   0.0625
+Include?  |  0   1   1   1   .   1       1      0       1
 
+7.8125
 
+Question 9: 
+How many values can be represented using our 8-bit fixed point representation?
 
+256
+
+Question 10: 
+(Calculus Review: ) How many real numbers lie between 0.0 and 0.0625?
+
+an infinite number
+
+Question 11: 
+How many digits does the value pi have?
+
+an infinite number
+
+Question 12:
+What does shifting left by one bit do?
+
+multiply by 2
+
+Question 13: 
+(Thought Question: ) Why will no other digit but 0 or 1 move into the one's place? (Hint: consider the biggest possible decimal fraction).
+
+You might fear that a '2' or higher digit might move into the one's place. Try this: multiply the biggest decimal fraction 0.99999... by two. This yields 1.99999... Even with this fraction a '1' moves into the one's place.
+
+Questtion 14: 
+Perform the conversion from Decimal -> Binary Fraction with .750
+
+0.11
+
+Question 15: 
+Can "one third" be represented accurately in decimal?
+
+No
+
+Question 16: 
+How many times will "Crimson and Clover" be printed?
+
+Over and over.
+
+Question 17: 
+Fix the code.
+
+float x;
+for ( x = 0.0; x != 10.0; x += 0.1 )
+{
+  System.out.println("Crimson and Clover");
+}
+
+<= instead of != use <= but thats no a good answer because it could possibly loop 101 times
+a better solution is to change 10.0 to 100
+
+Question 18: 
+Is floating point representation (as used in computers) the same as the base two notation discussed in this chapter?
+
+No. They are related, but floating point is more sophisticated. The next chapter discusses it.
+
+key terms: 
+Base two positional notation -
+Positional notation can also be used with a base other than ten. Here is a number written using base two:
+
+1   0   0   .   1   0   1
+1×22    0×21    0×20    .   1×2-1   0×2-2   1×2-3
+When a particular power of the base is not needed, the digit '0' is used for that position. If the base is two, the point  '.'  is called a binary point.
+
+In general, the mark used to separate the fraction from the whole number is called a radix point. In many European nations, the radix point "," is used.
+
+Converting base 2 to base 10 -
+Recall that X-n means 1/Xn.   So,  2-2 = 1/4  and   2-3 = 1/8.
+
+To convert an expression in base two notation to base ten notation, just do the arithmetic. Here is 100.101 convered from binary representation to decimal representation:
+
+1   0   0   .   1   0   1
+1×22    0×21    0×20    .   1×2-1   0×2-2   1×2-3
+1×4 +   0×2 +   0×1+    .   1×0.5 + 0×0.25 +    1×0.125
+4 + 0 + 0 + .   0.5 +   0 + 0.125
+        4   .   625      
+
+Fixed point notation -
+In the past, some electronic calculators and some computers used fixed point notation for expressing a fractional number. With fixed point notation, a number is expressed using a certain number of bits and the binary point is assumed to be permanently fixed at a certain position.
+
+For example, let us say that fixed point numbers use eight bits and that the binary point is fixed between the middle two bits
+
+Binary addition algorithm, with fixed point - 
+Here is another number: 00010100. This expression represents decimal 1.25.
+
+Here is the familiar binary addition algorithm performed with the two bit patterns, and the usual decimal addition performed with their decimal equivalent.
+
+fixed point         as decimal
+01101001            6.5625
+00010100            1.2500
+------------------------------        
+01111101            7.8125
+
+Limited precision of fixed point (and floating point) - 
+The range between any two integers is divided into 16 numbers (because 16*0.0625 = 1.0). This is not very many divisions. There are big gaps between represented numbers.
+
+Important points: With our version of 8-bit fixed point, the only numbers that can be represented lie in the range zero to 15.9375. This is called a limit in range. Also, only a few real numbers within that range can be represented. This is called a limit in precision.
+
+Shifting left - 
+Let us return to paper-and-pencil positional notation. Here is a binary expression:
+
+0001.0100 = 1.2510
+Here is the same pattern, shifted left by one bit:
+
+0010.1000 = 2.5010
+
+Converting base 10 to base 2 -
+    Decimal Binary Fraction
+Start   0.625   0.
+×2  1.250   0.1
+    .250    0.1
+×2  0.500   0.10
+    .500    0.10
+×2  1.000   0.101
+Result  .000    0.101
+
+0.1 in binary - 
+nexpected Fact: The value "one tenth" cannot be represented precisely using a binary fraction.
+
+Dangerous counting loops - 
+float x;
+for ( x = 0.0; x != 10.0; x += 0.1 )
+{
+  System.out.println("Crimson and Clover");
+}
  
