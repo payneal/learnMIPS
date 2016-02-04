@@ -1,0 +1,165 @@
+Question 1:
+(Review: ) Is it absolutely essential that a processor support floating point data?
+
+No. All that a processor needs is a small set of basic instructions. Everything else can be built up from them.
+
+Question 2: 
+(Take a guess: ) When the decimal point moves to where it is needed in an expression, the decimal point is said to ____________.
+
+Float
+
+Question 3: 
+Is floating point an old or a modern idea?
+
+old
+
+Question 4: 
+(Not very hard thought question: ) Do you imagine that in (say) 1975 that the floating point methods used on IBM mainframes were the same as on DEC minicomputers?
+
+No
+
+Question 5: 
+Should the same numerical calculation, performed on two different computers, give the same result on each?
+
+yes
+
+Question 6: 
+Write the following in scientific notation: 243.92
+
+243.92 = 2.4392 × 1002
+
+Question 7: 
+Write 0.000456 in scientific notation.
+
+0.000456 = 4.56 × 10-4
+
+Question 8: 
+2.034       ->       2.034 × 10^0
+-2.034      ->       -2.034 × 10^0
+203.4       ->       2.034 × 10^2
+.002034     ->       2.034 × 10^-3
+-20.34      ->       -2.034 × 10^1
+-.02034     ->       -2.034 × 10^-2
+
+Question 9: 
+How many digits are in each of the above expressions? How many digits are in the mantissa? How many in the exponent?
+8, 6, 2
+
+Question 10: 
+How many possible mantissas can be represented in single precision?
+
+2^23
+
+Question 11: 
+You have seen the MIPS instruction bltz which branches if the 32-bit integer in a register is less than zero (negative). It does this by looking at bit 31 of the two's complement integer and branching if it is set.
+
+Does this instruction work with single precision values?
+
+yes, there is still a sign bit
+
+Question 12: 
+If you had a daughter would you name her Mantissa?
+
+doubtful, but I do date crazy controlling women so .... there is a chance it could happen
+
+Question 13: 
+yes, sign bit not included
+
+QUESTION 14:
+(Review:) What part of the single precision float represents the shifted binary point?
+
+The exponent.
+
+Question 15: 
+What is the mantissa when the entire float is zero?
+
+0
+
+Question 16: 
+How is the exponent -127 represented?
+
+not represented
+
+Question 17: 
+1.) What is the sign bit of 1.0?
+2.) What is the mantissa of 1.0? (Hint: remember the assumed "1." preceding the mantissa)
+3.) What is the actual exponent of 1.0?
+4.) What is the biased exponent of 1.0? (Hint: add the actual exponent to 127)
+ 
+1- 0
+2- 000 0000 0000 0000 0000 0000
+3- 0 
+4- 0111 1111
+
+Question 18: 
+When you load this program in SPIM, where will the 1.0 be?
+
+Data section
+
+QUESTION 19:
+(Review: ) Can -0.1 be represented precisely as a 32-bit float?
+
+No, 0.1 can't be represented precisely in binary. Using floating point representation does not change anything. It does not matter that the number is negative.
+
+Question 20: 
+Here are the bits written out:
++/-     exponent                        Mantissa
+1       0   1   1   1   1   0   1   1   1   0   0   1   1   0   0   1   1   0   0   1   1   0   0   1   1   0   0   1   1   0   0
+
+Write out the bit pattern as hex
+
+0xBDCCCCCC
+
+key terms: 
+The advantages of floating point- 
+Floating point representation makes numerical computation much easier. You could write all your programs using integers or fixed-point representations, but this is tedious and error-prone.
+
+History of floating point-
+The first digital computer (according to some) the Z3, built by Konrad Zuse in 1941 used floating point representation. This computer had a clock speed of five to ten Hertz and a memory of 64 words of 22 bits! (The earlier Z1 machine also used floating point, but was not quite programmable enough to be considered a computer.)
+
+Scientific notation for numbers-
+1.38502 * 10^03 == 1.38502 × 1000 == 1385.02
+
+Precision of a floating point number-
+The number of digits in the mantissa is called the precision of the floating point number. When we start talking about binary floating point, the precision will be the number of bits in the mantissa. With a 32-bit single-precision floating point value the mantissa is 24 bits, so single precision floats have 24 bits of precision.
+
+Caution: sometimes in casual speech people say that single precision values have 32 bits of precision, but this is not actually correct.
+
+Another Caution: the mantissa uses 23 bits to represent its 24 bits of precision. This trick will be discussed shortly.
+
+IEEE 754 Floating Point Standard-
+An IEEE 754 single-precision floating point value is 32 bits long. The bits are divided into fixed-sized fields as follows:
+
+Bits 0 through 22 are for the mantissa; bits 23 through 30 are for the exponent; and bit 31 is the sign bit. The mantissa and exponent fields work like the similar parts in scientific notation (details follow). The sign bit gives the sign of the entire expression: a 0 bit means positive and a 1 bit means negative.
+
+The mantissa-
+The mantissa represents a number in 24-bit base two positional notation that looks like this:
+
+1.xxxxxxxxxxxxxxxxxxxxxxx     (x = 0 or 1; there are 23 x's)
+Very tricky:  The mantissa represents the 23-bit binary fraction part of a 24-bit number that starts with a "1". The 20 place (the one's place) is presumed to contain a 1 and is not present in the mantissa. This trick gives us 24 bits of precision with only 23 bits.
+
+For example, the binary number 1.11110000101101101010001 is represented as 11110000101101101010001
+
+The exponent-
+The eight bits 23 through 30 contain the exponent. The exponent is an integer, but may be negative, zero, or positive. You might guess that an 8-bit two's complement integer would work perfectly for this, but a different type of notation is used.
+
+The exponent is expressed using a biased integer. The true exponent is added to +12710 resulting in an unsigned binary integer. The biased integer is encoded using 8-bit unsigned binary.
+
+A biased exponent of +127 represents the actual exponent 0.
+A biased exponent of +128 represents the actual exponent 1.
+A biased exponent of +126 represents the actual exponent -1.
+Exceptions: (1) A floating point value of 0.0 is represented with a mantissa of 23 zero bits and an exponent of 8 zero bits. It is not legal to have an exponent of zero with a non-zero mantissa. (2) The exponent 25510 (1111 1111) is used to signal various problems, such as division by zero.
+
+Floating point zero-
+The sign bit is zero when the number is zero. A floating point zero consists of 32 zero bits. The MIPS instructions that test for integer zero can test for floating point zero.
+
+IEEE floating point also represents "negative zero", where the sign bit is set (to one), and all other bits are zero. In mathematics, negative zero is the same as zero. But floating point calculations sometimes give different results for "positive zero" and "negative zero". This is an advanced topic; for these chapters assume that zero is represented with 32 zero bits.
+
+Formula for floating point-
+Here is a formula that summarizes the past several pages. In it, s is the sign bit (0 or 1), M is the mantissa (000...000 to 111...111) and E is the biased exponent.
+
+value = (-1)s × 1.M × 2E-127
+To convert a paper-and-pencil number into IEEE floating point, fill in each piece of the picture. Let us represent 1.0 as a 32-bit IEEE 754 float.
+
+
+
