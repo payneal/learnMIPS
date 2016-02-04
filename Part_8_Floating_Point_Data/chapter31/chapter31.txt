@@ -1,0 +1,163 @@
+Question 1: 
+The 64 bit (double precision) floating point numbers are better than 32 bit (single precision). But how are they better?
+
+Increased Precision?
+Greater Range of values covered?
+Both?
+
+both
+
+Question 2: 
+(Memory Test: ) Why is $f0 not hard-wired to contain a floating point zero, like register $0 is hard-wired to contain an integer zero?
+
+because floating 0 is same as integer 0 
+
+Question 3: 
+Remember the load delay, where it takes an extra machine cycle after a load instruction before integer data reaches a general purpose register? Do you think there is a load delay for floating point load operations?
+
+yes
+
+Question 4: 
+Every one of the 2^32 patterns that 32 bits can form is a legal two's complement integer.
+Are some 32-bit patterns not legal as floating point values? Hint: think about how zero is represented.
+
+Some 32-bit patterns are not legal floating point.
+It is not legal to have an exponent field of zero with a non-zero mantissa. There are other combinations that are also illegal.
+
+QUESTION 5:
+Why would you want to copy a temporary integer value to a floating point register?
+
+maybe to hold it
+
+QUESTION 6: 
+(Take a guess: ) Could the first instruction be written as   li.s $f1,1   ?
+
+nope, its required 
+
+QUESTION 7: 
+(Thought Question: ) Can a general purpose register hold a floating point value?
+
+YES, its also 32 bits
+
+QUESTION 8: 
+Do you think that the SPIM service that prints an integer can be used for floating point values?
+
+no
+
+Question 9: 
+(Review: ) Into what register do you put the service code before executing a syscall
+
+$v0
+
+Question 10: 
+Will the assembler catch this error? Will the program bomb when it runs?
+
+no, its still 32 bits, No it will do what its suppose to do
+
+QUESTION 11:
+The first line of output shows the 32 bits interpreted as a single precision floating point value. Is this output correct?
+ (Hint: look at the program on the previous page).
+
+No, data stated -8.32 but the program printed -8.31999969
+
+QUESTION 12: 
+How many decimal places of precision does Java's primitive type float have? How many decimal places of precision does C's data type float have?
+
+7 or 8 same as mips, but C compilers let your decide the percision
+
+Question 13: 
+(Thought Question: ) How does the abs.s instruction alter the 32-bit pattern of the float?
+
+31 bit
+
+Question 14: 
+(Thought Question: ) The neg.s fd,fs instruction places the negation of the number in $fs into $fd. How does it do this?
+
+The neg.s fd,fs instruction toggles the sign bit of the float in $fswhen it copies the pattern to $fd.
+
+QUESTION 15:
+Could floating point arithmetic be done with the value in register $f0? Inspect the contents for FP0 in the SPIM register display.
+
+no
+
+QUESTION 16:
+Should a, b, and c be integer constants or floating point constants?
+
+Floating point constants
+
+QUESTION 17:
+Why (do you suppose) are the constants a, b, and c set to 1.0?
+
+debugging
+
+QUESTION 18:
+If x = 0.1 what is ax2 + bx + c when a = b = c = 1?
+
+1.11
+
+QUESTION 19:
+Had enough?
+
+yes, but im only on chapter 30
+
+key terms: 
+
+Coprocessor 1- 
+Floating point on MIPS was originally done in a separate chip called coprocessor 1 also called the FPA (Floating Point Accelerator). Modern MIPS chips include floating point operations on the main processor chip. But the instructions sometimes act as if there were still a separate chip.
+
+Load delay with floating point- 
+yes its needed unless load delay is enabled 
+
+Floating point registers- 
+MIPS has 32 single precision (32 bit) floating point registers.
+
+The registers are named $f0 – $f31
+$f0 is not special (it can hold any bit pattern, not just zero).
+Single precision floating point load, store, arithmetic, and other instructions work with these registers.
+Floating point instructions cannot use general purpose registers.
+Only floating point instructions may be used with the floating point registers.
+
+Floating point load instruction- 
+l.s   fd,addr     # load register fd from addr
+                  # (pseudoinstruction)
+
+Floating point store instruction-
+s.s   fd,addr     # store register fd to addr
+                  # (pseudoinstruction)
+
+Full word alignment-
+For both single precision load and store instructions (as with the general purpose load and store instructions) the memory address must be full-word aligned. It must be a multiple of four. Ordinarily this is not a problem. The assembler takes care of this.
+
+Input and output of floating point (in SPIM)- 
+print 
+float input code == 2
+double input code == 3
+
+read
+float output code == 6
+double output code == 7
+
+Decimal precision of floating point- 
+Single precision floats have (recall) only 24 bits of precision. This is the equivalent of 7 to 8 decimal digits. 
+Double precision has 15 or 16 decimal places of precision.
+
+Arithmetic instructions- 
+Instruction         Operation
+abs.s fd,fs         $fd = |$fs|
+add.s fd,fs,ft      $fd = $fs + $ft
+sub.s fd,fs,ft      $fd = $fs - $ft
+mul.s fd,fs,ft      $fd = $fs * $ft
+div.s fd,fs,ft      $fd = $fs / $ft
+neg.s fd,fs         $fd = -$fs
+
+
+Data movement instructions-
+mov.s   fd, fs
+mtc1   rs, fd
+mfc1   rd, fs
+
+Horner's method-
+The polynomial is evaluated from left to right. First ax + b is calculated. Then that is multiplied by x and c is added in, giving axx + bx + c.
+The value x2 is not explicitly calculated. This way of calculating a polynomial is called Horner's Method
+
+
