@@ -1,0 +1,129 @@
+Question 1: 
+Are the FPA (floating point accelerator) and coprocessor 1 the same?
+
+yes
+
+Question 2: 
+(Thought Question: ) Do you think that testing if two floating point values are equal is a common thing to do?
+
+maybe
+
+Question 3: 
+There is no "greater than" instruction! What can we do?
+
+switch the two and use less than
+
+Question 4: 
+Where does execution of the bc1t instruction take place? In the FPU or the CPU?
+
+CPU
+
+Question 5: 
+The three outcomes can be detected by other comparison instructions. Here is another arrangement of the code:
+
+  c.___.s  $f0,$f2       # is A == B?
+  bc1t    printEQ        # yes: print equal
+
+  c.___.s  $f2,$f0       # is B < A?
+  bc1t    printB         # yes: print B
+
+                         # otherwise A < B
+  eq, lt
+
+Question 6: 
+Would you expect the condition bit (of the FPU) to keep its value until it is altered by another comparison instruction?
+
+yes
+
+Question 7: 
+(Review: ) should c.eq.s be used to implement a while loop?
+
+no
+
+Question 8: 
+Try it: Say that n == 4 and that our first approximation to the square root is x == 1. Use the formula to get the next approximation:
+    x = (1/2)(1+ 4/1)
+
+    x = 2.5
+
+Question 9: 
+(Memory test: ) How many decimal places of precision can be expected with floating point?
+
+6 to 7 
+
+Question 10: 
+But part of each mnemonic is missing! Fill them in. You may wish to look at floating point operations.
+
+## x' = (1/2)(x + n/x)
+
+## $f0  ---  n
+## $f1  ---  1.0
+## $f2  ---  2.0
+## $f3  ---  x  : current approx.
+## $f4  ---  x' : next approx.
+## $f8  ---  temp
+## $f10 ---  small value
+
+loop:     
+___.s   $f4,$f0             #  x' = n
+___.s   $f4,$f4,$f3         #  x' = n/x
+___.s   $f4,$f3,$f4         #  x' = x + n/x
+___.s   $f3,$f4,$f2         #  x = (1/2)(x + n/x)
+  
+mov, div, add, div
+
+Question 11: 
+Say that x is very close to n^0.5. What do you think will be the value of n/(x*x)?
+
+close to 1.0
+
+Question 12: 
+Is there a floating point absolute value instruction?
+
+yes
+
+Question 13: 
+Is this program commercial quality code?
+
+No
+
+Question 14: 
+What result do you expect if this program calculated the square root of 4.000000e+6 ?
+
+2.0000e+3
+
+key terms: 
+
+The floating point accelerator chip - 
+In the early days of MIPS, floating point was done on a separate chip. Special instructions were used to bridge the gap between the two chips (such as the two move instructions mtc1 and mfc1 we have already seen). Although these days there is usually just one processor chip, some of the instructions act as if the chips were separate.
+
+Floating point comparison instructions - 
+
+c.eq.s/d =  ==
+
+c.lt.s/d =  < 
+
+c.le.s/d =  <= 
+
+Floating point branch instructions -
+
+bc1t lable = branch to label if the coprocessor 1 condition bit is true 
+    
+bc1f lable = brancg to label if the coprocessor 1 condition but is false
+
+The condition bit - 
+The condition bit is set (made equal to one) if the condition is true. Otherwise the condition bit is cleared (made equal to zero). There are more comparison operations than these. But these notes use just these three. The others involve the various IEEE 754 codes for exceptional results.
+
+Newton's method - 
+Newton's method is a way to compute the square root of a number. Say that n is the number and that x is an approximation to the square root of n. Then:
+
+x' =(1/2)(x + n/x)
+x' is an even better approximation to the square root. The reasons for this are buried in your calculus book (which you, perhaps, have buried in the darkest corner of your basement). But, to make the formula plausible, look what happens if the approximation x happens to be exactly the square root. In other words, what if x = n0.5. Then:
+
+x' = (1/2)(x + n/x) = (1/2)( n0.5 + n/n0.5 )
+   = (1/2)(n0.5 + n0.5) = n0.5
+If x reaches the exact value, it stays fixed at that value.
+
+
+
+
