@@ -1,0 +1,7 @@
+QUESTION 1:
+(Review: ) How many addresses does MIPS main storage have?
+
+2^32
+
+
+
