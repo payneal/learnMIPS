@@ -3,5 +3,178 @@ QUESTION 1:
 
 2^32
 
+QUESTION 2:
+What is the process of allocating memory from the heap called?
+
+dynamic memory allocation
+
+QUESTION 3:
+Does the Stack Segment also have memory holes in it?
+
+QUESTION 4:
+In a full operating system, is there a service for deallocating memory, for returning a previously allocated block to the system?
+
+yes 
+
+QUESTION 5:
+Does the programmer ever need to know the address of the block?
+
+no
+
+QUESTION 6:
+If another block of memory is allocated where will it be?
+
+10040004, would be a guess but theres no way I could really know because more than likely some other program is running so its doubtfull that would be the location
+
+QUESTION 7:
+In MIPS, how many bytes are needed for this struct?
+struct
+{
+  int age;  
+  int pay;
+  int class;
+};
+
+12
+
+QUESTION 8: 
+Say that register $s1holds the address of a struct like the above. Fill in the blank so that register $t0 gets the value in the pay field:
+
+lw  $t0, ___(___) #load the pay
+
+4, $s1
+
+QUESTION 9:
+Fill in the blanks to compete the program.
+
+4, 4, 8, 8
+
+QUESTION 10:
+You weren't expecting to get that code for free, were you? Fill in those blanks.
+Hint: pick from li, la, and lw for each blank.
+
+la, li, lw, li, li
+
+QUESTION 11:
+Why is register $s0 used in this routine?
+
+By convention, register $a0 is used to pass the argument. But in the body of the subroutine register $a0 is used to pass arguments to the SPIM service. So a safe copy must be made in an "S" register.
+
+QUESTION 12:
+Fill in the blanks. Look back at the subroutine if needed.
+
+$a0, $s1
+$a0, $s2
+
+QUESTION 13:
+Would looking at and playing with a complete program help?
+
+yes
+
+QUESTION 14:
+How is a memory allocation request done in C ?
+
+malloc
+
+QUESTION 15:
+Where in memory will the allocated bytes of memory come from?
+
+heap
+
+QUESTION 16:
+Could C allocate a second block of memory for a second struct?
+
+yes
+
+QUESTION 17:
+What do you think would be the result of the following C statement?
+empB = empA;
+
+stuct empB would have all same values as empA ( copying a stuct)
+
+QUESTION 18:
+Do C programs call subroutines?
+
+yes
+
+QUESTION 19:
+If a subroutine has the address of a block of memory, can it then access that memory, and perhaps alter it?
+
+yes
+
+QUESTION 20:
+Does the C subroutine explicitly contain code for the subroutine prolog and epilog
+
+not explicitly, but the complier takes care of it all
+
+QUESTION 21:
+Think of some interesting things to do with these programs.
+
+play, learn structs 
+
+key terms:
+Review of MIPS memory layout -
+there are 232 bytes available in main memory, each one with its own address. Most of these bytes are virtual. They are implemented by the virtual memory system and do not directly correspond to bytes in RAM chips. But to executing programs it looks as if all the bytes are present.
+
+ The operating system divides the memory available to a program into sections. This is not required by hardware, but makes managing computer operations easier. The Text Segment holds the machine language of the program. The Data Segment holds the memory that has been allocated to the program just as it starts. The Stack Segment is for the run-time stack.
+
+Between the data segment and the stack segment there is unallocated memory that is used for growing the stack (shown as the downward-pointing arrow at the top) or for creating dynamic data structures (shown as the upward-pointing arrow at the bottom). Both of these activities occur as the program is running.
+
+The heap -
+The portion of memory above the data segment that has been allocated to data structures is called the heap.
+
+Dynamic Memory Allocation -
+Dynamic memory allocation is when an executing program requests that the operating system give it a block of main memory. The program then uses this memory for some purpose. Usually the purpose is to add a node to a data structure. In object oriented languages, dynamic memory allocation is used to get the memory for a new object.
+
+The memory comes from above the static part of the data segment. Programs may request memory and may also return previously dynamically allocated memory. Memory may be returned whenever it is no longer needed. Memory can be returned in any order without any relation to the order in which it was allocated. The heap may develop "holes" where previously allocated memory has been returned between blocks of memory still in use.
+
+SPIM memory allocation -
+li      $a0,xxx   # $a0 contains the number of bytes you need.
+                  # This must be a multiple of four.
+li      $v0,9     # code 9 == allocate memory
+syscall           # call the service.
+                  # $v0 <-- the address of the first byte
+                  # of the dynamically allocated block
+
+Records and structs -
+A block of memory for this struct consists of twelve bytes. The first field (age) is located at a displacement of zero into the block. The second field (pay) is located at a displacement of four into the block. The last field (class) is located at a displacement of eight into the block.
+
+Fields in a struct -
+struct
+{
+  int age;  
+  int pay;
+  int class;
+};
+
+Address of a struct as a subroutine argument -
+# Subroutine PStruct: print a struct
+#
+# Registers on entry: $a0 --- address of the struct
+#                     $ra --- return address
+#
+# Registers:          $s0 --- address of the struct
+#
+        .text
+
+PStruct:
+        sub     $sp,$sp,4         # push $s0
+        sw      $s0,($sp)         # onto the stack
+        
+        move    $s0,$a0           # make a safe copy 
+                                  # of struct address
+        la      $a0,agest         # print "age:"
+        li      $v0,4
+        syscall
+        lw      $a0,0($s0)        # print age
+        li      $v0,1
+        syscall
+
+        add     $sp,$sp,4         # restore $s0 of caller 
+        lw      $s0,($sp)
+        jr      $ra               # return to caller        
+
+        .data
+agest:  .asciiz "age:   "
 
 
