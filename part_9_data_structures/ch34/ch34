@@ -1,0 +1,171 @@
+QUESTION 1:
+(Review: ) What is a data structure?
+
+ a collection of data that includes the structural relationships between the data.
+
+QUESTION 2:
+Is the following the same list as the one above?
+
+2
+7
+3
+1
+5
+
+No, same entries but different list due to order/relationship
+
+QUESTION 3:
+Could types of data other than integers fit into the structure of this list?
+
+yes
+
+QUESTION 4: 
+What is the third letter in the first node of this data structure?
+
+The character 'j'
+
+Question 5: 
+Have you already seen ordered lists of integers in assembly language?
+
+yes array of ints
+
+Question 6: 
+In the array implementation of the list, is it possible for the list to grow in size?
+No, or if so I havent been told how to do it
+
+Question 7: 
+Here is a node of a linked list:
+          .data
+elmnt01:  .word  1
+next01:   .word  _______ 
+
+Here, somewhere else in the program, is the second node:
+
+elmnt02:  .word  2
+next02:   .word  .....
+Fill in the blank so that the field next01 contains the address of the second node.
+
+elmnt02
+
+QUESTION 8:
+
+Is the following a logically equivalent implementation of the list?
+          .data
+elmnt05:  .word  7
+          .word  0
+
+elmnt02:  .word  2
+          .word  elmnt03
+
+elmnt03:  .word  3
+          .word  elmnt04
+
+elmnt01:  .word  1
+          .word  elmnt02
+
+elmnt04:  .word  5
+          .word  elmnt05
+
+yes
+
+QUESTION 9:
+
+1.) At what address is the first node in the linked list? 0x10010000
+2.) What is the address in its link field? 0x10010008
+3.) What is the address of the second node in the linked list? 0x10010008
+
+Question 10: 
+(Review:) What bit pattern is used to represent null?
+
+0 aka 32 0 bits
+
+Question 11: 
+Which instruction should fill the blank in the first statement:
+
+lw --- load a register with the data stored at a symbolic address
+la --- load a register with the address corresponding to a symbolic address
+
+la
+
+QUESTION 12:
+
+Examine this fragment:
+
+          la      $s0,head
+          lw      $s1,head
+          . . .
+          
+          .data
+head:     .word   7
+Which register, $s0 or $s1, contains the value 7 after this fragment executes?
+
+$s1 
+
+QUESTION 13:
+What does it mean if the link field (the pointer) of a node contains a null ?
+
+its the last oif the linked list
+
+QUESTION 14:
+Is there a limit to the size of linked list that this program can handle?
+
+No
+
+QUESTION 15:
+What needs to be done after the loop is done?
+
+nothing unless you want to end output line, write a message, return to OS 
+
+Question 16: 
+If $s0 is pointing at the first node, is it possible to jump immediately to the fourth node?
+
+its possible, but thats not how linked list are suppose to work so NO
+
+key terms: 
+Data Structure -
+A data structure is a collection of data that includes the structural relationships between the data.
+ 
+node (node) of a data structure - 
+A node in a data structure is an item of data. The "structure" of the data structure consists of the relationships between the nodes. Often nodes are called elements. When thinking about the structure part of a data structure each node is an indivisible unit
+
+Ordered list as an array - 
+The list of integers could be placed into an array. In assembly language an array of integers is declared using the directive .word followed by a list of comma separated integers. Often the array is preceded by a word that holds the size of the array
+
+Linked list - 
+in practical programming a list of integers would probably be implemented as an array. Arrays have many advantages. But they also have disadvantages. Sometimes the nodes of the data structure come in several sizes, or the length of the list is highly variable. Then a linked list may be the best implementation.
+
+A linked list overcomes some of the disadvantages of arrays (and introduces its own disadvantages). In a linked list, each node consists of two items:
+1.) The data
+2.) The address of the next node
+
+The "next" field of linked list - 
+
+The two nodes are not necessarily next to each other in memory. The following fragment implements the entire five node linked list:
+          .data
+elmnt01:  .word  1
+          .word  elmnt02
+
+elmnt02:  .word  2
+          .word  elmnt03
+
+elmnt03:  .word  3
+          .word  elmnt04
+
+elmnt04:  .word  5
+          .word  elmnt05
+
+elmnt05:  .word  7
+          .word  0
+Each node contains the address of its successor node. The field that holds this address is called the next field or (to avoid ambiguity) the link field. There is no need to provide a label for this field in the nodes.
+
+Pointers - 
+when a memory address is used as a link between nodes of a data structure it is sometimes called a pointer
+
+Traversal of a linked list - 
+A visit to every node of a data structure is called a traversal
+
+When to use la and when to use lw - 
+lw --- load a register with the data stored at a symbolic address
+la --- load a register with the address corresponding to a symbolic address
+
+
