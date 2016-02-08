@@ -69,7 +69,7 @@ main:
         addu    $t1, 4          # move to year
         # ask for year 
         li      $v0, 4
-        la      $a0, month
+        la      $a0, year
         syscall
 
         li      $v0,5 
@@ -80,13 +80,61 @@ main:
             
         addu    $t0, $t0,1      # count++ 
         j       loop
+        nop
 
-    next:
+    # print out all of the stuff 
+    next:     
+       
+        # stuff for loop
+        li      $t0, 0          # count = 0 
+        la      $t1, dates      # point to start of array
 
-        
+    loop2: 
+        beq     $t0, $s0, exit  # count == number branch out 
 
+        li      $v0, 4 
+        la      $a0, array 
+        syscall 
+    
+        li      $v0, 1 
+        move    $a0, $t0 
+        syscall     
 
+        li      $v0, 4 
+        la      $a0, equals
+        syscall 
 
+        li          $v0, 1          # code 1 == print int
+        lw          $a0, 0($t1)   
+        syscall
+        addu        $t1, $t1, 4
+
+        li      $v0, 4 
+        la      $a0, slash
+        syscall 
+
+        li          $v0, 1          # code 1 == print int
+        lw          $a0, 0($t1)   
+        syscall
+        addu        $t1, $t1, 4
+
+        li      $v0, 4 
+        la      $a0, slash
+        syscall 
+
+        li          $v0, 1          # code 1 == print int
+        lw          $a0, 0($t1)   
+        syscall
+        addu        $t1, $t1, 4
+
+        li      $v0, 4 
+        la      $a0, newL
+        syscall 
+       
+        addu    $t0, $t0, 1         # count++
+        b       loop2
+
+    # end of the program
     exit: 
         li      $v0, 10         # code 10 == exit
         syscall
@@ -98,15 +146,18 @@ main:
         j       main
         nop
     
-
-
           .data
-size:     .word   0
-dates:    .space  25*4          
-how:      .asciiz "how many dates are needed: "
-high:     .asciiz "try again must be between 1-25\n"
+size:           .word           0
+dates:          .space          25*4          
+how:            .asciiz         "how many dates are needed: "
+high:           .asciiz         "try again must be between 1-25\n"
+entred:         .asciiz         "you entred the following: \n"
 day:            .asciiz         "day: "
 month:          .asciiz         "month: "
 year:           .asciiz         "year: "
+array:          .asciiz         "array " 
+equals:         .asciiz         " = "
+slash:          .asciiz         "/"
+newL:           .asciiz         "\n"
 # end of program
 
