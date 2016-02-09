@@ -1,0 +1,145 @@
+QUESTION 1:
+(Review: ) Except for the first and last item, each data item in an ordered list has one _______ and one __________
+
+successor, predecessor
+
+QUESTION 2:
+In the top picture of the conceptual ordered list an arrow represents the relationship between two data items.
+
+In the bottom picture of a linked list, what does an arrow represent?
+
+adress to the successor node
+
+QUESTION 3:
+How many bytes are needed for each node?
+
+8 bytes
+
+QUESTION 4:
+Fill in the blanks.
+
+$s2, $s1, $zero, $s2
+
+QUESTION 5:
+Could you copy the address of the first node to a location in the data section of memory?
+
+yes
+
+QUESTION 6:
+Fill in the blanks to complete the code.
+
+$s1, first
+
+QUESTION 7:
+Why do we want to use $s1 for all nodes? Why not use a different pointer register for each node of the linked list?
+
+because in linked list you can only transveres ???
+real answer you would run out of registers 
+
+QUESTION 8:
+You've done it once. You can do it again: fill in the blanks.
+
+$s1, first, $s1
+
+QUESTION 9:
+Fill in the blanks.
+
+$v0, $s1, $v0
+
+
+QUESTION 10:
+Register $s1 no longer points at the second node. Has the second node been lost?
+
+no, its in memory, its a linked list so it can be reached traversing through starting at first 
+
+QUESTION 11:
+How would you create a linked list of 100 nodes?
+
+same as creating a link list of 3, but doing it 100 times, prolly would need a loop count though 
+
+QUESTION 12:
+More Blanks!
+
+2,8
+
+QUESTION 13:
+1.) At the top of the loop, which is the current node?
+2.) At the bottom of the loop, which is the current node?
+
+1st node, 2nd node
+
+Question 14: 
+Look at the current node (the last one) in each diagram. What does a current node look like in general?
+
+tail
+
+QUESTION 15:
+When the loop ends, control is passed to done. What must now be done?
+
+set null to end the linked list
+
+QUESTION 16:
+But, those blanks... Fill them in.
+
+lw, $s0 , first 
+
+
+QUESTION 17:
+You've run the program and it works exactly as expected. What do you do next?
+
+mess with it/break it
+
+key terms: 
+Successor relationship - 
+ nonde points to successor node in linked list 
+
+nodes of a linked list -
+Each node contains an integer followed by an address
+
+Memory allocation for a node - 
+li      $v0,9             # allocate memory
+li      $a0,8             # 8 bytes
+syscall                   # $v0 <-- address
+move    $s1,$v0           # $s1 = &(first node)
+li      $t0,1             # store 1
+sw      $t0,0($s1)        # at displacement 0
+                          # & == "address of"
+
+# create the second node 
+li      $v0,9             # allocate memory
+li      $a0,8             # 8 bytes
+syscall                   # $v0 <-- address
+move    $s2,$v0           # $s2 = &(second node)
+                          # & == "address of"
+
+Linked list header - 
+the first node is called the head, the field that points to it is called the header. 
+
+General case of adding a node - 
+loop:   bgtu    $s2,$s3,done      # while (counter <= limit )
+        
+        # create a node 
+        li      $v0,9             # allocate memory
+        li      $a0,8             # 8 bytes
+        syscall                   # $v0 <-- address
+        
+        # link this node to the previous
+                                  # $s1 = &(previous node)
+        sw      $v0,4($s1)        # copy address of the new node
+                                  # into the previous node
+        
+        # make the new node the current node
+        move    $s1,$v0           # $s1 = &(new node)
+        
+        # initialize the node
+        sw      $s2,0($s1)        # save the counter as 
+                                  # the current node's data
+
+        addi    $s2,$s2,1         # counter++
+        b       loop
+        
+done:
+
+The current node - 
+When a register is used to point at the node were work is being done (as does $s1) it is sometimes called a pointer to the current node.
+
