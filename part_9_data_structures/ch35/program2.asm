@@ -1,4 +1,3 @@
-# pre waring I didnt use stack, like one should when using subroutines I just free balled it becacuse I AM SO CLOSE TO BEING DONE!
         .text
         .globl main 
         
@@ -7,6 +6,7 @@
 main:
         # create the linked list 
         la      $a1, first        # Pass the header to subcreate 
+     
         jal     subCreate           
         nop
         
@@ -20,8 +20,8 @@ main:
         li      $v0,10            # return to OS
         syscall       
 
-       .data
-first: .word   0
+        .data
+first:  .word   0
 # end of main
 
 #################################
@@ -32,7 +32,6 @@ first: .word   0
         .globl subCreate 
 
 subCreate:
-
         # create the first node 
         li      $v0,9             # allocate memory
         li      $a0,8             # 8 bytes
@@ -41,7 +40,34 @@ subCreate:
        
         # copy the pointer to first 
         sw      $s1,0($a1)       
+      
+        # DEBUG
+        ################################################## 
+        li      $v0, 4
+        la      $a0, firstp
+        syscall        
+
+        li      $v0, 1
+        move    $a0, $a1
+        syscall
+
+        li      $v0, 4
+        la      $a0, newL
+        syscall       
+
+        li      $v0, 4
+        la      $a0, headpoint
+        syscall
+        
+        li      $v0, 1
+        move    $a0, $s1
+        syscall
        
+        li      $v0, 4
+        la      $a0, newL
+        syscall       
+        ##################################################
+    
         #below is how you initialiizie the first node
  
         # ask user for string
@@ -66,11 +92,43 @@ subCreate:
         # create remaining nodes if done not entered
     loop:
         bne    $0,$t7,done 
-       
+        nop 
+            
         # at displacment 0 
         sw      $a0,0($s1) 
-          
- 
+
+        # DEBUG
+        ##########################################
+        move    $t0, $a0 
+        
+        li      $v0 , 4        
+        la      $a0, test1
+        syscall 
+
+        lw    $a0,0($s1)      
+        syscall
+
+        li     $v0, 4 
+        la     $a0, test2
+        syscall
+
+        li     $v0, 1
+        move   $a0, $s1
+        syscall         
+        
+        li     $v0, 4 
+        la     $a0, newL
+        syscall
+
+        
+
+
+        move    $a0, $t0       # restore
+
+        ###########################################
+
+
+
         # creat a node
         li      $v0,9           # allocate memory
         li      $a0,8           # 8 bytes
@@ -78,7 +136,38 @@ subCreate:
 
         # link  this node to previous node
         sw      $v0, 4($s1)
-    
+
+
+
+
+        # DEBUG 
+        #########################################
+        move    $t0, $v0        # hold value of $v0
+        
+        addu    $t1, $s1, 4     
+
+        li      $v0 , 1        # debug
+        move    $a0, $t1
+        syscall 
+
+        li      $v0 , 4         # debug
+        la      $a0, test3       
+        syscall
+
+        li      $v0, 1 
+        move    $a0, $t0
+        syscall
+
+        li      $v0 , 4         # debug
+        la      $a0, newL      
+        syscall
+
+        move    $v0, $t0 
+
+        ########################################
+        
+
+
         # make the new node the current node
         move    $s1, $v0       
          
@@ -101,16 +190,41 @@ subCreate:
 
        done: 
         # put null at tail of linked list
-        sw      $0, 4($a1)       
+        sw      $0, 4($s1)       
         move    $v1, $s1          # throw it back
+
+        # DBUG
+        ######################################
+        
+        li      $v0, 4 
+        la      $a0, testNull
+        syscall
+    
+        li      $v0, 1 
+        addu    $t0, $s1, 4 
+        move    $a0, $t0
+        syscall
+ 
+
+        li      $v0, 4 
+        la      $a0, newL
+        syscall
+        
+        ######################################
 
         jr      $ra               # jump back
         nop  
     
         .data
-finished:   .asciiz        "done\n"
 enter:      .asciiz        "Enter a string to save: "
-stored:     .space         17
+test1:      .asciiz        "string that you are saving: "
+headpoint:  .asciiz        "Within head pointer address we are saving:  "
+test2:      .asciiz        "address of where you are saving the above string: "
+newL:       .asciiz        "\n" 
+firstp:     .asciiz        "head pointer address: " 
+test3:      .asciiz        " will hold " 
+testNull:   .asciiz        "you placed your null value here: "
+stored:     .space         200
 
 # end of subCreate
 
@@ -158,15 +272,56 @@ checkdone:
         .globl subPrint 
 
 subPrint: 
-        lw      $s0,0($a1)        # copy the pointer to first
+        lw     $s0,0($a1)        # copy the pointer to first
 
+        #debug
+        #######################
+        li      $v0, 1
+        move    $a0, $a1
+        syscall 
+       
+        li      $v0, 4 
+        la      $a0, tester
+        syscall
+
+        li      $v0, 1
+        move    $a0, $s0
+        syscall
+
+        li      $v0, 4
+        la      $a0, newline
+        syscall 
+   
+ 
+        #######################
+        
+        #lw      $t1,0($a0) 
+        
+        #li      $v0, 4
+        #move    $a0, $t1
+        #syscall 
+        
+    
       lp: 
         beqz    $s0, endlp        # while the pointer is not null
         lw      $a0, 0($s0)       # get the data of this node
         li      $v0, 4            # print it
         syscall 
 
+        # debug 
+        ################
+        la      $a0, atStatement
+        syscall 
 
+        li        $v0, 1
+        move      $a0, $s0 
+        syscall
+
+        la      $a0, newline 
+        li      $v0, 4            # print it
+        syscall         
+        ################
+        
         lw      $s0, 4($s0)       # get the pointer to the next node
         b       lp
     endlp: 
@@ -174,6 +329,10 @@ subPrint:
         jr     $ra                # jump back
         nop 
 
+                .data
+tester:         .asciiz     " address holds the string " 
+newline:        .asciiz     "\n"
+atStatement:    .asciiz     " at adress: "
 # end of subPrint
 
 
