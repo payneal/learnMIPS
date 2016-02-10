@@ -1,0 +1,261 @@
+QUESTION 1:
+Can a 32-bit word in main storage contain an address?
+
+of course
+
+QUESTION 2:
+If the address of sub1 is 0x00400000, what bit pattern do you expect to see in memory at the location sub1add?
+
+0100 0000 0000 0000 0000 0000 aka 0x00400000
+
+Question 3: 
+What is the address of the second subroutine? (Hint: look at the program and at the above memory dump.)
+
+0x00400010
+
+Question 4: 
+What is the usual instruction for passing control to a subroutine?
+
+jal 
+
+Question 5: 
+Here is a section of main. Fill in the blanks so that control is passed to sub1:
+
+       .text
+main:     
+          lw      $t0,___  # get the first entry point in the Jump Table
+          
+          jalr    _____    # pass control to sub1
+          
+          li      $v0,10          # return to OS
+          syscall
+
+          .data
+sub1add:  .word   sub1            # Jump Table
+sub2add:  .word   sub2
+
+
+subladd, $t0 
+
+Question 6:
+How many bytes are in each entry in the Jump Table?
+
+4
+
+QUESTION 7:
+Could several running programs share the same dynamic library?
+
+yes
+
+QUESTION 8:
+(Review of OOP: ) What is an object?
+
+An object is a section of main memory that contains both data and methods and that behaves like an individual entity.
+
+
+QUESTION 9:
+If a program constructed 1000 objects, would it be efficient to make 1000 copies of the machine code for each object?
+
+no 
+
+QUESTION 10:
+Does an object as implemented consist of one contiguous block of memory?
+
+no 
+
+QUESTION 11:
+What output do you expect from this program?
+
+hello world silly example
+
+QUESTION 12:
+What instruction is used to call object1's method?
+
+jalr $t0 
+
+QUESTION 13:
+Complete the declaration for object2::
+
+object2:
+          .word ______   # Jump Table
+          .asciiz  _____ # This object's data
+
+print
+"silly example" 
+
+Question 14: 
+(Thought Question: ) In a real-world program, should a subroutine calling convention be used when object methods are called?
+
+yes
+
+
+QUESTION 15:
+(Thought Question: ) What two things would have to be done to add a second method to the objects of this program?
+
+1.) add jumptable
+2.) code for the method
+
+QUESTION 16:
+Complete the declaration for object1::
+object1:
+          .word   _________     # entry point for print
+          .word   _________     # entry point for cancel
+          .asciiz _________     # string data
+
+print, cancelle, "Hello world"
+
+
+QUESTION 17:
+(Review: ) How does a method access the data of an object?
+
+when a method is call it is given the address of the object
+
+QUESTION 18:
+Do the object's methods know how many objects have been declared in the program?
+
+no 
+
+QUESTION 19:
+While a program is running, can an object be created out of dynamic memory?
+
+yes
+
+QUESTION 20:
+Do objects in real programs have a fixed size?
+
+no 
+
+QUESTION 21:
+Fill in the blanks. (Hint: the code for the dynamic memory allocation service is 9).
+
+9, 32, object1
+
+QUESTION 22:
+la       $t0,_____      #   initialize jump table
+          
+sw       $t0,0($v0)     #   
+          
+la       $t0,_____      #
+          
+sw       $t0,4($v0)     #
+
+          . . . 
+read:                                # to be defined later
+
+print:                               # to be defined later
+
+print, read
+
+
+Question 23: 
+                                    # object1.read(); 
+lw       $a0,___                    #   get address of object1          
+lw       $t0,___ ($a0)              #   get address of read method
+jalr    _______                     #   call the method
+          
+                                    # object1.print();
+lw       $a0,______                 #   get address of first object 
+lw       $t0,_____($a0)             #   get address of print method
+jalr     ______                     #   call the method
+li      $v0,10                      # return to OS
+syscall
+
+
+object1, 4, $t0, object, 0, $t0 
+
+QUESTION 24:
+Where would a compiler of an OO language find the code for the methods?
+
+in a file where object is defined
+
+QUESTION 25:
+Is this print() method for our dynamically-allocated object the same as for the static objects?
+
+yes
+
+QUESTION 26:
+Say that you wanted the objects to hold strings of any size. How could this be done? (Hint: think about the previous chapter.)
+
+The object could contain a header to a linked list of sub-strings. The linked list could grow to contain a string of any size.
+
+QUESTION 27:
+Does a true object oriented language have more features than the ones covered in this chapter?
+
+yes, but can be created
+
+
+key terms: 
+
+jump table -
+A table of addresses of entry points is called a jump table
+
+jalr instruction -
+A specific jal instruction in a program always calls the same subroutine. For example, here is how main would usually call the first subroutine:
+
+jal sub1
+But what if you wanted the same instruction to call different subroutines depending on circumstances? This is where a jump table is useful. The table contains a list of subroutine entry points. To call a subroutine, copy its address from the table into a register. Now use the following instruction:
+
+jalr r     # $ra <— PC+4  $ra <— return address 
+           # PC  <— $r    load the PC with the address in $r
+This works just like the jal instruction except the address of the subroutine now comes from a register.
+
+dynamically loaded library -
+With a dynamic load library, a subroutine is loaded from the library into main memory only when it is needed by a program running on the computer system. Several programs might share the same subroutine by having its entry point in their jump tables. By sharing subroutines, programs can share and coordinate system resources. For example, nearly all programs interact with the user by using the resources of the windowing system. The windowing system is managed through dynamically loaded subroutines that are shared by the programs.
+
+What is an object? -
+An object has identity (it acts as a single whole).
+An object has state (it has various properties, which might change).
+An object has behavior (it can do things and can have things done to it).
+
+Static memory implementation of objects -
+ .globl   main
+          .text
+main:                                 # object1.print();
+          la       $a0,object1        #   get address of first object
+          lw       $t0,0($a0)         #   get address of object's method
+          jalr     $t0                #   call the object's method
+                                      
+                                      # object2.print();
+          la       $a0,object2        #   get address of second object
+          lw       $t0,0($a0)         #   get address of object's method
+          jalr     $t0                #   call the object's method
+          
+          li      $v0,10              # return to OS
+          syscall
+
+# code for print method
+          . . .
+          
+          .data
+object1:  .word    print                    # Jump Table
+          .asciiz  "Hello World\n"          # object data
+          
+object2:  .word    print                    # Jump Table
+          .asciiz  "Silly Example\n"        # object's data
+
+Calling a method of an object -
+jalr     $t0                # call the object's method
+
+Dynamic memory implementation of objects -
+  .globl   main
+          .text
+main:                                 # object1 = new object(); 
+          li       $v0,9              #   allocate 32 bytes
+          li       $a0,32             #  
+          syscall                     #   $v0 = address
+          sw       $v0,object1        #
+
+          . . . . . .
+
+          .data
+object1:  .word    0
+object2:  .word    0
+
+Object constructor -
+         
+la       $t0,print          #   initialize jump table
+sw       $t0,0($v0)         #   
+la       $t0,read           #
+sw       $t0,4($v0)         #
+The la is the correct one to use because we need the addres
+
