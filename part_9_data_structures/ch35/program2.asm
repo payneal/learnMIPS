@@ -37,10 +37,13 @@ subCreate:
         li      $v0,9             # allocate memory
         li      $a0,8             # 8 bytes
         syscall                   # $v0 <-- address
-        
         move    $s1, $v0          # $s1 = &(first node)
-        sw      $s1,0($a1)        # copy the pointer to first
-        
+       
+        # copy the pointer to first 
+        sw      $s1,0($a1)       
+       
+        #below is how you initialiizie the first node
+ 
         # ask user for string
         li      $v0, 4            # code 4 = print string
         la      $a0, enter        # enter a string
@@ -50,41 +53,35 @@ subCreate:
         li      $v0, 8            # coide 5 = read string
         syscall 
 
-        # im coding this bad because this is riddiciously and I bet no one looks anyway SMH.....
-        
-        # checkdone sets $t7 == 1 if entered string was "done"
-                        # see if string entered was "done" 
-       
+        # hold return adress
         move    $t6, $ra
-
+        # checkdone sets $t7 == 1 if entered string was "done"
+        # see if string entered was "done" 
         jal     checkdone           
         nop 
         
+        # put return adress back
         move    $ra, $t6
-             
-        # for loop
+                     
+        # create remaining nodes if done not entered
     loop:
-        bne    $0,$t7,done      # while (entered string != "done\n")
-        
-        li      $t7, 0           
-                                  # store word            
-        sw      $a0,0($s1)        # at displacement 0
-        
-        # create a node 
-        li      $v0,9             # allocate memory
-        li      $a0,8             # 8 bytes
-        syscall                   # $v0 <-- address
-        
-        # link this node to the previous
-                                  # $s1 = &(previous node)
-        sw      $v0,4($s1)        # copy address of the new node
-                                  # into the previous node
-        
+        bne    $0,$t7,done 
+       
+        # at displacment 0 
+        sw      $a0,0($s1) 
+          
+ 
+        # creat a node
+        li      $v0,9           # allocate memory
+        li      $a0,8           # 8 bytes
+        syscall                 
+
+        # link  this node to previous node
+        sw      $v0, 4($s1)
+    
         # make the new node the current node
-        move    $s1,$v0
-        
-        
-        # initialize the node
+        move    $s1, $v0       
+         
         li      $v0, 4            # code 4 = print string
         la      $a0, enter        # enter a string
         syscall 
@@ -99,11 +96,12 @@ subCreate:
         nop 
         
         move    $ra, $t6          # put the return adress back
-        
-        b       loop              # restart the loop
-       
-     done: 
-        sw      $0, 4($s1)       # put null in the link field
+        j       loop              # do again 
+        nop        
+
+       done: 
+        # put null at tail of linked list
+        sw      $0, 4($a1)       
         move    $v1, $s1          # throw it back
 
         jr      $ra               # jump back
@@ -144,7 +142,7 @@ checkdone:
         bne     $t9, $t5, skipper 
 
         lb      $t9,4($t8)     #load the first char 
-        la      $t5, 0x0       # null 
+        la      $t5, 10        # unix end of string 
         bne     $t9, $t5, skipper 
 
         la      $t7, 1
@@ -167,9 +165,7 @@ subPrint:
         lw      $a0, 0($s0)       # get the data of this node
         li      $v0, 4            # print it
         syscall 
-        la      $a0, sep          # print seperator
-        li      $v0, 4
-        syscall 
+
 
         lw      $s0, 4($s0)       # get the pointer to the next node
         b       lp
@@ -178,8 +174,6 @@ subPrint:
         jr     $ra                # jump back
         nop 
 
-        .data
-sep:     .asciiz   " "
 # end of subPrint
 
 
